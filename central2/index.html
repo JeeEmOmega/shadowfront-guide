@@ -1,0 +1,297 @@
+<!doctype html>
+<!-- Shadowfront - Central Vault II plan - (c) 2026 UID 4053721. All rights reserved. -->
+<html lang="en" data-owner="4053721">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Role 1 plan for Central Vault II: where all 30 fleets go, and what to do if we lose it or it awakens. 12 languages.">
+<meta name="theme-color" content="#0f2727">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Central Vault II Plan">
+<meta property="og:description" content="Role 1 plan for Central Vault II: where all 30 fleets go, and what to do if we lose it or it awakens. 12 languages.">
+<meta property="og:url" content="https://jeeemomega.github.io/shadowfront-guide/central2/">
+<meta property="og:image" content="https://jeeemomega.github.io/shadowfront-guide/central2/preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="UID 4053721">
+<meta name="copyright" content="(c) 2026 UID 4053721">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23153a35'/%3E%3Ccircle cx='16' cy='16' r='10' fill='%234ea6ef' fill-opacity='.3' stroke='%234ea6ef' stroke-width='2'/%3E%3Cpath d='M16 8 L21 16 L16 24 L11 16 Z' fill='none' stroke='%23e8f4eb' stroke-width='2'/%3E%3C/svg%3E">
+<title>Central Vault II Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Roboto+Condensed:wght@600;700&family=Saira+Extra+Condensed:wght@500;600;700&display=swap">
+<style>
+/* Role 1 plan page: same game-screen look as the main guide. One column, map first, then the if/when plan.
+   Single dark theme by choice. Text lives in one strings table per language. */
+:root{
+  color-scheme: dark;
+  --owner:"UID 4053721";
+  --edge:rgba(130,196,178,.22); --rule:#4f7d73; --mint:#a8ead2; --ink:#e2ece8; --ink-2:#a4bdb5; --ink-3:#6f8e86;
+  --tab:#29433f; --tab-line:#5d837a; --tab-on:#e8f4eb; --tab-on-ink:#1c3833;
+  --hunt:#f2c14e; --trio:#47d9c4; --rim:#4ea6ef; --red:#ee5a69; --wake:#e8651d;
+  --cjk:"PingFang SC","Hiragino Sans","Hiragino Kaku Gothic ProN","Apple SD Gothic Neo","Microsoft YaHei","Yu Gothic","Malgun Gothic","Noto Sans CJK SC","Noto Sans CJK JP","Noto Sans CJK KR";
+  --font-title:"Saira Extra Condensed","Roboto Condensed","Bahnschrift Condensed","Arial Narrow",var(--cjk),sans-serif;
+  --font-body:"Noto Sans","Segoe UI",system-ui,var(--cjk),sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(130% 70% at 50% 0%,#1d4642 0%,#0f2727 42%,#061011 100%) #061011;color:var(--ink);
+  font-family:var(--font-body);font-size:15.5px;line-height:1.55;padding-inline:16px;padding-block:0 40px;min-height:100vh}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+b{font-weight:600}
+.hud{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;margin-inline:-16px;padding:8px 16px;background:rgba(6,16,17,.92);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--edge)}
+.hud-in{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:8px}
+.tabs{flex:1;min-width:0;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{flex:none;font:600 .86rem/1 var(--font-body);color:var(--ink);text-decoration:none;padding:8px 12px;background:var(--tab);border:1px solid var(--tab-line);border-radius:2px}
+.tabs a.out{background:transparent}
+.langbox{position:relative;flex:none;display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 9px;background:var(--tab);border:1px solid var(--tab-line);border-radius:2px;font:700 .86rem/1 var(--font-title);letter-spacing:.1em}
+.langbox svg{width:15px;height:15px}
+.langbox select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:16px;color-scheme:dark}
+main{max-width:760px;margin:0 auto}
+.hero{text-align:center;padding:26px 0 8px}
+.kick{font:600 .8rem/1 var(--font-title);letter-spacing:.24em;color:var(--ink-3);margin:0 0 6px}
+h1{margin:0;font:700 clamp(2.6rem,12vw,4.2rem)/.95 var(--font-title);letter-spacing:.05em;text-transform:uppercase;color:#f4f8f6;text-shadow:0 0 22px rgba(168,234,210,.3)}
+.sub{margin:8px 0 0;font:600 .95rem/1.3 var(--font-title);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.owner{display:inline-flex;gap:6px;margin:12px 0 0;padding:5px 12px;border:1px solid var(--tab-line);border-radius:999px;background:rgba(6,16,17,.55);
+  font:600 .8rem/1 var(--font-title);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.owner b{color:var(--mint);font-weight:700}
+.i18n-note{margin:8px auto 0;max-width:46ch;font-size:.82rem;color:var(--ink-3)}
+.page{background:linear-gradient(180deg,rgba(21,45,44,.97),rgba(34,70,63,.97));border:1px solid var(--edge);border-radius:3px;padding:20px 16px 22px;margin-top:18px;scroll-margin-top:62px}
+.gt{margin:0;text-align:center;font:600 clamp(1.7rem,7vw,2.3rem)/1.05 var(--font-title);letter-spacing:.06em;text-transform:uppercase;color:var(--mint);text-wrap:balance}
+.rule{position:relative;height:12px;margin:10px 0 16px;background:linear-gradient(90deg,transparent,var(--rule) 12%,var(--rule) 88%,transparent) left 4px/100% 1px no-repeat}
+.rule::after{content:"";position:absolute;left:50%;top:1px;width:34%;height:4px;transform:translateX(-50%);border:1px solid var(--rule);border-bottom:0;clip-path:polygon(4% 0,96% 0,100% 100%,0 100%)}
+.lede{color:var(--ink-2);margin:0 0 14px;text-align:center}
+.map{background:#0a1d1c;border:1px solid var(--edge);border-radius:3px;padding:4px}
+.map svg{display:block;width:100%;height:auto;max-width:600px;margin:0 auto}
+svg text{font-family:var(--font-title)}
+.key{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin:10px 0 0;font-size:.88rem;color:var(--ink-2)}
+.key span{display:inline-flex;align-items:center;gap:7px}
+.groups{display:grid;gap:10px;margin-top:14px}
+.grp{background:rgba(5,16,16,.6);border:1px solid var(--edge);border-left:5px solid var(--c);border-radius:3px;padding:12px 14px}
+.grp h3{margin:0;font:700 1.35rem/1.05 var(--font-title);letter-spacing:.06em;text-transform:uppercase;color:var(--c)}
+.grp .who{font-weight:600;margin:2px 0 6px}
+.grp p{margin:0}
+.grp p b{color:var(--c)}
+.blk{background:rgba(5,16,16,.6);border:1px solid var(--edge);border-left:5px solid var(--c);border-radius:3px;padding:14px 16px;margin-top:12px}
+.blk .tag{display:inline-block;font:700 .82rem/1 var(--font-title);letter-spacing:.16em;color:#071313;background:var(--c);padding:5px 9px;border-radius:2px;text-transform:uppercase}
+.blk h3{margin:10px 0 6px;font:700 1.55rem/1.05 var(--font-title);letter-spacing:.04em;text-transform:uppercase}
+.blk p{margin:0 0 6px}
+.blk p b,.blk li b{color:var(--c)}
+.blk ol{margin:4px 0 0;padding-left:1.4em}
+.blk li{margin-bottom:3px}
+.tlbox{margin-top:10px;background:#0a1514;border:1px solid var(--edge);border-radius:3px;padding:4px}
+.tlbox svg{display:block;width:100%;height:auto}
+footer{max-width:760px;margin:24px auto 0;text-align:center;color:var(--ink-3);font-size:.84rem}
+footer p{margin:0 0 6px}
+footer .rule-line{color:var(--ink-2);font-weight:600}
+footer a{color:var(--mint)}
+.wm{position:fixed;inset:0;z-index:40;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='250'%3E%3Ctext x='210' y='130' text-anchor='middle' transform='rotate(-24 210 125)' font-family='Arial,sans-serif' font-size='16' font-weight='700' letter-spacing='3' fill='%23b4d2ca' fill-opacity='0.09'%3EUID 4053721 %C2%B7 SHADOWFRONT%3C/text%3E%3C/svg%3E");background-size:420px 250px}
+</style>
+</head>
+<body>
+<header class="hud">
+  <div class="hud-in">
+    <nav class="tabs" aria-label="Sections">
+      <a href="#positions" data-i="nav.pos">Positions</a><a href="#ifwhen" data-i="nav.if">If / when</a><a class="out" href="../" data-i="nav.guide">Full guide</a>
+    </nav>
+    <label class="langbox"><svg viewBox="0 0 16 16" aria-hidden="true"><g style="fill:none;stroke:#e8f4eb;stroke-width:1.3"><circle cx="8" cy="8" r="6.6"/><ellipse cx="8" cy="8" rx="2.8" ry="6.6"/><path d="M1.6,6 H14.4 M1.6,10 H14.4"/></g></svg><span id="langCode">EN</span><select id="lang" aria-label="Language">
+      <option value="en">English</option><option value="es">Español</option><option value="pt">Português</option><option value="fr">Français</option><option value="it">Italiano</option>
+      <option value="de">Deutsch</option><option value="ru">Русский</option><option value="tr">Türkçe</option><option value="id">Bahasa Indonesia</option>
+      <option value="zh">中文（简体）</option><option value="ja">日本語</option><option value="ko">한국어</option>
+    </select></label>
+  </div>
+</header>
+
+<main id="top" data-owner="4053721">
+  <div class="hero">
+    <p class="kick" data-i="plan.kick">ROLE 1 PLAN</p>
+    <h1 data-i="h1.c2v">Central Vault II</h1>
+    <p class="sub" data-i="plan.sub">Positions · 30 fleets · Commander Kallan</p>
+    <p class="owner" id="ownerBadge" data-owner="4053721"><span data-i="own.by">Guide by</span> <b>UID 4053721</b></p>
+    <p class="i18n-note" id="i18nNote" data-i="i18n.note" hidden></p>
+  </div>
+
+  <section class="page" id="positions">
+    <h2 class="gt" data-i="pos.title">Where your ships go</h2>
+    <div class="rule"></div>
+    <p class="lede" data-i="pos.lede">We spawn NE and head down and slightly left to Central Vault II. Find your name: that's where your 3 fleets go.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+    <div class="map"><svg id="map" viewBox="0 0 540 600" role="img" aria-label="Central Vault II with the positions of all 30 fleets"></svg></div>
+    <div class="key">
+      <span><svg width="16" height="18" viewBox="-10 -12 20 24" aria-hidden="true"><path d="M0,-11 L9,10 L0,5 L-9,10 Z" fill="#0b2f2a" stroke="#cfe" stroke-width="2.4"/></svg><span data-i="key.parked">parked fleet</span></span>
+      <span><svg width="16" height="18" viewBox="-10 -12 20 24" aria-hidden="true"><path d="M0,-11 L9,10 L0,5 L-9,10 Z" fill="#cfe"/></svg><span data-i="key.fight">fighting fleet</span></span>
+      <span><svg width="30" height="10" viewBox="0 0 30 10" aria-hidden="true"><path d="M1,5 H29" stroke="#4ea6ef" stroke-width="2.5" stroke-dasharray="5 5"/></svg><span data-i="key.line">rim strikers' limit</span></span>
+    </div>
+    <div class="groups">
+      <div class="grp" style="--c:var(--hunt)"><h3 data-i="g1.h">Hunters</h3><div class="who">Kallan · Sonea · KobayashiMaru</div><p data-i="g1.p">Spread out, each in your own zone. Pick off the <b>weakest ships</b> around you. Group up <b>only on a whale</b>.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p></div>
+      <div class="grp" style="--c:var(--trio)"><h3 data-i="g2.h">Trio</h3><div class="who">Jace · Blanc0 · mimintheron</div><p data-i="g2.p">Move as <b>one pack</b>. Take out the weakest ship near you, one by one, so our count stays higher than theirs.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p></div>
+      <div class="grp" style="--c:var(--rim)"><h3 data-i="g3.h">Rim</h3><div class="who">PhGrWi · scorpion · Anya · HautKage</div><p data-i="g3.p"><b>Park your 2 weakest fleets</b> (hollow) just inside the edge, on our spawn side or the quieter side. They still count. Your <b>strongest fleet</b> (solid) picks off damaged ships near you. Don't chase past the dashed line or outside the circle.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p></div>
+    </div>
+  </section>
+
+  <section class="page" id="ifwhen">
+    <h2 class="gt" data-i="if.title">If / when</h2>
+    <div class="rule"></div>
+    <p class="lede" data-i="if.lede">Kallan makes the calls. This is the plan for each situation.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+    <div class="blk" style="--c:var(--red)"><span class="tag" data-i="w1.tag">We lose control</span><h3 data-i="w1.h">Take it out quickly</h3><p data-i="w1.p">Destroy their garrison right away. Our <b>higher fleet count</b> recaptures it fast. Keep every fleet alive inside the circle.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p></div>
+    <div class="blk" style="--c:var(--wake)"><span class="tag" data-i="w2.tag">Central II is awakening</span><h3 data-i="w2.h">Same plan, one change</h3><p data-i="w2.p">If we lose control during the Awakening and <b>under 4:00 is left</b>:</p>
+      <ol><li data-i="w2.l1">Attack the Vault until it is <b>almost destroyed</b>. Do not destroy it.</li><li data-i="w2.l2">On <b>Kallan's call</b> (about 2:00 to 1:30 left), take it out.</li><li data-i="w2.l3">Refocus on <b>weaker ships in the circle</b> and recapture before 0:00.</li></ol>
+      <div class="tlbox"><svg id="tl" viewBox="0 0 420 166" role="img" aria-label="Awakening timeline: lose control, hold the Vault almost destroyed, finish it on the commander's call, recapture before 0:00"></svg></div>
+    </div>
+    <div class="blk" style="--c:var(--hunt)"><span class="tag" data-i="w3.tag">Central I is awakening</span><h3 data-i="w3.h">No brick walls</h3><p data-i="w3.p1">If the other two guilds are there in force, <b>we don't rush over</b>. Everyone holds Central II.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p><p data-i="w3.p2">Optional, on Kallan's call: <b>Sonea + KobayashiMaru</b> back up our squads at the nearby Lessers. Everyone else stays.</p></div>
+  </section>
+</main>
+
+<footer>
+  <p class="owner-foot" id="ownerFoot" data-owner="4053721">&copy; 2026 UID 4053721 &middot; <span data-i="own.share">Share the link, please don't copy the page.</span></p>
+  <p class="rule-line" data-i="foot.rule">Follow the commander. No call: hit the weakest ships in the circle.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+  <p><a href="../" data-i="foot.guide">Open the full guild guide</a></p>
+</footer>
+<div class="wm" id="wm" aria-hidden="true" data-owner="4053721"></div>
+
+<script>
+(function(){
+  var T = {"en":{"lang.name":"English","lang.label":"Language","i18n.note":"","own.by":"Guide by","own.share":"Share the link, please don't copy the page.","n.central":"Central Vault","n.centralS":"Central","c.NE":"NE","c.SE":"SE","plan.kick":"ROLE 1 PLAN","plan.sub":"Positions · 30 fleets · Commander Kallan","nav.pos":"Positions","nav.if":"If / when","nav.guide":"Full guide","pos.title":"Where your ships go","pos.lede":"We spawn {ne} and head down and slightly left to {c2v}. Find your name: that's where your 3 fleets go.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","m.spawn":"OUR SPAWN ({ne})","m.rival":"RIVAL ({se})","m.west":"{c1} SIDE","m.calls":"calls targets","m.pack":"one pack","key.parked":"parked fleet","key.fight":"fighting fleet","key.line":"rim strikers' limit","g1.h":"Hunters","g1.p":"Spread out, each in your own zone. Pick off the <b>weakest ships</b> around you. Group up <b>only on a whale</b>.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g2.h":"Trio","g2.p":"Move as <b>one pack</b>. Take out the weakest ship near you, one by one, so our count stays higher than theirs.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g3.h":"Rim","g3.p":"<b>Park your 2 weakest fleets</b> (hollow) just inside the edge, on our spawn side or the quieter side. They still count. Your <b>strongest fleet</b> (solid) picks off damaged ships near you. Don't chase past the dashed line or outside the circle.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","if.title":"If / when","if.lede":"Kallan makes the calls. This is the plan for each situation.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w1.tag":"We lose control","w1.h":"Take it out quickly","w1.p":"Destroy their garrison right away. Our <b>higher fleet count</b> recaptures it fast. Keep every fleet alive inside the circle.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w2.tag":"{c2} is awakening","w2.h":"Same plan, one change","w2.p":"If we lose control during the Awakening and <b>under 4:00 is left</b>:","w2.l1":"Attack the Vault until it is <b>almost destroyed</b>. Do not destroy it.","w2.l2":"On <b>Kallan's call</b> (about 2:00 to 1:30 left), take it out.","w2.l3":"Refocus on <b>weaker ships in the circle</b> and recapture before 0:00.","w3.tag":"{c1} is awakening","w3.h":"No brick walls","w3.p1":"If the other two guilds are there in force, <b>we don't rush over</b>. Everyone holds {c2}.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w3.p2":"Optional, on Kallan's call: <b>Sonea + KobayashiMaru</b> back up our squads at the nearby Lessers. Everyone else stays.","tl.hp":"VAULT HEALTH","tl.hold":"almost destroyed: hold","tl.call":"KALLAN'S CALL","tl.lost":"we lose it","tl.recap":"recaptured","foot.rule":"Follow the commander. No call: hit the weakest ships in the circle.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","foot.guide":"Open the full guild guide"},"es":{"lang.name":"Español","lang.label":"Idioma","i18n.note":"Traducido para el gremio. Los términos del juego en tu idioma pueden variar un poco.","own.by":"Guía de","own.share":"Comparte el enlace; por favor, no copies la página.","n.central":"Bóveda Central","n.centralS":"Central","c.NE":"NE","c.SE":"SE","plan.kick":"PLAN DEL ROL 1","plan.sub":"Posiciones · 30 flotas · Comandante Kallan","nav.pos":"Posiciones","nav.if":"Si pasa…","nav.guide":"Guía completa","pos.title":"Dónde va cada nave","pos.lede":"Aparecemos en {ne} y bajamos un poco hacia la izquierda hasta la {c2v}. Busca tu nombre: ahí van tus 3 flotas.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","m.spawn":"NUESTRA SALIDA ({ne})","m.rival":"RIVAL ({se})","m.west":"LADO {c1}","m.calls":"marca objetivos","m.pack":"un solo grupo","key.parked":"flota aparcada","key.fight":"flota que pelea","key.line":"límite de los del borde","g1.h":"Cazadores","g1.p":"Repártanse, cada uno en su zona. Elimina las <b>naves más débiles</b> cerca de ti. Júntense <b>solo contra una ballena</b>.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g2.h":"Trío","g2.p":"Muévanse como <b>un solo grupo</b>. Eliminen la nave más débil cercana, una por una, para que nuestro conteo siga siendo mayor que el suyo.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g3.h":"Borde","g3.p":"<b>Aparca tus 2 flotas más débiles</b> (huecas) justo dentro del borde, del lado de nuestra salida o del lado más tranquilo. Siguen contando. Tu <b>flota más fuerte</b> (sólida) remata naves dañadas cerca de ti. No persigas más allá de la línea discontinua ni fuera del círculo.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","if.title":"Si pasa…","if.lede":"Kallan da las órdenes. Este es el plan para cada situación.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w1.tag":"Perdemos el control","w1.h":"Derríbenla rápido","w1.p":"Destruyan su guarnición de inmediato. Nuestro <b>mayor número de flotas</b> la recupera rápido. Mantengan todas las flotas vivas dentro del círculo.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w2.tag":"{c2} en Despertar","w2.h":"Mismo plan, un cambio","w2.p":"Si perdemos el control durante el Despertar y <b>quedan menos de 4:00</b>:","w2.l1":"Ataquen la Bóveda hasta dejarla <b>casi destruida</b>. No la destruyan.","w2.l2":"A la <b>orden de Kallan</b> (quedando de 2:00 a 1:30), derríbenla.","w2.l3":"Vuelvan a las <b>naves débiles del círculo</b> y recupérenla antes de 0:00.","w3.tag":"{c1} en Despertar","w3.h":"Nada de muros","w3.p1":"Si los otros dos gremios están ahí con fuerza, <b>no vamos corriendo</b>. Todos mantienen {c2}.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w3.p2":"Opcional, a la orden de Kallan: <b>Sonea + KobayashiMaru</b> apoyan a nuestros grupos en las Menores cercanas. Los demás se quedan.","tl.hp":"VIDA DE LA BÓVEDA","tl.hold":"casi destruida: mantener","tl.call":"ORDEN DE KALLAN","tl.lost":"la perdemos","tl.recap":"recuperada","foot.rule":"Sigue al comandante. Sin orden: ataca las naves más débiles del círculo.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","foot.guide":"Abrir la guía completa del gremio"},"pt":{"lang.name":"Português","lang.label":"Idioma","i18n.note":"Traduzido para a guilda. Os termos do jogo no seu idioma podem ser um pouco diferentes.","own.by":"Guia de","own.share":"Compartilhe o link; por favor, não copie a página.","n.central":"Cofre Central","n.centralS":"Central","c.NE":"NE","c.SE":"SE","plan.kick":"PLANO DA FUNÇÃO 1","plan.sub":"Posições · 30 frotas · Comandante Kallan","nav.pos":"Posições","nav.if":"Se acontecer…","nav.guide":"Guia completo","pos.title":"Onde cada nave fica","pos.lede":"Nascemos em {ne} e descemos um pouco para a esquerda até o {c2v}. Ache seu nome: é ali que ficam suas 3 frotas.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","m.spawn":"NOSSO INÍCIO ({ne})","m.rival":"RIVAL ({se})","m.west":"LADO {c1}","m.calls":"chama os alvos","m.pack":"um só grupo","key.parked":"frota estacionada","key.fight":"frota lutando","key.line":"limite da borda","g1.h":"Caçadores","g1.p":"Espalhem-se, cada um na sua zona. Derrube as <b>naves mais fracas</b> perto de você. Juntem-se <b>só contra uma baleia</b>.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g2.h":"Trio","g2.p":"Andem como <b>um só grupo</b>. Derrubem a nave mais fraca perto de vocês, uma por uma, para nossa contagem ficar maior que a deles.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g3.h":"Borda","g3.p":"<b>Estacione suas 2 frotas mais fracas</b> (vazadas) logo dentro da borda, do lado do nosso início ou do lado mais calmo. Elas continuam contando. Sua <b>frota mais forte</b> (cheia) finaliza naves danificadas perto de você. Não persiga além da linha tracejada nem para fora do círculo.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","if.title":"Se acontecer…","if.lede":"Kallan dá as ordens. Este é o plano para cada situação.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w1.tag":"Perdemos o controle","w1.h":"Derrubem rápido","w1.p":"Destruam a guarnição deles na hora. Nossa <b>contagem maior de frotas</b> retoma rápido. Mantenham todas as frotas vivas dentro do círculo.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w2.tag":"{c2} em Despertar","w2.h":"Mesmo plano, uma mudança","w2.p":"Se perdermos o controle durante o Despertar e <b>faltarem menos de 4:00</b>:","w2.l1":"Ataquem o Cofre até ficar <b>quase destruído</b>. Não destruam.","w2.l2":"No <b>comando do Kallan</b> (faltando de 2:00 a 1:30), derrubem.","w2.l3":"Voltem para as <b>naves mais fracas no círculo</b> e retomem antes de 0:00.","w3.tag":"{c1} em Despertar","w3.h":"Nada de muralha","w3.p1":"Se as outras duas guildas estiverem lá com força, <b>não corremos pra lá</b>. Todos seguram a {c2}.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w3.p2":"Opcional, no comando do Kallan: <b>Sonea + KobayashiMaru</b> apoiam nossos grupos nos Menores próximos. O resto fica.","tl.hp":"VIDA DO COFRE","tl.hold":"quase destruído: segure","tl.call":"COMANDO DO KALLAN","tl.lost":"perdemos","tl.recap":"retomado","foot.rule":"Siga o comandante. Sem comando: ataque as naves mais fracas do círculo.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","foot.guide":"Abrir o guia completo da guilda"},"fr":{"lang.name":"Français","lang.label":"Langue","i18n.note":"Traduit pour la guilde. Les termes du jeu dans ta langue peuvent être un peu différents.","own.by":"Guide par","own.share":"Partage le lien, merci de ne pas copier la page.","n.central":"Coffre central","n.centralS":"Central","c.NE":"NE","c.SE":"SE","plan.kick":"PLAN DU RÔLE 1","plan.sub":"Positions · 30 flottes · Commandant Kallan","nav.pos":"Positions","nav.if":"Si… alors","nav.guide":"Guide complet","pos.title":"Où vont vos vaisseaux","pos.lede":"On apparaît au {ne} et on descend un peu vers la gauche jusqu'au {c2v}. Trouve ton nom : c'est là que vont tes 3 flottes.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","m.spawn":"NOTRE DÉPART ({ne})","m.rival":"RIVAL ({se})","m.west":"CÔTÉ {c1}","m.calls":"annonce les cibles","m.pack":"un seul groupe","key.parked":"flotte garée","key.fight":"flotte qui combat","key.line":"limite du bord","g1.h":"Chasseurs","g1.p":"Dispersez-vous, chacun dans sa zone. Abats les <b>vaisseaux les plus faibles</b> autour de toi. Regroupez-vous <b>seulement sur une baleine</b>.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g2.h":"Trio","g2.p":"Déplacez-vous en <b>un seul groupe</b>. Éliminez le vaisseau le plus faible près de vous, un par un, pour que notre décompte reste supérieur au leur.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g3.h":"Bord","g3.p":"<b>Gare tes 2 flottes les plus faibles</b> (creuses) juste à l'intérieur du bord, côté départ ou côté le plus calme. Elles comptent quand même. Ta <b>flotte la plus forte</b> (pleine) achève les vaisseaux endommagés près de toi. Ne poursuis pas au-delà de la ligne pointillée ni hors du cercle.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","if.title":"Si… alors","if.lede":"Kallan donne les ordres. Voici le plan pour chaque situation.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w1.tag":"On perd le contrôle","w1.h":"Abattez-le vite","w1.p":"Détruisez leur garnison tout de suite. Notre <b>nombre de flottes plus élevé</b> le reprend vite. Gardez chaque flotte en vie dans le cercle.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w2.tag":"{c2} en Éveil","w2.h":"Même plan, un changement","w2.p":"Si on perd le contrôle pendant l'Éveil et qu'il reste <b>moins de 4:00</b> :","w2.l1":"Attaquez le Coffre jusqu'à ce qu'il soit <b>presque détruit</b>. Ne le détruisez pas.","w2.l2":"Sur <b>l'appel de Kallan</b> (vers 2:00 à 1:30 restantes), abattez-le.","w2.l3":"Revenez sur les <b>vaisseaux faibles du cercle</b> et reprenez-le avant 0:00.","w3.tag":"{c1} en Éveil","w3.h":"Pas de mur","w3.p1":"Si les deux autres guildes y sont en force, <b>on ne fonce pas</b>. Tout le monde tient le {c2}.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w3.p2":"En option, sur l'appel de Kallan : <b>Sonea + KobayashiMaru</b> soutiennent nos groupes aux Mineurs proches. Les autres restent.","tl.hp":"VIE DU COFFRE","tl.hold":"presque détruit : tenir","tl.call":"APPEL DE KALLAN","tl.lost":"on le perd","tl.recap":"repris","foot.rule":"Suis le commandant. Sans appel : frappe les vaisseaux les plus faibles du cercle.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","foot.guide":"Ouvrir le guide complet de la guilde"},"it":{"lang.name":"Italiano","lang.label":"Lingua","i18n.note":"Tradotto per la gilda. I termini del gioco nella tua lingua potrebbero essere un po' diversi.","own.by":"Guida di","own.share":"Condividi il link, per favore non copiare la pagina.","n.central":"Caveau Centrale","n.centralS":"Centrale","c.NE":"NE","c.SE":"SE","plan.kick":"PIANO DEL RUOLO 1","plan.sub":"Posizioni · 30 flotte · Comandante Kallan","nav.pos":"Posizioni","nav.if":"Se succede…","nav.guide":"Guida completa","pos.title":"Dove vanno le navi","pos.lede":"Partiamo da {ne} e scendiamo un po' verso sinistra fino al {c2v}. Cerca il tuo nome: lì vanno le tue 3 flotte.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","m.spawn":"NOSTRA PARTENZA ({ne})","m.rival":"RIVALE ({se})","m.west":"LATO {c1}","m.calls":"indica i bersagli","m.pack":"un solo gruppo","key.parked":"flotta parcheggiata","key.fight":"flotta che combatte","key.line":"limite del bordo","g1.h":"Cacciatori","g1.p":"Sparpagliatevi, ognuno nella sua zona. Abbatti le <b>navi più deboli</b> intorno a te. Unitevi <b>solo su una balena</b>.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g2.h":"Trio","g2.p":"Muovetevi come <b>un solo gruppo</b>. Eliminate la nave più debole vicino a voi, una alla volta, così il nostro conteggio resta più alto del loro.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g3.h":"Bordo","g3.p":"<b>Parcheggia le tue 2 flotte più deboli</b> (vuote) appena dentro il bordo, dal lato della nostra partenza o dal lato più tranquillo. Contano comunque. La tua <b>flotta più forte</b> (piena) finisce le navi danneggiate vicino a te. Non inseguire oltre la linea tratteggiata né fuori dal cerchio.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","if.title":"Se succede…","if.lede":"Kallan dà gli ordini. Ecco il piano per ogni situazione.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w1.tag":"Perdiamo il controllo","w1.h":"Abbattetelo in fretta","w1.p":"Distruggete subito la loro guarnigione. Il nostro <b>numero di flotte più alto</b> lo riprende in fretta. Tenete vive tutte le flotte dentro il cerchio.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w2.tag":"{c2} in Risveglio","w2.h":"Stesso piano, una modifica","w2.p":"Se perdiamo il controllo durante il Risveglio e <b>mancano meno di 4:00</b>:","w2.l1":"Attaccate il Caveau finché è <b>quasi distrutto</b>. Non distruggetelo.","w2.l2":"All'<b>ordine di Kallan</b> (quando mancano da 2:00 a 1:30), abbattetelo.","w2.l3":"Tornate sulle <b>navi più deboli nel cerchio</b> e riprendetelo prima di 0:00.","w3.tag":"{c1} in Risveglio","w3.h":"Niente muri","w3.p1":"Se le altre due gilde sono lì in forze, <b>non ci buttiamo</b>. Tutti tengono la {c2}.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w3.p2":"Opzionale, all'ordine di Kallan: <b>Sonea + KobayashiMaru</b> danno supporto ai nostri gruppi nei Minori vicini. Gli altri restano.","tl.hp":"VITA DEL CAVEAU","tl.hold":"quasi distrutto: tieni","tl.call":"ORDINE DI KALLAN","tl.lost":"lo perdiamo","tl.recap":"ripreso","foot.rule":"Segui il comandante. Nessun ordine: colpisci le navi più deboli nel cerchio.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","foot.guide":"Apri la guida completa della gilda"},"de":{"lang.name":"Deutsch","lang.label":"Sprache","i18n.note":"Für die Gilde übersetzt. Die Begriffe im Spiel können in deiner Sprache etwas anders lauten.","own.by":"Guide von","own.share":"Teile den Link, bitte kopiere die Seite nicht.","n.central":"Zentraltresor","n.centralS":"Zentral","c.NE":"NO","c.SE":"SO","plan.kick":"PLAN FÜR ROLLE 1","plan.sub":"Positionen · 30 Flotten · Kommandant Kallan","nav.pos":"Positionen","nav.if":"Wenn…","nav.guide":"Ganzer Guide","pos.title":"Wo deine Schiffe hinkommen","pos.lede":"Wir starten im {ne} und ziehen leicht nach unten links zum {c2v}. Such deinen Namen: dort kommen deine 3 Flotten hin.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","m.spawn":"UNSER START ({ne})","m.rival":"GEGNER ({se})","m.west":"SEITE {c1}","m.calls":"sagt Ziele an","m.pack":"ein Pulk","key.parked":"geparkte Flotte","key.fight":"kämpfende Flotte","key.line":"Grenze für Rand-Angreifer","g1.h":"Jäger","g1.p":"Verteilt euch, jeder in seiner Zone. Schalte die <b>schwächsten Schiffe</b> um dich herum aus. Sammelt euch <b>nur bei einem Wal</b>.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g2.h":"Trio","g2.p":"Bewegt euch als <b>ein Pulk</b>. Schaltet das schwächste Schiff in eurer Nähe aus, eins nach dem anderen, damit unsere Zählung höher bleibt als ihre.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g3.h":"Rand","g3.p":"<b>Park deine 2 schwächsten Flotten</b> (hohl) knapp innerhalb des Randes, auf unserer Startseite oder der ruhigeren Seite. Sie zählen trotzdem. Deine <b>stärkste Flotte</b> (voll) erledigt beschädigte Schiffe in deiner Nähe. Verfolge nichts über die gestrichelte Linie hinaus oder aus dem Kreis.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","if.title":"Wenn…","if.lede":"Kallan sagt an. Das ist der Plan für jede Lage.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w1.tag":"Wir verlieren die Kontrolle","w1.h":"Schnell knacken","w1.p":"Zerstört sofort ihre Garnison. Unsere <b>höhere Flottenzahl</b> holt ihn schnell zurück. Haltet jede Flotte im Kreis am Leben.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w2.tag":"{c2} erwacht","w2.h":"Gleicher Plan, eine Änderung","w2.p":"Wenn wir während des Erwachens die Kontrolle verlieren und <b>unter 4:00 übrig sind</b>:","w2.l1":"Greift den Tresor an, bis er <b>fast zerstört</b> ist. Nicht zerstören.","w2.l2":"Auf <b>Kallans Ansage</b> (bei etwa 2:00 bis 1:30 Rest) knackt ihn.","w2.l3":"Zurück auf die <b>schwächeren Schiffe im Kreis</b> und vor 0:00 zurückerobern.","w3.tag":"{c1} erwacht","w3.h":"Keine Wand","w3.p1":"Wenn die anderen zwei Gilden dort stark sind, <b>rennen wir nicht hin</b>. Alle halten {c2}.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w3.p2":"Optional, auf Kallans Ansage: <b>Sonea + KobayashiMaru</b> unterstützen unsere Gruppen an den nahen Kleinen Tresoren. Alle anderen bleiben.","tl.hp":"TRESOR-LP","tl.hold":"fast zerstört: halten","tl.call":"KALLANS ANSAGE","tl.lost":"verloren","tl.recap":"zurückerobert","foot.rule":"Folge dem Kommandanten. Keine Ansage: triff die schwächsten Schiffe im Kreis.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","foot.guide":"Den ganzen Gildenguide öffnen"},"ru":{"lang.name":"Русский","lang.label":"Язык","i18n.note":"Переведено для гильдии. Названия в игре на твоём языке могут немного отличаться.","own.by":"Автор:","own.share":"Делитесь ссылкой, пожалуйста, не копируйте страницу.","n.central":"Центральное хранилище","n.centralS":"Центральное","c.NE":"СВ","c.SE":"ЮВ","plan.kick":"ПЛАН РОЛИ 1","plan.sub":"Позиции · 30 флотов · Командир Kallan","nav.pos":"Позиции","nav.if":"Если…","nav.guide":"Полный гайд","pos.title":"Куда ставить корабли","pos.lede":"Мы появляемся на {ne} и идём немного вниз и влево, цель: {c2v}. Найди своё имя — туда идут твои 3 флота.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","m.spawn":"НАШ СТАРТ ({ne})","m.rival":"СОПЕРНИК ({se})","m.west":"СТОРОНА: {c1}","m.calls":"называет цели","m.pack":"одна группа","key.parked":"припаркованный флот","key.fight":"атакующий флот","key.line":"граница для бойцов края","g1.h":"Охотники","g1.p":"Расходитесь, каждый в своей зоне. Выбивай <b>самые слабые корабли</b> вокруг себя. Собирайтесь вместе <b>только на кита</b>.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g2.h":"Трио","g2.p":"Двигайтесь <b>одной группой</b>. Выбивайте ближайший самый слабый корабль, один за другим, чтобы наш счёт оставался выше их.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g3.h":"Край","g3.p":"<b>Поставь 2 своих самых слабых флота</b> (пустые) сразу внутри края — со стороны нашего старта или с более спокойной стороны. Они всё равно считаются. Твой <b>самый сильный флот</b> (закрашенный) добивает повреждённые корабли рядом. Не гонись за пунктирную линию и за пределы круга.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","if.title":"Если…","if.lede":"Команды даёт Kallan. Вот план на каждый случай.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w1.tag":"Мы потеряли контроль","w1.h":"Сносим быстро","w1.p":"Сразу уничтожайте их гарнизон. Наше <b>большее число флотов</b> быстро вернёт хранилище. Держите все флоты живыми внутри круга.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w2.tag":"{c2}: пробуждение","w2.h":"Тот же план, одно изменение","w2.p":"Если мы теряем контроль во время Пробуждения и <b>осталось меньше 4:00</b>:","w2.l1":"Атакуйте хранилище, пока оно не будет <b>почти уничтожено</b>. Не уничтожайте.","w2.l2":"По <b>команде Kallan</b> (примерно за 2:00–1:30 до конца) сносите.","w2.l3":"Переключайтесь на <b>слабые корабли в круге</b> и верните хранилище до 0:00.","w3.tag":"{c1}: пробуждение","w3.h":"Не бьёмся о стену","w3.p1":"Если две другие гильдии там в полной силе, <b>мы туда не бежим</b>. Все держат: {c2}.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w3.p2":"По желанию, по команде Kallan: <b>Sonea + KobayashiMaru</b> помогают нашим группам у ближних Малых. Остальные остаются.","tl.hp":"ЗДОРОВЬЕ ХРАНИЛИЩА","tl.hold":"почти уничтожено: держать","tl.call":"КОМАНДА KALLAN","tl.lost":"потеряли","tl.recap":"вернули","foot.rule":"Слушай командира. Нет команды — бей самые слабые корабли в круге.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","foot.guide":"Открыть полный гайд гильдии"},"tr":{"lang.name":"Türkçe","lang.label":"Dil","i18n.note":"Lonca için çevrildi. Oyundaki terimler senin dilinde biraz farklı olabilir.","own.by":"Hazırlayan:","own.share":"Bağlantıyı paylaş, lütfen sayfayı kopyalama.","n.central":"Merkez Kasa","n.centralS":"Merkez","c.NE":"KD","c.SE":"GD","plan.kick":"ROL 1 PLANI","plan.sub":"Pozisyonlar · 30 filo · Komutan Kallan","nav.pos":"Pozisyonlar","nav.if":"Eğer…","nav.guide":"Tam rehber","pos.title":"Gemiler nereye gider","pos.lede":"{ne} köşesinden doğuyoruz ve biraz aşağı ve sola, şu hedefe gidiyoruz: {c2v}. Adını bul: 3 filon oraya gider.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","m.spawn":"BAŞLANGIÇ ({ne})","m.rival":"RAKİP ({se})","m.west":"{c1} TARAFI","m.calls":"hedef verir","m.pack":"tek grup","key.parked":"park edilmiş filo","key.fight":"savaşan filo","key.line":"kenar saldırganlarının sınırı","g1.h":"Avcılar","g1.p":"Dağılın, herkes kendi bölgesinde. Etrafındaki <b>en zayıf gemileri</b> indir. <b>Sadece bir balinada</b> toplanın.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g2.h":"Üçlü","g2.p":"<b>Tek grup</b> halinde hareket edin. Yakınınızdaki en zayıf gemiyi tek tek indirin; sayımız onlarınkinden yüksek kalsın.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g3.h":"Kenar","g3.p":"<b>En zayıf 2 filonu</b> (içi boş) kenarın hemen içine park et; başlangıç tarafımıza ya da daha sakin tarafa. Yine de sayılırlar. <b>En güçlü filon</b> (dolu) yakındaki hasarlı gemileri bitirir. Kesikli çizginin ötesine ya da çemberin dışına kovalama.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","if.title":"Eğer…","if.lede":"Komutları Kallan verir. Her durum için plan bu.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w1.tag":"Kontrolü kaybedersek","w1.h":"Hızlı düşürün","w1.p":"Garnizonlarını hemen yok edin. <b>Daha yüksek filo sayımız</b> onu hızla geri alır. Tüm filoları çemberin içinde hayatta tutun.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w2.tag":"{c2} uyanıyor","w2.h":"Aynı plan, tek değişiklik","w2.p":"Uyanış sırasında kontrolü kaybedersek ve <b>4:00'dan az kaldıysa</b>:","w2.l1":"Kasayı <b>neredeyse yok olana</b> kadar vurun. Yok etmeyin.","w2.l2":"<b>Kallan'ın komutuyla</b> (yaklaşık 2:00 ile 1:30 kala) düşürün.","w2.l3":"<b>Çemberdeki zayıf gemilere</b> dönün ve 0:00'dan önce geri alın.","w3.tag":"{c1} uyanıyor","w3.h":"Duvara çarpmak yok","w3.p1":"Diğer iki lonca orada güçlüyse <b>oraya koşmayız</b>. Herkes şunu tutar: {c2}.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w3.p2":"İsteğe bağlı, Kallan'ın komutuyla: <b>Sonea + KobayashiMaru</b> yakındaki Küçük Kasalardaki gruplarımıza destek olur. Diğerleri kalır.","tl.hp":"KASA CANI","tl.hold":"neredeyse yok: tut","tl.call":"KALLAN'IN KOMUTU","tl.lost":"kaybettik","tl.recap":"geri alındı","foot.rule":"Komutanı izle. Komut yoksa: çemberdeki en zayıf gemilere vur.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","foot.guide":"Tam lonca rehberini aç"},"id":{"lang.name":"Bahasa Indonesia","lang.label":"Bahasa","i18n.note":"Diterjemahkan untuk guild. Istilah di game dalam bahasamu mungkin sedikit berbeda.","own.by":"Panduan oleh","own.share":"Bagikan tautannya, tolong jangan salin halamannya.","n.central":"Brankas Pusat","n.centralS":"Pusat","c.NE":"TL","c.SE":"TG","plan.kick":"RENCANA PERAN 1","plan.sub":"Posisi · 30 armada · Komandan Kallan","nav.pos":"Posisi","nav.if":"Jika…","nav.guide":"Panduan lengkap","pos.title":"Posisi kapal kalian","pos.lede":"Kita muncul di {ne} lalu turun sedikit ke kiri menuju {c2v}. Cari namamu: di situ 3 armadamu ditempatkan.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","m.spawn":"AWAL KITA ({ne})","m.rival":"LAWAN ({se})","m.west":"SISI {c1}","m.calls":"menentukan target","m.pack":"satu kelompok","key.parked":"armada parkir","key.fight":"armada bertarung","key.line":"batas penyerang tepi","g1.h":"Pemburu","g1.p":"Menyebar, masing-masing di zonanya. Habisi <b>kapal terlemah</b> di sekitarmu. Berkumpul <b>hanya untuk sultan</b>.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g2.h":"Trio","g2.p":"Bergerak sebagai <b>satu kelompok</b>. Habisi kapal terlemah di dekat kalian satu per satu, supaya hitungan kita tetap lebih tinggi dari mereka.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g3.h":"Tepi","g3.p":"<b>Parkir 2 armada terlemahmu</b> (kosong) tepat di dalam tepi, di sisi awal kita atau sisi yang lebih sepi. Tetap dihitung. <b>Armada terkuatmu</b> (penuh) menghabisi kapal rusak di dekatmu. Jangan mengejar melewati garis putus-putus atau keluar lingkaran.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","if.title":"Jika…","if.lede":"Kallan yang memberi komando. Ini rencana untuk tiap situasi.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w1.tag":"Kita kehilangan kendali","w1.h":"Hancurkan cepat","w1.p":"Langsung hancurkan garnisun mereka. <b>Jumlah armada kita yang lebih banyak</b> merebutnya kembali dengan cepat. Jaga semua armada tetap hidup di dalam lingkaran.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w2.tag":"{c2} bangkit","w2.h":"Rencana sama, satu perubahan","w2.p":"Jika kita kehilangan kendali saat Kebangkitan dan <b>sisa waktu kurang dari 4:00</b>:","w2.l1":"Serang Brankas sampai <b>hampir hancur</b>. Jangan dihancurkan.","w2.l2":"Saat <b>aba-aba Kallan</b> (sisa sekitar 2:00 sampai 1:30), hancurkan.","w2.l3":"Kembali fokus ke <b>kapal lemah di lingkaran</b> dan rebut kembali sebelum 0:00.","w3.tag":"{c1} bangkit","w3.h":"Jangan tabrak tembok","w3.p1":"Kalau dua guild lain ada di sana dengan kekuatan penuh, <b>kita tidak menyerbu</b>. Semua menahan {c2}.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w3.p2":"Opsional, atas aba-aba Kallan: <b>Sonea + KobayashiMaru</b> membantu grup kita di Brankas Kecil terdekat. Yang lain tetap di tempat.","tl.hp":"HP BRANKAS","tl.hold":"hampir hancur: tahan","tl.call":"ABA-ABA KALLAN","tl.lost":"kita kehilangan","tl.recap":"direbut kembali","foot.rule":"Ikuti komandan. Tanpa komando: serang kapal terlemah di lingkaran.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","foot.guide":"Buka panduan guild lengkap"},"zh":{"lang.name":"中文（简体）","lang.label":"语言","i18n.note":"为公会翻译。游戏里你所用语言的术语可能略有不同。","own.by":"作者","own.share":"请分享链接，不要复制本页面。","n.central":"中央宝库","n.centralS":"中央","c.NE":"东北","c.SE":"东南","plan.kick":"职责 1 作战计划","plan.sub":"站位 · 30 支舰队 · 指挥官 Kallan","nav.pos":"站位","nav.if":"情况应对","nav.guide":"完整指南","pos.title":"舰船站位","pos.lede":"我们从{ne}出生，往左下方前往{c2v}。找到你的名字：那里就是你 3 支舰队的位置。⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","m.spawn":"我方出生点（{ne}）","m.rival":"敌方（{se}）","m.west":"{c1}方向","m.calls":"指定目标","m.pack":"抱团行动","key.parked":"停靠舰队","key.fight":"作战舰队","key.line":"边缘输出的界线","g1.h":"猎手","g1.p":"分散开，各守一片区域。击杀你周围<b>最弱的舰船</b>。<b>只有遇到大佬</b>时才集合。⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g2.h":"三人组","g2.p":"<b>抱团</b>行动。逐个击杀附近最弱的舰船，让我们的数量始终多于对方。⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g3.h":"边缘","g3.p":"把你<b>最弱的 2 支舰队</b>（空心）停在圈边内侧，靠我方出生点一侧或较安静的一侧。它们照样算数。你<b>最强的舰队</b>（实心）去收掉附近受伤的舰船。不要追过虚线，也不要追出圈外。⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","if.title":"情况应对","if.lede":"由 Kallan 下令。以下是每种情况的计划。⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w1.tag":"失去控制","w1.h":"快速打掉","w1.p":"立刻摧毁他们的守备。我们<b>更多的舰队数量</b>能很快夺回。让所有舰队都活着留在圈内。⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w2.tag":"{c2}觉醒中","w2.h":"计划不变，只改一点","w2.p":"如果在觉醒期间失去控制，且<b>剩余时间不到 4:00</b>：","w2.l1":"攻击宝库直到<b>快被摧毁</b>。不要打掉。","w2.l2":"听 <b>Kallan 的指令</b>（大约剩 2:00 到 1:30 时）再打掉。","w2.l3":"转回<b>圈内较弱的舰船</b>，在 0:00 前夺回。","w3.tag":"{c1}觉醒中","w3.h":"不撞墙","w3.p1":"如果另外两个公会在那边兵力很强，<b>我们不冲过去</b>。所有人守住{c2}。⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w3.p2":"可选，听 Kallan 指令：<b>Sonea + KobayashiMaru</b> 去支援附近次级宝库的队伍。其他人留守。","tl.hp":"宝库血量","tl.hold":"快被摧毁：守住","tl.call":"KALLAN 的指令","tl.lost":"失守","tl.recap":"夺回","foot.rule":"听指挥官的。没有指令：打圈内最弱的舰船。⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","foot.guide":"打开完整的公会指南"},"ja":{"lang.name":"日本語","lang.label":"言語","i18n.note":"ギルド向けの翻訳です。ゲーム内の用語はあなたの言語では少し違う場合があります。","own.by":"作成：","own.share":"リンクで共有してください。ページの複製はご遠慮ください。","n.central":"中央金庫","n.centralS":"中央","c.NE":"北東","c.SE":"南東","plan.kick":"役割1の作戦","plan.sub":"配置 · 30艦隊 · 指揮官 Kallan","nav.pos":"配置","nav.if":"状況別","nav.guide":"ガイド全体","pos.title":"艦の配置","pos.lede":"{ne}からスタートし、左下へ少し進んで{c2v}へ向かいます。自分の名前を探そう。そこが3艦隊の配置です。⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","m.spawn":"自軍スタート（{ne}）","m.rival":"敵（{se}）","m.west":"{c1}側","m.calls":"目標を指示","m.pack":"固まって動く","key.parked":"待機艦隊","key.fight":"戦闘艦隊","key.line":"縁の攻撃役の限界線","g1.h":"ハンター","g1.p":"散らばって、それぞれ自分のゾーンへ。周りの<b>最も弱い艦</b>を倒す。集まるのは<b>重課金の時だけ</b>。⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g2.h":"トリオ","g2.p":"<b>ひとかたまり</b>で動く。近くの最も弱い艦を1隻ずつ倒し、こちらの数を相手より多く保つ。⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g3.h":"縁","g3.p":"<b>弱い2艦隊</b>（中抜き）を円の縁のすぐ内側に置く。自軍スタート側か、静かな側へ。それでも数に入る。<b>最も強い艦隊</b>（塗りつぶし）で近くの損傷した艦を仕留める。点線より内側や円の外まで追わない。⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","if.title":"状況別","if.lede":"号令はKallanが出します。状況ごとの作戦です。⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w1.tag":"制圧を失ったら","w1.h":"すぐに落とす","w1.p":"相手の守備隊をすぐ倒す。<b>多い艦隊数</b>ですばやく取り返せる。全艦隊を円の中で生かしておく。⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w2.tag":"{c2}が覚醒中","w2.h":"作戦は同じ、変更は1つ","w2.p":"覚醒中に制圧を失い、<b>残り4:00未満</b>なら：","w2.l1":"金庫を<b>壊れる寸前</b>まで攻撃する。壊さない。","w2.l2":"<b>Kallanの号令</b>（残り約2:00〜1:30）で落とす。","w2.l3":"<b>円の中の弱い艦</b>に切り替え、0:00までに取り返す。","w3.tag":"{c1}が覚醒中","w3.h":"壁には突っ込まない","w3.p1":"他の2ギルドが大軍でいるなら、<b>急いで向かわない</b>。全員で{c2}を守る。⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w3.p2":"任意、Kallanの号令で：<b>Sonea + KobayashiMaru</b> が近くの小金庫にいる味方グループを援護。他は残る。","tl.hp":"金庫の体力","tl.hold":"寸前で維持","tl.call":"KALLANの号令","tl.lost":"失う","tl.recap":"奪還","foot.rule":"指揮官に従う。号令がなければ、円の中の最も弱い艦を叩く。⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","foot.guide":"ギルドガイド全体を開く"},"ko":{"lang.name":"한국어","lang.label":"언어","i18n.note":"길드를 위해 번역했습니다. 게임 속 용어는 사용하는 언어에서 조금 다를 수 있습니다.","own.by":"제작:","own.share":"링크로 공유해 주세요. 페이지를 복제하지 마세요.","n.central":"중앙 금고","n.centralS":"중앙","c.NE":"북동","c.SE":"남동","plan.kick":"역할 1 작전","plan.sub":"배치 · 함대 30개 · 지휘관 Kallan","nav.pos":"배치","nav.if":"상황별","nav.guide":"전체 가이드","pos.title":"함선 배치","pos.lede":"우리는 {ne}에서 시작해 왼쪽 아래로 조금 내려가 {c2v}로 갑니다. 자기 이름을 찾으세요. 거기가 내 함대 3개의 자리입니다.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","m.spawn":"우리 시작점 ({ne})","m.rival":"적 ({se})","m.west":"{c1} 방향","m.calls":"목표 지정","m.pack":"한 무리","key.parked":"대기 함대","key.fight":"전투 함대","key.line":"가장자리 공격 한계선","g1.h":"사냥꾼","g1.p":"흩어져서 각자 자기 구역을 맡으세요. 주변의 <b>가장 약한 함선</b>을 처치하세요. <b>핵과금러가 나올 때만</b> 모이세요.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g2.h":"트리오","g2.p":"<b>한 무리</b>로 움직이세요. 가까운 가장 약한 함선을 하나씩 처치해서 우리 숫자를 상대보다 많게 유지하세요.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","g3.h":"가장자리","g3.p":"<b>가장 약한 함대 2개</b>(빈 모양)를 원 가장자리 바로 안쪽에 두세요. 우리 시작점 쪽이나 덜 붐비는 쪽에. 그래도 숫자에 들어갑니다. <b>가장 강한 함대</b>(채운 모양)로 근처의 손상된 함선을 마무리하세요. 점선 너머나 원 밖까지 쫓지 마세요.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","if.title":"상황별","if.lede":"콜은 Kallan이 합니다. 상황별 작전입니다.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w1.tag":"점령을 잃으면","w1.h":"빠르게 부순다","w1.p":"상대 수비대를 바로 부수세요. 우리의 <b>더 많은 함대 수</b>로 빠르게 되찾습니다. 모든 함대를 원 안에서 살려 두세요.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w2.tag":"{c2} 각성 중","w2.h":"작전은 같고, 하나만 바뀜","w2.p":"각성 중에 점령을 잃었고 <b>남은 시간이 4:00 미만</b>이면:","w2.l1":"금고를 <b>부서지기 직전</b>까지 공격하세요. 부수지 마세요.","w2.l2":"<b>Kallan의 콜</b>(약 2:00~1:30 남았을 때)에 부수세요.","w2.l3":"<b>원 안의 약한 함선</b>으로 다시 집중해 0:00 전에 되찾으세요.","w3.tag":"{c1} 각성 중","w3.h":"벽에 박지 않는다","w3.p1":"다른 두 길드가 그곳에 강하게 모여 있으면 <b>달려가지 않습니다</b>. 모두 {c2}을 지킵니다.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","w3.p2":"선택 사항, Kallan의 콜에 따라: <b>Sonea + KobayashiMaru</b>가 근처 소형 금고에 있는 우리 그룹을 지원합니다. 나머지는 남습니다.","tl.hp":"금고 체력","tl.hold":"직전에서 유지","tl.call":"KALLAN의 콜","tl.lost":"잃음","tl.recap":"되찾음","foot.rule":"지휘관을 따르세요. 콜이 없으면 원 안의 가장 약한 함선을 공격하세요.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠","foot.guide":"전체 길드 가이드 열기"}};
+  var OWNER = 'UID ' + [52,48,53,51,55,50,49].map(function(c){ return String.fromCharCode(c); }).join('');
+  var lang = 'en', W = {};
+  function t(k){ return (T[lang] && T[lang][k]) ? T[lang][k] : (T.en[k] != null ? T.en[k] : k); }
+  function words(){
+    var cs = t('n.centralS'), cv = t('n.central');
+    return {ne:t('c.NE'), se:t('c.SE'), c1:cs+' I', c2:cs+' II', c2v:cv+' II', c1v:cv+' I'};
+  }
+  function fill(s){ return String(s).replace(/\{(\w+)\}/g, function(m, k){ return W[k] != null ? W[k] : m; }); }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(ch){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]; }); }
+
+  /* ---------- positions map ---------- */
+  var SHIP = 'M0,-11 L9,10 L0,5 L-9,10 Z';
+  var C = {x:270, y:300}, R = 200;
+  function P(deg, r){ var a = deg*Math.PI/180; return {x:C.x + r*R*Math.cos(a), y:C.y + r*R*Math.sin(a)}; }
+  function f(n){ return Math.round(n*10)/10; }
+  function ship(pt, deg, color, mode, sc){
+    var st = mode === 'parked' ? 'fill="#0b2f2a" stroke="'+color+'" stroke-width="2.6"' : 'fill="'+color+'" stroke="#06201c" stroke-width="1.2"';
+    return '<path d="'+SHIP+'" transform="translate('+f(pt.x)+' '+f(pt.y)+') rotate('+f(deg-90)+') scale('+(sc||1.1)+')" '+st+'/>';
+  }
+  function label(pt, txt, color, size, anchor, max, extra){
+    return '<text x="'+f(pt.x)+'" y="'+f(pt.y)+'" text-anchor="'+(anchor||'middle')+'" font-size="'+(size||18)+'" font-weight="700" letter-spacing="1" fill="'+color+'"'
+      +(max ? ' data-max="'+max+'"' : '')+(extra||'')+' paint-order="stroke" stroke="#06201c" stroke-width="4" stroke-linejoin="round">'+esc(txt)+'</text>';
+  }
+  function drawMap(){
+    var HUNT = '#f2c14e', TRIO = '#47d9c4', RIM = '#4ea6ef';
+    var s = '<defs><radialGradient id="fld" cx="50%" cy="50%" r="62%"><stop offset="0" stop-color="#2b7f67"/><stop offset=".6" stop-color="#17544a"/><stop offset="1" stop-color="#0b2a27"/></radialGradient>'
+      + '<marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#eef7ff"/></marker>'
+      + '<marker id="ahr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#ee5a69"/></marker></defs>';
+    s += '<rect width="540" height="600" rx="12" fill="url(#fld)"/>';
+    s += '<g fill="none" stroke="#b6f0d8" stroke-opacity=".09"><circle cx="270" cy="300" r="66"/><circle cx="270" cy="300" r="132"/><path d="M0,300 H540 M270,0 V600"/></g>';
+    s += '<circle cx="270" cy="300" r="'+R+'" fill="#0b2f2a" fill-opacity=".45" stroke="#4ea6ef" stroke-opacity=".75" stroke-width="2.5" stroke-dasharray="10 8"/>';
+    var a0 = P(-122,.6), a1 = P(-12,.6);
+    s += '<path d="M'+f(a0.x)+','+f(a0.y)+' A120,120 0 0 1 '+f(a1.x)+','+f(a1.y)+'" fill="none" stroke="#4ea6ef" stroke-width="2.5" stroke-dasharray="5 6"/>';
+    s += '<circle cx="270" cy="300" r="30" fill="#232d2c" stroke="#8a9897" stroke-width="2"/><text x="270" y="312" text-anchor="middle" font-size="34" font-weight="700" fill="#9aa8a6">2</text>';
+    // directions
+    s += '<path d="M526,48 L424,148" stroke="#eef7ff" stroke-width="3.5" fill="none" marker-end="url(#ah)"/>';
+    s += label({x:532,y:27}, fill(t('m.spawn')), '#eef7ff', 21, 'end', 300);
+    s += '<path d="M526,556 L420,450" stroke="#ee5a69" stroke-width="3.5" stroke-dasharray="9 7" fill="none" marker-end="url(#ahr)"/>';
+    s += label({x:532,y:589}, fill(t('m.rival')), '#ff9aa5', 21, 'end', 300);
+    s += '<path d="M6,300 L62,300" stroke="#ee5a69" stroke-width="3.5" stroke-dasharray="9 7" fill="none" marker-end="url(#ahr)"/>';
+    s += label({x:22,y:190}, fill(t('m.west')), '#ff9aa5', 18, 'middle', 180, ' transform="rotate(-90 22 190)"');
+    s += '<g transform="translate(30 36)"><path d="M0,-16 L7,5 L0,0 L-7,5 Z" fill="#cfe"/><text y="22" text-anchor="middle" font-size="15" font-weight="700" fill="#cfe">N</text></g>';
+    // rim: 2 parked + strongest fleet, along the spawn-side edge
+    [['PhGrWi',-104],['scorpion',-79],['Anya',-54],['HautKage',-29]].forEach(function(p){
+      var a = p[1];
+      s += ship(P(a-6.5,.9), a-6.5, RIM, 'parked', .95) + ship(P(a+6.5,.9), a+6.5, RIM, 'parked', .95);
+      s += ship(P(a,.72), a, RIM, 'active', 1.1);
+      s += label(P(a,1.14), p[0], '#9fd0ff', 22, 'middle', 96);
+    });
+    // trio pack
+    var tc = P(8,.52);
+    s += '<circle cx="'+f(tc.x)+'" cy="'+f(tc.y)+'" r="44" fill="#47d9c4" fill-opacity=".08" stroke="#47d9c4" stroke-width="2" stroke-dasharray="6 5"/>';
+    [[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1]].forEach(function(g){ s += ship({x:tc.x+g[0]*23, y:tc.y+g[1]*23}, 188, TRIO, 'active', .8); });
+    s += label({x:tc.x+50, y:tc.y-17}, 'JACE', '#7ff0dc', 19, 'start', 112);
+    s += label({x:tc.x+50, y:tc.y+5}, 'BLANC0', '#7ff0dc', 19, 'start', 112);
+    s += label({x:tc.x+50, y:tc.y+27}, 'MIMINTHERON', '#7ff0dc', 19, 'start', 112);
+    s += label({x:tc.x, y:tc.y+66}, t('m.pack'), '#7ff0dc', 17, 'middle', 150);
+    // hunters
+    [[60,.68],[88,.8],[115,.64]].forEach(function(z){ s += ship(P(z[0],z[1]), z[0], HUNT, 'active', 1.15); });
+    s += label(P(88,.97), 'SONEA', '#ffd877', 23);
+    [[160,.62],[188,.76],[214,.6]].forEach(function(z){ s += ship(P(z[0],z[1]), z[0], HUNT, 'active', 1.15); });
+    s += label({x:40, y:214}, 'KOBAYASHIMARU', '#ffd877', 21, 'start', 150);
+    [[-150,.32],[150,.34],[96,.3]].forEach(function(z){ s += ship(P(z[0],z[1]), z[0], HUNT, 'active', 1.15); });
+    s += label({x:270, y:256}, 'KALLAN', '#ffd877', 23);
+    s += label({x:270, y:232}, t('m.calls'), '#ffd877', 16, 'middle', 150);
+    s += '<text x="14" y="590" font-size="11" font-weight="600" letter-spacing="2" fill="#b6f0d8" fill-opacity=".35">UID 4053721</text>';
+    document.getElementById('map').innerHTML = s;
+  }
+
+  /* ---------- awakening timeline ---------- */
+  function drawTimeline(){
+    var X = function(sec){ return 24 + sec*(372/270); };
+    var s = '<line x1="24" y1="134" x2="396" y2="134" stroke="#4f6f68" stroke-width="1.5"/>';
+    s += label({x:24,y:22}, t('tl.hp'), '#a9c0b8', 16, 'start', 175);
+    s += '<rect x="24" y="30" width="372" height="46" fill="#fff" fill-opacity=".04" stroke="#2c4a45"/>';
+    s += '<path d="M'+X(30)+',30 L'+X(80)+',70 L'+X(158)+',70 L'+X(166)+',76" fill="none" stroke="#ee5a69" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>';
+    s += label({x:X(116),y:62}, t('tl.hold'), '#ffd6db', 15, 'middle', 118);
+    s += '<rect x="'+X(150)+'" y="26" width="'+(X(180)-X(150))+'" height="108" fill="#f2c14e" fill-opacity=".14"/>';
+    s += label({x:X(165)+4,y:20}, t('tl.call'), '#f2c14e', 15, 'middle', 160);
+    s += '<rect x="24" y="88" width="'+(X(30)-24)+'" height="20" fill="#4ea6ef"/>';
+    s += '<rect x="'+X(30)+'" y="88" width="'+(X(166)-X(30))+'" height="20" fill="#ee5a69" fill-opacity=".6"/>';
+    s += '<rect x="'+X(166)+'" y="88" width="'+(X(196)-X(166))+'" height="20" fill="#55625f"/>';
+    s += '<rect x="'+X(196)+'" y="88" width="'+(396-X(196))+'" height="20" fill="#4ea6ef"/>';
+    s += label({x:X(30)+6,y:126}, t('tl.lost'), '#ff9aa5', 15, 'middle', 92);
+    s += '<text x="'+X(233)+'" y="103" text-anchor="middle" font-size="14" font-weight="700" fill="#071313" data-max="96">'+esc(t('tl.recap'))+'</text>';
+    [[0,'4:30'],[30,'4:00'],[150,'2:00'],[180,'1:30'],[270,'0:00']].forEach(function(m){
+      s += '<line x1="'+X(m[0])+'" y1="130" x2="'+X(m[0])+'" y2="138" stroke="#4f6f68"/><text x="'+X(m[0])+'" y="158" text-anchor="'+(m[0]===0?'start':m[0]===270?'end':'middle')+'" font-size="16" font-weight="700" fill="#8fb0a8">'+m[1]+'</text>';
+    });
+    document.getElementById('tl').innerHTML = s;
+  }
+
+  function fitSvgText(){
+    document.querySelectorAll('svg text[data-max]').forEach(function(el){
+      el.removeAttribute('textLength'); el.removeAttribute('lengthAdjust');
+      var max = +el.getAttribute('data-max'), w = 0;
+      try{ w = el.getComputedTextLength(); }catch(e){}
+      if(w > max){ el.setAttribute('textLength', max); el.setAttribute('lengthAdjust', 'spacingAndGlyphs'); }
+    });
+  }
+
+  /* ---------- ownership: put the credit back if it is removed ---------- */
+  function ensureOwner(){
+    var hero = document.querySelector('.hero') || document.body;
+    var b = document.getElementById('ownerBadge');
+    if(!b){ b = document.createElement('p'); b.id = 'ownerBadge'; b.className = 'owner'; hero.appendChild(b); }
+    if(b.textContent.indexOf(OWNER) < 0){ b.innerHTML = '<span>' + t('own.by') + '</span> <b>' + OWNER + '</b>'; }
+    var foot = document.querySelector('footer') || document.body;
+    var fo = document.getElementById('ownerFoot');
+    if(!fo){ fo = document.createElement('p'); fo.id = 'ownerFoot'; foot.insertBefore(fo, foot.firstChild); }
+    if(fo.textContent.indexOf(OWNER) < 0){ fo.innerHTML = '© 2026 ' + OWNER + ' · <span>' + t('own.share') + '</span>'; }
+    if(!document.getElementById('wm')){ var w = document.createElement('div'); w.id = 'wm'; w.className = 'wm'; w.setAttribute('aria-hidden','true'); document.body.appendChild(w); }
+  }
+
+  /* ---------- language ---------- */
+  var sel = document.getElementById('lang');
+  function setLang(l, save){
+    if(!T[l]) l = 'en';
+    lang = l; W = words();
+    document.documentElement.lang = l;
+    document.querySelectorAll('[data-i]').forEach(function(el){
+      var k = el.getAttribute('data-i');
+      el.innerHTML = k === 'h1.c2v' ? esc(W.c2v) : fill(t(k));
+    });
+    document.getElementById('i18nNote').hidden = (l === 'en' || !t('i18n.note'));
+    sel.value = l; document.getElementById('langCode').textContent = l.toUpperCase();
+    drawMap(); drawTimeline(); fitSvgText(); ensureOwner();
+    if(save){ try{ localStorage.setItem('sf-lang', l); }catch(e){} }
+  }
+  sel.addEventListener('change', function(){ setLang(sel.value, true); });
+
+  var sl = null; try{ sl = localStorage.getItem('sf-lang'); }catch(e){}
+  var hm = /^#lang-([a-z]{2})$/.exec(location.hash || '');
+  var nl = ((navigator.languages && navigator.languages[0]) || navigator.language || 'en').slice(0,2).toLowerCase();
+  setLang((hm && T[hm[1]]) ? hm[1] : (sl && T[sl]) ? sl : (T[nl] ? nl : 'en'), false);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(fitSvgText);
+  try{ console.info('%cShadowfront · Central Vault II plan © 2026 ' + OWNER, 'color:#a8ead2;font-weight:700'); }catch(e){}
+})();
+</script>
+
+</body>
+</html>
