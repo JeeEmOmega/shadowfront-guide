@@ -291,6 +291,17 @@ footer p{margin:0 0 6px}
       .filter(function(a, i){ return filled(state.squads[i]); })];
   }
   function playersLink(){ return pack(weekArray()).then(function(p){ return new URL('../teams/?s=' + p, location.href).href; }); }
+  /* is.gd turns the ~500-character week link into a ~20-character one; if it can't be reached, the long link still works */
+  var shortCache = {};
+  function shortLink(){
+    return playersLink().then(function(u){
+      if(shortCache[u]) return shortCache[u];
+      var ctl = window.AbortController ? new AbortController() : null, tm = ctl ? setTimeout(function(){ ctl.abort(); }, 6000) : 0;
+      return fetch('https://is.gd/create.php?format=json&url=' + encodeURIComponent(u), ctl ? {signal:ctl.signal} : {})
+        .then(function(r){ return r.json(); })
+        .then(function(d){ clearTimeout(tm); return d && d.shorturl ? (shortCache[u] = d.shorturl) : u; }, function(){ clearTimeout(tm); return u; });
+    });
+  }
 
   /* ---------- paste and fill by power ---------- */
   function parseLines(txt){
@@ -339,6 +350,17 @@ footer p{margin:0 0 6px}
     var fallback = function(){ var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){} ta.remove(); };
     try{ if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, fallback); else fallback(); }catch(e){ fallback(); }
   }
+  /* Safari only copies text that is ready during the tap, so text still on its way (the short link) goes in as a promise */
+  function copyLater(p){
+    try{
+      if(window.ClipboardItem && navigator.clipboard && navigator.clipboard.write){
+        navigator.clipboard.write([new ClipboardItem({'text/plain': p.then(function(s){ return new Blob([s], {type:'text/plain'}); })})])
+          .then(function(){ say(t('rp.copied')); }, function(){ p.then(copy); });
+        return;
+      }
+    }catch(e){}
+    p.then(copy);
+  }
 
   /* ---------- render ---------- */
   function renderSquad(){
@@ -381,8 +403,8 @@ footer p{margin:0 0 6px}
     if(mf) mf.addEventListener('input', function(){ mFind = mf.value; renderMembers(); });
     renderMembers(); renderPickBar(); renderHowto();
     box.querySelectorAll('[data-fill]').forEach(function(b){ b.addEventListener('click', function(){ var team = +b.getAttribute('data-fill'); fillTeam(team, document.getElementById('paste'+team).value); }); });
-    document.getElementById('shareLink').addEventListener('click', function(){ playersLink().then(function(u){ copy(u); }); });
-    document.getElementById('copyPost').addEventListener('click', function(){ playersLink().then(function(u){ var txt = postText(sq, u); document.getElementById('longNote').hidden = txt.length <= 1900; copy(txt); }); });
+    document.getElementById('shareLink').addEventListener('click', function(){ copyLater(shortLink()); });
+    document.getElementById('copyPost').addEventListener('click', function(){ copyLater(shortLink().then(function(u){ var txt = postText(sq, u); document.getElementById('longNote').hidden = txt.length <= 1900; return txt; })); });
     document.getElementById('openTeams').addEventListener('click', function(){ playersLink().then(function(u){ window.open(u, '_blank'); }); });
   }
   function renderLog(){
@@ -511,7 +533,7 @@ footer p{margin:0 0 6px}
     h += '</ol>';
     var X = exampleSquad(), tag = X.ex ? '<span class="extag">'+esc(t('hw.ex'))+'</span>' : '';
     h += '<h3 class="sub3">'+esc(t('hw.see'))+tag+'</h3>' + mockPlayer(X.S, X.num) + '<p class="cap">'+esc(t('hw.see.p'))+'</p>';
-    h += '<h3 class="sub3">'+esc(t('hw.post'))+tag+'</h3><div class="dpost">'+discordHtml(postFor(X.S, X.num, new URL('../teams/', location.href).href + '?s=…', X.ex ? X.S.date : ''))+'</div>'
+    h += '<h3 class="sub3">'+esc(t('hw.post'))+tag+'</h3><div class="dpost">'+discordHtml(postFor(X.S, X.num, 'https://is.gd/…', X.ex ? X.S.date : ''))+'</div>'
        + '<p class="cap">'+esc(t('hw.post.p'))+'</p>';
     box.innerHTML = h;
   }
