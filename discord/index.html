@@ -1,0 +1,88 @@
+<!doctype html>
+<!-- Shadowfront - (c) 2026 UID 4053721. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Shadowfront Battle Guide</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>html,body{margin:0;height:100%;background:#061011}iframe{display:block;border:0;width:100%;height:100%}</style>
+</head>
+<body>
+<iframe id="site" title="Shadowfront Battle Guide" allow="clipboard-write"></iframe>
+<script>
+(function(){
+  /* ---------- the guide inside Discord (an Activity) ----------
+     Discord opens this page at https://<app id>.discordsays.com/ and serves everything through its proxy, using the
+     app's URL mappings in the Developer Portal:
+       /         -> jeeemomega.github.io/shadowfront-guide/discord   (this page)
+       /site     -> jeeemomega.github.io/shadowfront-guide           (the guide)
+       /gfonts   -> fonts.googleapis.com
+       /gstatic  -> fonts.gstatic.com
+     Discord blocks every other address, so this page connects to Discord once, shows the guide in the frame below, and
+     keeps the guide's links inside Discord. Outside Discord it forwards to the guide. */
+  var SITE = 'https://jeeemomega.github.io/shadowfront-guide/';
+  var FONTS = 'https://fonts.googleapis.com/';
+  if (!/\.discordsays\.com$/.test(location.hostname)) { location.replace(SITE); return; }
+
+  /* ---------- connect to Discord: the Embedded App SDK's handshake (SDK 2.5.0, Discord.mjs) ---------- */
+  var q = new URLSearchParams(location.search);
+  var discord = window.parent.opener || window.parent;
+  var sent = 0;
+  function send(op, data){ discord.postMessage([op, data], '*'); }
+  function handshake(){
+    var hello = {v:1, encoding:'json', client_id:location.hostname.split('.')[0], frame_id:q.get('frame_id')};
+    var mobile = parseInt((q.get('mobile_app_version') || '').split('.')[0], 10);
+    if (q.get('platform') === 'desktop' || mobile >= 250) hello.sdk_version = '2.5.0';
+    send(0, hello);
+  }
+  window.addEventListener('message', function(e){
+    if (Array.isArray(e.data) && e.data[0] === 0) handshake();   /* Discord asks to connect again */
+  });
+  handshake();
+  /* Discord asks the member before it opens a link in their browser */
+  function openOutside(url){ send(1, {cmd:'OPEN_EXTERNAL_LINK', args:{url:url}, nonce:'link-' + (++sent)}); }
+
+  /* ---------- the guide, kept inside Discord ---------- */
+  var frame = document.getElementById('site');
+  var fontCss = null;
+  function go(url){
+    var to = new URL(url, frame.contentWindow.location.href).href;
+    if (to.indexOf(SITE) === 0) frame.contentWindow.location.href = '/.proxy/site/' + to.slice(SITE.length);
+    else if (to.indexOf(location.origin + '/') === 0) frame.contentWindow.location.href = to;
+    else if (/^https?:/.test(to)) openOutside(to);
+  }
+  /* Google's font CSS points at fonts.gstatic.com; fetch it through the proxy and point it there too */
+  function fonts(doc){
+    var link = doc.querySelector('link[rel="stylesheet"][href^="' + FONTS + '"]');
+    if (!link) return;
+    fontCss = fontCss || fetch('/.proxy/gfonts/' + link.href.slice(FONTS.length))
+      .then(function(r){ return r.ok ? r.text() : ''; })
+      .then(function(css){ return css.split('https://fonts.gstatic.com/').join('/.proxy/gstatic/'); })
+      .catch(function(){ return ''; });
+    fontCss.then(function(css){
+      if (!css) return;
+      var style = doc.createElement('style');
+      style.textContent = css;
+      doc.head.appendChild(style);
+    });
+  }
+  frame.addEventListener('load', function(){
+    var w = frame.contentWindow, doc;
+    try { doc = w.document; } catch(e){ return; }
+    w.open = function(url){ go(String(url)); return null; };
+    /* runs after the guide's own handlers, so links the guide handles itself are left alone */
+    doc.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a[href]');
+      if (!a || e.defaultPrevented) return;
+      if (a.href.indexOf(location.origin + '/') === 0 && a.target !== '_blank') return;
+      e.preventDefault();
+      go(a.href);
+    });
+    fonts(doc);
+  });
+  frame.src = '/.proxy/site/';
+})();
+</script>
+</body>
+</html>
