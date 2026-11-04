@@ -1,0 +1,1003 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="How the LAW guild's Shadowfront sign-ups work in Discord: the post, the card and the leaders' board, tap by tap.">
+<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>Shadowfront Sign-ups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Questrial&family=Noto+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<!--
+  Walkthrough of the Shadowfront sign-up system in Prime Radiant (fgf-discord/shadowfront.py).
+  Texts are the bot's own. Members are the playground's made-up ones; no real names or powers.
+  Maps: maps/*.png, drawn by spotmap.py from NE at 75 % size, 192 colours.
+-->
+<style>
+/* Layout: one column of chapters, each a Discord screen beside its explanation. LAW's obsidian and bronze,
+   the bot's mint on the embeds; Discord screens keep Discord's own dark look in both themes. */
+:root{
+  --bg:#0E131A; --surface:#151C25; --raised:#1E2731; --line:#2B3642; --fg:#DCE0E1; --muted:#9AA6B2;
+  --faint:#6C7885; --gold:#C99870; --gold-hi:#EBC6A0; --cyan:#4D98B3; --mint:#A8EAD2; --crimson:#D27A7E;
+  --ok:#6FCF97; --dc-bg:#313338; --dc-embed:#2B2D31; --dc-fg:#DBDEE1; --dc-muted:#949BA4; --dc-link:#00A8FC;
+  --dc-blurple:#5865F2; --dc-green:#248046; --dc-grey:#4E5058; --dc-red:#DA373C; --dc-input:#1E1F22;
+  --dc-accent:#A8EAD2; --dc-tag:#5865F2;
+  --display:'Questrial',system-ui,sans-serif; --body:'Noto Sans',system-ui,-apple-system,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#F2EDE4; --surface:#FBF8F3; --raised:#FFFFFF; --line:#D9D1C4; --fg:#1A2129; --muted:#5B6672;
+    --faint:#8A949E; --gold:#A8764F; --gold-hi:#C99870; --cyan:#2F7A95; --mint:#2E8C72; --crimson:#A64D50;
+    --ok:#2E8C5A; color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#F2EDE4; --surface:#FBF8F3; --raised:#FFFFFF; --line:#D9D1C4; --fg:#1A2129; --muted:#5B6672;
+  --faint:#8A949E; --gold:#A8764F; --gold-hi:#C99870; --cyan:#2F7A95; --mint:#2E8C72; --crimson:#A64D50;
+  --ok:#2E8C5A; color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:0 64px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(34px,5vw,54px)}
+h2{font-size:clamp(26px,3.4vw,36px)}
+h3{font-size:20px}
+p{margin:0}
+a{color:var(--cyan)}
+b,strong{font-weight:600}
+code{font-family:var(--mono);font-size:.9em}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.wrap{max-width:1100px;margin:0 auto}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.lede{font-size:18px;color:var(--muted);max-width:62ch}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+
+/* nav */
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin:0 calc(-1 * max(16px,env(safe-area-inset-right,0px))) 0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.top .wrap{display:flex;align-items:center;gap:18px;min-height:52px;flex-wrap:wrap}
+nav.top .brand{font-family:var(--display);font-size:17px;color:var(--gold-hi);letter-spacing:.02em;white-space:nowrap}
+nav.top .links{display:flex;gap:4px 14px;flex-wrap:wrap;font-size:14px}
+nav.top .links a{color:var(--muted);text-decoration:none;padding:6px 0}
+nav.top .links a:hover{color:var(--fg)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.25fr .9fr;gap:36px;align-items:center;padding-block:56px 40px}
+.hero .copy{display:grid;gap:18px}
+.hero img{width:100%;height:auto;max-width:420px;justify-self:end;border:1px solid var(--line);border-radius:10px;background:#061011}
+.pills{display:flex;gap:10px;flex-wrap:wrap}
+.pill{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:13px;color:var(--muted)}
+.pill.on{border-color:var(--gold);color:var(--gold-hi)}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:6px}
+.three div{border-top:2px solid var(--gold);padding-top:10px}
+.three b{display:block;font-family:var(--display);font-weight:400;font-size:18px;margin-bottom:4px}
+.three span{color:var(--muted);font-size:14px}
+
+/* chapters */
+section.ch{padding-block:44px;border-top:1px solid var(--line);scroll-margin-top:70px}
+.head{display:grid;gap:10px;max-width:70ch;margin-bottom:26px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.two>*{min-width:0}
+.prose{display:grid;gap:14px}
+.prose ul,.prose ol{margin:0;padding-left:20px;display:grid;gap:6px}
+.note{border-left:3px solid var(--gold);padding:8px 14px;background:var(--surface);color:var(--muted);font-size:14.5px;border-radius:0 6px 6px 0}
+.narr{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.narr .lab{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+button.n{font:inherit;font-size:14px;color:var(--fg);background:var(--raised);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer}
+button.n:hover{border-color:var(--gold)}
+button.n.on{border-color:var(--gold);color:var(--gold-hi)}
+button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* stepper */
+.steps{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:18px}
+.steps button{font:inherit;display:grid;gap:4px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 10px 12px;cursor:pointer;color:var(--fg);min-width:0}
+.steps button .k{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.08em}
+.steps button .t{font-family:var(--display);font-size:15px;line-height:1.2}
+.steps button.on{border-color:var(--gold);background:var(--raised)}
+.steps button.on .k{color:var(--gold)}
+.stepbody{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:24px;border:1px solid var(--line);border-radius:10px;padding:20px 22px;background:var(--surface)}
+.stepbody .who{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.stepbody h3{margin-bottom:8px}
+.stepbody aside{border-left:1px solid var(--line);padding-left:18px;color:var(--muted);font-size:14px;display:grid;gap:8px;align-content:start}
+.stepbody aside b{color:var(--fg)}
+
+/* discord mock */
+.dc{background:var(--dc-bg);color:var(--dc-fg);border-radius:10px;padding:14px 16px 16px;font-family:var(--body);font-size:15px;line-height:1.4;border:1px solid #1f2124;overflow:hidden}
+.dc .chan{font-family:var(--mono);font-size:12px;color:var(--dc-muted);margin-bottom:10px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.dc .msg{display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px}
+.dc .av{width:40px;height:40px;border-radius:50%;background:#1b3a35;color:#A8EAD2;display:grid;place-items:center;font-family:var(--display);font-size:14px}
+.dc .who{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.dc .who .n{font-weight:600;color:#fff}
+.dc .who .bot{background:var(--dc-tag);color:#fff;font-size:10px;font-weight:600;border-radius:3px;padding:1px 5px;letter-spacing:.02em}
+.dc .who .ts{color:var(--dc-muted);font-size:12px}
+.dc .txt{color:var(--dc-fg)}
+.emb{background:var(--dc-embed);border-left:4px solid var(--dc-accent);border-radius:4px;padding:10px 14px 12px;margin-top:6px;display:grid;gap:8px;max-width:560px}
+.emb .et{font-weight:600;color:#fff;font-size:15px}
+.emb .et.link{color:var(--dc-link)}
+.emb .ed{font-size:14px;white-space:normal}
+.emb .fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 12px}
+.emb .f{font-size:13.5px;min-width:0}
+.emb .f.full{grid-column:1/-1}
+.emb .f .fn{font-weight:600;color:#fff;margin-bottom:2px}
+.emb .f .fv{white-space:pre-line;word-break:break-word}
+.emb .f .fv .row{display:block}
+.emb img{max-width:100%;border-radius:4px;background:#061011;display:block}
+.emb .foot{font-size:12px;color:var(--dc-muted)}
+.emb code{background:#1e1f22;padding:0 4px;border-radius:3px;font-size:.88em}
+.emb pre{background:#1e1f22;padding:8px 10px;border-radius:4px;font-family:var(--mono);font-size:12px;overflow-x:auto;margin:4px 0}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.dbtn{font:inherit;font-size:14px;font-weight:500;color:#fff;background:var(--dc-grey);border:0;border-radius:4px;padding:7px 14px;cursor:pointer;line-height:1.2}
+.dbtn.p{background:var(--dc-blurple)}
+.dbtn.s{background:var(--dc-green)}
+.dbtn.d{background:var(--dc-red)}
+.dbtn:disabled{opacity:.45;cursor:not-allowed}
+.dbtn:not(:disabled):hover{filter:brightness(1.12)}
+.dsel{font:inherit;font-size:14px;color:var(--dc-fg);background:var(--dc-input);border:1px solid #3f4147;border-radius:4px;padding:7px 10px;max-width:100%;cursor:pointer}
+.dsel:disabled{opacity:.45;cursor:not-allowed}
+.dinput{font:inherit;font-size:14px;color:var(--dc-fg);background:var(--dc-input);border:1px solid #3f4147;border-radius:4px;padding:8px 10px;width:100%}
+.eph{margin-top:12px;border-radius:8px;background:#2b2d31;border:1px solid #3a3c42;padding:10px 14px 12px;font-size:14px;display:grid;gap:8px}
+.eph .eh{display:flex;gap:8px;align-items:center;color:var(--dc-muted);font-size:12px}
+.eph .eh .eye{color:var(--dc-link)}
+.eph .eb{white-space:pre-line}
+.modal{margin-top:12px;background:#313338;border:1px solid #3a3c42;border-radius:8px;padding:14px 16px 16px;display:grid;gap:12px;max-width:440px}
+.modal .mt{font-weight:600;color:#fff;font-size:17px}
+.modal label{display:grid;gap:4px;font-size:12px;font-weight:600;color:var(--dc-muted);text-transform:uppercase;letter-spacing:.02em}
+.dm{margin-top:12px;border-radius:8px;background:#1e1f22;color:var(--dc-fg);border:1px solid #3a3c42;padding:10px 14px;font-size:14px;display:grid;gap:10px}
+.dm .dh{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dc-muted)}
+.dm .dmsg{white-space:pre-line;border-top:1px solid #2f3136;padding-top:8px}
+.dm .dh + .dmsg{border-top:0;padding-top:0}
+.dm .muted,.eph .muted{color:var(--dc-muted)}
+.board .emb{max-width:none}
+.board .emb .fields{grid-template-columns:repeat(3,minmax(0,1fr))}
+.board .f .fv{font-size:12.5px;line-height:1.5;font-family:var(--body)}
+.ctrl{display:grid;gap:8px;margin-top:10px}
+.ctrl .r{display:flex;flex-wrap:wrap;gap:8px}
+.status{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dc-muted)}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:13px;cursor:pointer;color:var(--muted);background:var(--surface)}
+.chip.on{border-color:var(--mint);color:var(--mint)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.tabs button{font:inherit;font-size:14px;background:var(--surface);border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:7px 12px;cursor:pointer}
+.tabs button.on{border-color:var(--gold);color:var(--gold-hi);background:var(--raised)}
+
+/* teams */
+.teams{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.team{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:16px 18px;display:grid;gap:10px;align-content:start}
+.team h3{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.team h3 span{font-family:var(--mono);font-size:13px;color:var(--gold)}
+.team .roles{display:flex;flex-wrap:wrap;gap:5px}
+.team .roles code{background:var(--raised);border:1px solid var(--line);border-radius:4px;padding:1px 6px;font-size:12px}
+.team p{font-size:14px;color:var(--muted)}
+.team p b{color:var(--fg)}
+.planb{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:22px;align-items:start;margin-top:22px;border:1px solid var(--gold);border-radius:10px;background:var(--surface);padding:18px 20px}
+.planb ul{margin:0;padding-left:20px;display:grid;gap:6px;color:var(--muted);font-size:14.5px}
+.planb li b{color:var(--fg)}
+.planb img{width:100%;height:auto;max-width:420px;justify-self:end;border:1px solid var(--line);border-radius:8px;background:#061011}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:500}
+td.y{color:var(--ok)}
+td.n{color:var(--crimson)}
+.tscroll{overflow-x:auto}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.rules{display:grid;gap:8px;padding-left:18px;margin:0}
+.rules li{color:var(--muted)}
+.rules li b{color:var(--fg)}
+footer{border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:14px;display:grid;gap:8px}
+
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;padding-block:36px 28px}
+  .hero img{justify-self:start;max-width:360px}
+  .three,.teams,.grid2,.planb{grid-template-columns:1fr}
+  .planb img{justify-self:start;max-width:360px}
+  .two{grid-template-columns:1fr}
+  .steps{grid-template-columns:repeat(4,1fr)}
+  .stepbody{grid-template-columns:1fr}
+  .stepbody aside{border-left:0;border-top:1px solid var(--line);padding:14px 0 0}
+  .emb .fields,.board .emb .fields{grid-template-columns:1fr}
+}
+@media (max-width:480px){ .steps{grid-template-columns:repeat(2,1fr)} }
+@media (prefers-reduced-motion:no-preference){ .eph,.modal,.dm{animation:in .18s ease-out} }
+@keyframes in{from{opacity:.4;transform:translateY(3px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<nav class="top"><div class="wrap">
+  <span class="brand">LAW · Shadowfront sign-ups</span>
+  <span class="links">
+    <a href="#week">The week</a><a href="#member">Members</a><a href="#card">Your card</a>
+    <a href="#board">Leaders' board</a><a href="#plan">The plan</a><a href="#rules">Rules</a>
+  </span>
+</div></nav>
+
+<div class="wrap">
+<header class="hero">
+  <div class="copy">
+    <span class="eyebrow">Prime Radiant · Foundation: Galactic Frontier · playground preview</span>
+    <h1>Shadowfront sign-ups, tap by tap</h1>
+    <p class="lede">One post in Discord where members sign up. One board where the week's managers build the two squads. An R4 or R5 approves before anyone sees a spot. Then every placed member gets a card with their team, their role, Plan B for when we're ganged up, and three maps. This page lets you tap through all of it.</p>
+    <div class="pills"><span class="pill on">Everything a member taps answers privately</span><span class="pill">A leader approves before anyone sees a spot</span><span class="pill">The plan comes from our guide</span></div>
+    <div class="three">
+      <div><b>Members</b><span>I'm in, I'm out, My spot, My record. Four buttons on the week's post.</span></div>
+      <div><b>Managers</b><span>Sort, Auto-fill, Assign, Submit. One board, kept up to date by the bot.</span></div>
+      <div><b>Approver</b><span>An R4 or R5 taps Approve &amp; publish. Approving your own week is allowed and marked on the board.</span></div>
+    </div>
+  </div>
+  <img src="maps/plan.png" alt="The battlefield from our outpost in the north-east: the Central Vault lit for the Anchor team, two Lessers for Home, two rival Lessers for Side Pressure" width="540" height="630">
+</header>
+
+<!-- ───────── 1. The week ───────── -->
+<section class="ch" id="week">
+  <div class="head"><span class="eyebrow">1 · The week</span><h2>Seven steps, from Open to Wrap up</h2>
+  <p class="lede">Tap a step. The order is real: nothing is shown to members until step 6, and step 7 ends the week on its own.</p></div>
+  <div class="steps" id="steps"></div>
+  <div class="stepbody" id="stepbody"></div>
+</section>
+
+<!-- ───────── 2. As a member ───────── -->
+<section class="ch" id="member">
+  <div class="head"><span class="eyebrow">2 · As a member</span><h2>The post in #shadowfront</h2>
+  <p class="lede">This is the only public message of the week. Tap its buttons: every answer comes back privately, and some arrive as a DM. Use the narrator buttons to move the week along.</p></div>
+  <div class="two">
+    <div>
+      <div class="dc" id="m-post"></div>
+      <div class="narr" style="margin-top:12px"><span class="lab">Narrator</span>
+        <button class="n" id="m-publish">Leaders publish the lineup</button>
+        <button class="n" id="m-reset">Start the week over</button></div>
+    </div>
+    <div class="prose">
+      <p><b>I'm in</b> asks two things: your power as the game shows it (52.7M, 1.2B, even "52,7M") and your Energy Core level. The battlefield needs Core 15, so below that you aren't signed up and the bot says so. You go to the back of the line, and the line decides who gets a spot.</p>
+      <p><b>Changed your mind?</b> I'm out takes you off the list. Tap I'm in again and you join at the back.</p>
+      <p><b>My spot</b> says "not yet" with your place in line until leaders publish, then shows your card. <b>My record</b> is your own attendance, nobody else's.</p>
+      <div class="note">Spots go first come, first served. Power decides which squad, team and role you get, not whether you get one. Sign up early.</div>
+      <p class="small muted">The power field is prefilled when the bot already knows you from a registered info card. Sign-ups close by themselves at the deadline on the post.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 3. Your card ───────── -->
+<section class="ch" id="card">
+  <div class="head"><span class="eyebrow">3 · Your card</span><h2>What arrives by DM when the lineup is published</h2>
+  <p class="lede">One card: your team's plan, your own role inside it, what to do if things change, Plan B for when we're ganged up, and three maps. The buttons under it explain the battle without leaving Discord. Pick any role to see its card.</p></div>
+  <div class="two">
+    <div>
+      <div class="tabs" id="c-teams"></div>
+      <div class="chips" id="c-roles" style="margin-bottom:12px"></div>
+      <div class="dc" id="c-card"></div>
+    </div>
+    <div class="prose">
+      <p><b>Your team</b> is one of three in each squad: Greater Anchor (10), Home Lessers (5) or Side Pressure (5). The field says where the team goes, its job, what it does at an Awakening, and when to stay or come back.</p>
+      <p><b>Your role</b> is your slot inside that team, from the guide's Teams page: where you stand and how you play. The close-up map rings your spot; the second map shows your team's Vaults from our outpost.</p>
+      <p><b>If / when</b> covers the calls that change the plan: a lost Vault, an Awakening, a recall.</p>
+      <p><b>Plan B</b> is the Lessers plan, for when two guilds gang up on our Central: the squad's three commanders call it and everyone switches to the Lessers, closest to our outpost first. Every card carries it under If / when, with a third map showing the Lessers in the order we take them; commanders get the version that calls it. The <b>Ganged up</b> button explains the whole plan.</p>
+      <p><b>Commanders</b> (⭐) get an extra field on signals. Subs get a shorter card with the whole squad's plan and Plan B; the bench gets a thank-you with their place in line.</p>
+      <div class="note">Maps on this page are drawn from the north-east corner. The real card uses the corner the managers set for that week, and says so in its footer.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 4. The leaders' board ───────── -->
+<section class="ch" id="board">
+  <div class="head"><span class="eyebrow">4 · Leaders' board</span><h2>The desk, then the board</h2>
+  <p class="lede">Leaders work in their own forum. Open a sign-up from its pinned Desk post; the week gets its own post holding the board, tagged with its status. This is a working copy of the real controls with 64 made-up members: Auto-fill, Assign and the approval rule behave as the bot does.</p></div>
+  <div class="narr" style="margin-bottom:12px"><span class="lab">Tap as</span>
+    <button class="n on" data-actor="you">you (opened the week)</button>
+    <button class="n" data-actor="r4">R4 Alpha (another leader)</button>
+    <button class="n" data-actor="admin">Admin</button>
+    <span class="lab" style="margin-left:6px">Narrator</span>
+    <button class="n" id="b-drop">A placed member taps I'm out</button>
+    <button class="n" id="b-reset">Start over</button>
+  </div>
+  <div class="two">
+    <div>
+      <div class="dc" id="b-desk"></div>
+      <div class="dc board" id="b-board" hidden style="margin-top:12px"></div>
+    </div>
+    <div class="prose">
+      <div class="dm" id="b-side"><div class="dh">What leaders see privately</div><div class="dmsg muted">Replies to your taps, the desk ping and manager DMs land here.</div></div>
+      <p><b>Sort</b> changes the pool's order: sign-up order, power or attendance. <b>Auto-fill</b> takes the first 60 in that order and places them by power: the strongest 20 mains split across the squads (balanced, or stacked into A), then teams 10 / 5 / 5, then roles in the guide's order. One ⭐ per team, its caller.</p>
+      <p><b>Assign</b> places anyone by hand: squad, slot, team, role, commander. Hand placements (✎) survive every later Auto-fill. The limits hold: 20 mains, 10 subs, 3 commanders a squad.</p>
+      <p><b>Submit</b> refuses while anyone is unplaced or a limit is broken, and says why. It pings R4 and R5 under the board. <b>Approve &amp; publish</b> is open to any R4 or R5. If the approver drafted or submitted the week, the board says Self-approved. Try it as yourself, then as R4 Alpha.</p>
+      <p><b>After publish</b> Auto-fill and the split are locked. Assign still works and DMs whoever it moves. A dropout leaves their role open instead of shuffling the team; a sub assigned in takes it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 5. The plan ───────── -->
+<section class="ch" id="plan">
+  <div class="head"><span class="eyebrow">5 · The plan</span><h2>Three teams a squad, one commander each</h2>
+  <p class="lede">The bot doesn't invent strategy. Every job, role and call on the cards comes from the guild guide's Teams page. Here is the shape of it, then Plan B for when we're ganged up.</p></div>
+  <div class="teams" id="teams"></div>
+  <div class="grid2" style="margin-top:22px">
+    <div class="prose">
+      <h3>Why 10 / 5 / 5</h3>
+      <p class="muted">A Central Vault pays +2 Battle Points a second, the most of any Vault, and is the hardest to hold: the strongest fleets go there. A Lesser pays +1 a second and falls to a smaller group, so two Lessers earn as much as a Central. Side Pressure makes the rival choose: ignore it and lose points, answer it and leave our Central.</p>
+      <h3>Commanders</h3>
+      <p class="muted">Up to three a squad, from the mains: one per team, the one who calls it (Commander, Lesser Captain, Strike Lead). Auto-fill gives each team's ⭐ to its strongest member; managers move it to whoever leads best. In battle they drop Attack / Protect / Rally signals, call Awakening moves, time takedowns and recall the side group when our Central count falls.</p>
+    </div>
+    <div class="prose">
+      <h3>Our corner</h3>
+      <p class="muted">Each guild starts at an outpost in one corner. Ours is blue on the map. Which Vaults are ours depends on the corner, so the managers set it when they open the week or later on the board, and My spot shows exact Vault numbers from then on.</p>
+      <div class="tscroll"><table>
+        <tr><th>Corner</th><th>Central</th><th>Home</th><th>Side (rival)</th></tr>
+        <tr><td>NE</td><td>II</td><td>IV + V</td><td>VI, VII (SE)</td></tr>
+        <tr><td>SE</td><td>II</td><td>VI + VII</td><td>V, IV (NE)</td></tr>
+        <tr><td>NW</td><td>I</td><td>II + III</td><td>I, VIII (SW)</td></tr>
+        <tr><td>SW</td><td>I</td><td>I + VIII</td><td>II, III (NW)</td></tr>
+      </table></div>
+    </div>
+  </div>
+  <div class="planb" id="planb">
+    <div class="prose">
+      <span class="eyebrow">Plan B · the Lessers</span>
+      <h3>If we're ganged up, the commanders call Plan B</h3>
+      <p class="muted">Strategies change mid-battle. We open with the three teams; if two guilds gang up on our Central, the squad's three commanders call Plan B and everyone switches to the Lessers. Roles are assigned ahead of time, so every card carries both plans.</p>
+      <ul>
+        <li><b>Who calls it.</b> The 3 commanders decide how many groups and which Lessers; everyone follows them and their orders on the Vaults. Not on the same page? Follow the largest group.</li>
+        <li><b>Which Lessers.</b> Before the Awakenings, the closest to our outpost first (from NE: V and IV, then VI and III), then the commanders' calls. Once Awakenings start, the awakened Lessers and our closest.</li>
+        <li><b>The Central</b> is given up unless there's an opening and the commanders say so.</li>
+        <li><b>Your job.</b> Same teammates, one target: the weakest ships inside the called Lesser. Not as strong? Park 2 of your 3 fleets just inside the Vault's edge so they count, and fight with your strongest beside your teammates.</li>
+      </ul>
+      <p class="small muted">On the card: a Plan B field after If / when (commanders get the version that calls it), a third map, and the Ganged up button. The same plan is on the guide site's Teams page.</p>
+    </div>
+    <img src="maps/planb.png" alt="Plan B from the north-east: Lessers V and IV lit as nearest, VI and III as then, Central II dimmed and marked given up, the far side dark" width="540" height="630" loading="lazy">
+  </div>
+</section>
+
+<!-- ───────── 6. Rules ───────── -->
+<section class="ch" id="rules">
+  <div class="head"><span class="eyebrow">6 · Rules the bot keeps</span><h2>Who can do what, and what never happens</h2></div>
+  <div class="grid2">
+    <div class="tscroll"><table>
+      <tr><th>Action</th><th>Member</th><th>This week's managers</th><th>Another R4 / R5</th><th>Admin</th></tr>
+      <tr><td>I'm in, I'm out, My spot, My record</td><td class="y">yes</td><td class="y">yes</td><td class="y">yes</td><td class="y">yes</td></tr>
+      <tr><td>Open a sign-up</td><td class="n">no</td><td class="y">any leader</td><td class="y">yes</td><td class="y">yes</td></tr>
+      <tr><td>Read the board</td><td class="n">no</td><td class="y">yes</td><td class="y">yes</td><td class="y">yes</td></tr>
+      <tr><td>Sort, Auto-fill, Assign, Close, Submit, corner</td><td class="n">no</td><td class="y">yes</td><td class="n">refused</td><td class="n">refused</td></tr>
+      <tr><td>Managers, Wrap up</td><td class="n">no</td><td class="y">yes</td><td class="n">refused</td><td class="y">yes</td></tr>
+      <tr><td>Approve &amp; publish</td><td class="n">no</td><td class="y">yes, marked Self-approved</td><td class="y">yes</td><td class="y">yes</td></tr>
+      <tr><td>In game: Deployment Setup</td><td class="n">no</td><td colspan="3">an R4 or R5 enters squads, times and commanders by hand before the game's deadline</td></tr>
+    </table></div>
+    <div class="prose">
+      <ul class="rules">
+        <li><b>The game's limits.</b> Two squads, each up to 20 mains and 10 subs: 60 spots. Three commanders a squad, from the mains. Energy Core 15 to enter.</li>
+        <li><b>First come, first served.</b> Spots go by sign-up time. Power decides squad, team and role.</li>
+        <li><b>Private by design.</b> Every tap answers only you; the bot's own messages come by DM. The week's post and a one-line "spots are out" notice are the only public messages.</li>
+        <li><b>Approval.</b> An R4 or R5 approves before anyone sees a spot. Approving your own week is allowed, and the board says Self-approved. Any change after Submit sends it back to the managers.</li>
+        <li><b>Deadlines.</b> Sign-ups close by themselves at the deadline; Reopen after it runs them until the first battle. The week wraps up 3 hours after Squad B's battle, or sooner with Wrap up.</li>
+        <li><b>History.</b> Attendance after each battle builds each member's record. Leaders see it as squares on the board; you see only your own.</li>
+        <li><b>What the bot never does.</b> It never touches the game: no automation, no reading game files, nothing the game's terms forbid. It knows only what players tell it. Names and powers stay inside leadership.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Built for the [LAW] guild's Discord. Checked offline on 4 November 2026: 131 scenario checks, none failing. Running in the playground server; the guild's own server comes after the leaders' play-test.</p>
+  <p>The members on this page are the playground's made-up ones. Strategy texts are the guild guide's: <a href="https://jeeemomega.github.io/shadowfront-guide/">jeeemomega.github.io/shadowfront-guide</a>.</p>
+</footer>
+</div>
+
+<script>
+/* ── the bot's own texts (shadowfront.py), with the north-east corner's names ── */
+const W = {central:'Central II', far:'Central I', A:'Lesser IV (A)', B:'Lesser V (B)', side0:'Lesser VI', side1:'Lesser VII', rival:'the SE guild', nearest:'Lessers V and IV', then:'Lessers VI and III'};
+const fmt = s => s.replace(/\{(\w+)\}/g, (_, k) => W[k] ?? '{'+k+'}');
+const TEAMS = {anchor:{name:'Greater Anchor', cap:10}, home:{name:'Home Lessers', cap:5}, side:{name:'Side Pressure', cap:5}};
+const TEAM_KEYS = ['anchor','home','side'];
+const ROLES = {
+  anchor:{CMD:'Commander', H1:'Hunter 1', H2:'Hunter 2', P1:'Pack 1', P2:'Pack 2', P3:'Pack 3', R1:'Rim 1', R2:'Rim 2', R3:'Rim 3', R4:'Rim 4'},
+  home:{CAP:'Lesser Captain', GB:'Guard B', GA:'Guard A', RB:'Rim B', RA:'Rim A'},
+  side:{SL:'Strike Lead', S2:'Striker 2', S3:'Striker 3', SC:'Scout', HD:'Holder'}};
+const CALLERS = ['CMD','CAP','SL'];
+const PLAN = {
+  anchor:{job:'Hold the circle. Keep enough surviving fleets inside it to defend it. No target called? Hit the weakest enemy inside the circle.',
+    wake:"If the far Central is marked and achievable, go. If it's a wall, keep ours and help nearby marked targets.",
+    stay:"Stay. You're the main anchor; only an Awakening call moves you."},
+  home:{job:"Take both and hold them. Stay in range; no unnecessary chases. It's the steadiest job on the field.",
+    wake:'Move only to an adjacent marked Lesser, unless a commander redirects you. Keep a route back.',
+    stay:'Stay on our two Lessers.'},
+  side:{job:"Make the rival choose. If they ignore you, capture or neutralize their Lesser when it's worth the time. If they answer, their ships have left our Central: keep them busy and report defenders moving.",
+    wake:'Reinforce nearby marked Lessers. Go farther only when two or three marked targets make the trip worth it.',
+    stay:"Come back at once when our Central count starts falling, the target costs more than it's worth, or the side fight isn't producing anything."}};
+const WHERE = {anchor:'Central Vault II: the big II on the mini-map.', home:'Lesser Vaults IV and V: the small ones nearest our outpost.', side:"Lesser VI, then Lesser VII: the SE guild's nearest Lessers."};
+const HUNTER = 'Spread out in your own zone and pick off the weakest ships around you. Group up only on a whale.';
+const HUNTER_IF = m => "**Awakening at {far}:** on the Commander's call, you and "+m+" may back up our teams at the nearby Lessers. No call: stay.";
+const PACK = ['With the other two of the pack, 9 ships in one block, inside the circle on the side away from {far}: between our spawn and {rival}.',
+  'Move as one pack. Take out the weakest ship near you, one by one, so our count stays higher than theirs.',
+  "**Awakening at {central}, lost with under 4:00 left:** attack the Vault until it's almost down, never finish it. Take it out on the Commander's call (about 2:00 to 1:30 left), then back to the weaker ships in the circle."];
+const RIM_A = ["Just inside the circle's edge, on our spawn side. The four Rim spots run along that arc; the map rings yours.",
+  "Park your 2 weakest fleets just inside the edge: they still count. Your strongest fleet picks off damaged ships near you. Don't chase past the dashed line or out of the circle.",
+  '**We lose control:** keep every fleet alive inside the circle; our higher count takes it back.'];
+const GUARD = ['Fight with all 3 fleets inside your Lesser. Take out the weakest enemy ships one by one, and never leave the circle.',
+  "**We lose your Lesser:** with the Captain, take out the garrison right away.\n**The Lesser next to yours awakens:** if you're the Guard nearest it, branch over with your fighting fleets on the Captain's call. Come back once it's settled, or if a home count drops."];
+const RIM_H = ["Park your 2 weakest fleets there: they count. Your strongest fleet finishes damaged ships nearby. Don't chase.",
+  '**We lose your Lesser:** keep your fleets alive inside it to rebuild the count.\n**Any Awakening:** your parked fleets stay where they are.'];
+const STRIKER_IF = "**They answer:** stay alive near the rim and keep pulling them off {central}. Don't trade fleets for nothing; if a whale comes, back to the rim and keep the count.\n**Called back:** your fighting fleets go home with the Strike Lead.";
+const ROLE_TEXT = {
+  CMD:['In the middle of the circle at {central}, by the Vault, with all 3 fleets.',
+    'You call the targets for Team 1. Between calls, pick off the weakest ships near you; group up only on a whale.',
+    "**We lose control:** call their garrison down at once; our higher count takes it back.\n**Awakening at {central}, lost with under 4:00 left:** the team brings the Vault almost down. Call the takedown at about 2:00 to 1:30 left, then the recapture.\n**Awakening at {far}:** if the other two guilds are there in force, nobody rushes over. You may send H1 + H2 to back up our nearby Lessers; everyone else stays."],
+  H1:['Inside the circle, on the side facing {rival}. That zone is yours; H2 has the side facing {far}.', HUNTER, HUNTER_IF('H2')],
+  H2:['Inside the circle, on the side facing {far}. That zone is yours; H1 has the side facing {rival}.', HUNTER, HUNTER_IF('H1')],
+  P1:PACK, P2:PACK, P3:PACK, R1:RIM_A, R2:RIM_A, R3:RIM_A, R4:RIM_A,
+  CAP:['At {B}, the home Lesser next to the rival, with all 3 fleets, on the side facing {rival}.',
+    'You call the team. If {A} is attacked, swing your fleets over to it, then come back.',
+    "**We lose a home Lesser:** you and its Guard take out the garrison at once; nobody leaves the other Lesser unless you call it.\n**The Lesser next to ours awakens:** on your call, you and the Guard nearest it branch over with your fighting fleets. Every parked fleet stays home.\n**A home Lesser awakens and we lose it with under 4:00 left:** bring it almost down, call the finish at about 2:00 to 1:30 left, then recapture.\n**Both Lessers under attack:** ask Team 3 to come back. Team 1 stays on the Central."],
+  GB:['Inside {B} with all 3 fleets, beside the Captain.', ...GUARD],
+  GA:['Inside {A} with all 3 fleets.', ...GUARD],
+  RB:['Just inside the edge of {B}, on our spawn side.', ...RIM_H],
+  RA:['Just inside the edge of {A}, on our spawn side.', ...RIM_H],
+  SL:['By the Vault of {side0}, with all 3 fleets. Then {side1}.',
+    'Hit the garrison and the weakest defenders. You call the team: capture, hold, move on, or go back.',
+    "**They ignore us:** capture it, then take the fighting fleets on to {side1}; the Holder and the parked fleets stay.\n**The Commander calls us back** (our count on {central} is falling): take every fighting fleet back to Team 1 at once.\n**A rival Lesser near you awakens with under 4:00 left:** bring it almost down and call the finish at about 2:00 to 1:30 left."],
+  S2:['Inside the circle at {side0}, on the side facing {central}.', 'Catch defenders as they arrive from {central} and take out the weakest first.', STRIKER_IF],
+  S3:['Inside the circle at {side0}, on the side facing the outpost of {rival}.', 'Catch defenders as they arrive and take out the weakest first.', STRIKER_IF],
+  SC:['At {side0}: park 2 fleets inside, and put your strongest fleet at the edge facing {central}.', 'Watch {central}. The moment defenders move, call out **defenders moving** to the team and the Commander.', STRIKER_IF],
+  HD:['At {side0}: park your 2 weakest fleets inside, on our side. They build the count for the capture.', 'Your strongest fleet finishes damaged ships nearby.',
+    "**Once it's ours:** you and every parked fleet stay and keep counting while the fighters move on to {side1}.\n**Called back:** your fighting fleet goes home; if we own it, your parked fleets stay."]};
+const SUB_JOB = 'Be online at the battle time. You go in when a main exits the battlefield permanently, and your commander tells you which team to fill. The map shows the whole squad\'s plan.';
+const COMMANDER = 'Signals: Attack, Protect, Rally. Tap one to drop it on your selected Flagship, or hold and drag it onto the mini-map. Every ally gets a notice and a map marker. Markers show a 3:30 timer, so re-issue every few minutes.';
+const EVERYONE = "Field all 3 fleets (4 at Energy Core 33+) and park them just inside the circle's rim: every surviving ship adds to our count, and damage doesn't move it. Knocked out? You respawn at our outpost with a speed boost; go straight back. Never exit permanently: it frees your slot for good.";
+const PLAN_B_NAME = "If we're ganged up: Plan B, the Lessers";
+const PLAN_B = {
+  member: "We open with the plan above. Ganged up (two guilds on {central})? The commanders call **Plan B** and we switch to the Lessers.\n**Who calls it:** the squad's 3 commanders decide how many groups and which Lessers. Follow their calls and nothing else. Lost track? Join the largest group.\n**Which Lessers:** before the Awakenings, the closest to our outpost first: {nearest}, then {then}. After that, the commanders' calls. Once Awakenings start: the awakened Lessers and our closest.\n**{central}:** given up, unless there's an opening and the commanders call it.\n**Your job:** same teammates, one target: the weakest enemy ships inside the called Lesser. Not as strong? Park 2 of your 3 fleets just inside the Vault's edge so they count, and fight with your strongest beside your teammates.",
+  commander: "We open with the plan above. Ganged up (two guilds on {central})? You three call **Plan B** and the squad switches to the Lessers.\n**You three decide** how many groups and which Lessers. Everyone follows your calls; anyone lost joins the largest group. Drop a signal on each called Lesser so nobody has to guess.\n**Which Lessers:** before the Awakenings, the closest to our outpost first: {nearest}, then {then}. After that, your calls. Once Awakenings start: the awakened Lessers and our closest.\n**{central}:** given up, unless there's an opening and you call it.\n**Everyone's job:** the weakest enemy ships inside the called Lesser. Weaker fleets park 2 of 3 just inside the Vault's edge to count; the strongest fight beside their teammates."};
+const LEARN = {
+  awakening:['Awakening', "From minute 10, two Lesser Vaults and one Central Vault awaken every 5 minutes, for 4:30. They show an orange timer on the mini-map. Whoever owns the Vault when it hits 0:00 gets a large amount of Battle Points.\n\n**Rival owns a marked Vault?** Don't knock it out early: they'd have time to retake it. Bring its garrison low, stack our fleets, and finish it on the commander's call.\n**Before you go:** allow for travel, the garrison, occupation and the trip back. A solid local hold beats a late arrival.\n**Repair Modules** spawn near a Vault about to awaken. Collect them to fix minor damage."],
+  vault:['Taking a Vault', "Inside a Vault's circle, the guild with the most surviving fleets fills the occupation bar. The bigger our lead over second place, the faster it fills. Damage doesn't move the count; removing ships does, so clear weak enemy fleets inside the circle first.\n\nA full bar makes the Vault ours. Rivals can then attack its garrison; if the garrison falls, the Vault goes neutral.\nTap a Vault to see its bar and each guild's fleet count."],
+  respawn:['Knocked out', "Ships are never destroyed here. A knocked-out fleet respawns at our outpost with a temporary speed boost: go straight back to your job.\n\nOur outpost is safe: nobody can attack you inside it, and it slowly heals you.\nKeep losing fights? You get **Unyielding Will**, a big boost to your fleet's base stats. Keep going.\nLeaving for a moment is fine. Exiting permanently frees your slot, and you can't come back."],
+  score:['How we score', "Each Vault we own pays Battle Points every second: Central +2/s, Lesser +1/s, so two Lessers earn as much as one Central. Awakening bonuses come on top. Battle Points decide the guild's place; a guild with 0 gets no ranking rewards.\n\nYour personal **Contribution** (damage, 50,000 for the final hit on a rival's Vault, 5,000 to everyone on the field each time we take one) decides individual rewards. It doesn't add to Battle Points: kills don't win this event, Vaults do."],
+  signals:['Signals', "Commanders drop three markers: ⚔️ **Attack here**, 🛡️ **Protect here**, 🚩 **Rally here**. You get a notice and the marker shows on your mini-map.\n\nAttack: go hit that target. Protect: get inside that circle and hold. Rally: gather there for the next move. No marker for you? Stay on your job."],
+  planb:['Ganged up', "Strategies change mid-battle. We open with the three teams; if two guilds gang up on our Central, the commanders call **Plan B** and we switch to the Lessers. Your card carries both plans, so you know your place in each before the battle.\n\n**Who calls it:** the squad's 3 commanders decide how many groups and which Lessers. Everyone follows them and their calls on the Vaults, nothing else. Not on the same page? Follow the largest group.\n**Which Lessers:** before the Awakenings, the closest to our outpost first (our two home Lessers, then the two beside them), then the commanders' calls. Once Awakenings start, the awakened Lessers and our closest.\n**The Central** is given up unless there's an opening and the commanders say so.\n**Your job:** same teammates, one target: the weakest enemy ships inside the called Lesser. Not as strong? Park 2 of your 3 fleets just inside the Vault's edge so they count towards our numbers, and fight with your strongest beside your teammates.\n**Why:** two Lessers pay as much as one Central, and a Lesser falls to a smaller group."]};
+const LEAD = {
+  flow:['How it works', "**1. Open.** Tap **Open a sign-up**: title, both squads' battle times (UTC), when sign-ups close. Pick our starting corner then, or later on the board. You become this week's manager.\n**2. Members sign up** on the post in #shadowfront with their power and Energy Core level (15+ to enter). Every answer they get is private. Sign-ups close by themselves at the deadline; **Reopen** after it runs them until the first battle.\n**3. Managers draft** on the board: Sort, Auto-fill, Assign. Only managers change the draft; every leader can read it. Add co-managers with **Managers**.\n**4. Submit for approval** once everyone has a spot. An R4 or R5 looks it over and taps **Approve & publish**: another leader when there is one, or the manager running the week alone (the board then says Self-approved). Any change after Submit (Auto-fill, Assign, a placed member dropping) sends it back to the managers.\n**5. Published.** Every sign-up gets a DM: placed members their card with map and job, the bench a thank-you with their place in line. **My spot** shows the same. The approver sees who the DMs didn't reach. From here Auto-fill is locked: **Assign** moves people and DMs them.\n**6. In game,** an R4 or R5 enters the same squads, battle times and commanders in the game's Deployment Setup before its deadline. The bot can't do that part, and if nothing is set in time the game fills Squad One by itself.\n**7. Wrap-up.** 3 hours after Squad B's battle the week ends by itself, or a manager taps **Wrap up** sooner. The board turns read-only and the public card shrinks to **My record**; in the forum version the week's post is tagged Done and locked."],
+  spots:['Squads & spots', "**The game's limits:** 2 squads, each up to 20 mains and 10 subs: 60 spots. Each squad fights at its own battle time. Entry needs Energy Core 15.\n**Who gets a spot:** first come, first served by sign-up time. Sort by power or attendance to see the pool differently; **Auto-fill** takes the top 60 in whatever sort is on, then places them by power.\n**Balanced or stacked?** The game picks opponents by the total power of each confirmed squad. Stack the strongest 20 into A and A meets a stronger enemy while B meets a weaker one. Balanced gives two fair fights; stacked can make sense when one battle time matters more.\n**Hand placement** (✏️ on the board) always beats Auto-fill: running it again never moves a hand-placed member. It keeps to the limits (20 mains, 10/5/5 teams, 10 subs, 3 commanders a squad): a hand placement over them can't be saved, and one that crowds out Auto-fill's picks waits for Auto-fill to re-deal them before Submit goes through.\n**History** (▣ fought, ▢ no-show) fills in from attendance after each battle."],
+  teams:['The three teams', "Each squad's 20 mains split three ways. The plan is the guild guide's.\n\n**Greater Anchor (10).** Takes and holds our nearest Central Vault. A Central pays +2 Battle Points a second, the most of any Vault, and holding it all battle is the backbone of our score. The strongest fleets go here: a Vault goes to whoever has the most surviving ships in its circle.\n\n**Home Lessers (5).** Hold our two nearest Lesser Vaults. +1/s each, so together they earn as much as a Central, and they sit next to our safe outpost. Steady members who stay put.\n\n**Side Pressure (5).** Hit the nearest Lessers of the guild fighting us for our Central. If they ignore it, we take their points; if they answer, their ships leave our Central. Mobile, experienced players who know when to come back.\n\n**Why 10/5/5:** the Central is the hardest to hold and worth the most; a Lesser falls to a smaller group.\n\n**Roles inside each team** (the guide's Teams page). Anchor: Commander (calls targets), Hunters H1–H2, Pack P1–P3, Rim R1–R4. Home Lessers: Captain, Guards A/B, Rims A/B. Side Pressure: Strike Lead, Strikers S2–S3, Scout, Holder. Auto-fill hands them out by power, as the guide does; the caller's spot (Commander, Captain, Strike Lead) goes to a ⭐ in the team first. Pin anyone's role with ✏️ Assign. Each card shows the member's own spot in the circle.\n**Roles hold at publish:** if someone drops, their spot stays open instead of everyone moving up. Assign a sub into the team and they take it."],
+  commanders:['Commanders', "Up to 3 per squad, chosen from the mains (the game's limit): one per team, the one who calls it (Commander for Greater Anchor, Lesser Captain for Home Lessers, Strike Lead for Side Pressure). Auto-fill gives each team's ⭐ to its strongest member; move it by hand to whoever leads best.\n\n**Pick for:** being on voice, knowing the plan, staying calm. Power matters less.\n**In battle they:** drop Attack / Protect / Rally signals (tap one, or drag it onto the mini-map); call Awakening moves; time takedowns; recall the side group when our Central count falls. Markers show a 3:30 timer, so re-issue them.\n**In game,** commanders are set in Deployment Setup before the event begins."],
+  corner:['Our corner', "Each guild starts at an Outer Rim Outpost in one corner. Ours shows blue; the others go yellow, red and purple clockwise. Which Vaults are ours depends on the corner:\n```\nNE  Central II  Home IV + V    Side VI, VII (SE)\nSE  Central II  Home VI + VII  Side V, IV  (NE)\nNW  Central I   Home II + III  Side I, VIII (SW)\nSW  Central I   Home I + VIII  Side II, III (NW)\n```\nSet it when you open the sign-up, or on the board any time. **My spot** then shows each member their exact Vaults and map; DMs already sent keep the general version."],
+  calls:['Battle calls', "Short calls from the guild guide, for voice or game chat:\n• Anchor, hold the Central.\n• Home Lessers, hold our two.\n• Pressure their Lesser; report defenders moving.\n• Clear the weak fleet on the called side.\n• Awakening marked: branch one segment closer.\n• Return now; our main count is falling.\n• Take it low; don't finish it until my call.\n• Finish it now.\n\n**Why time takedowns:** knock out a rival's garrison early and they have time to retake the Vault and collect the Awakening bonus at 0:00. Bring it low, stack our fleets, finish it late.\n**Why counts, not kills:** damage doesn't move a Vault's count; removing ships does. Clear weak fleets inside the circle first."],
+  bench:['Subs, bench & history', "**Subs (10 per squad)** are online at the battle time and go in when a main exits permanently. Tell them which team to fill.\n**Bench** is everyone past the 60. They get a private thank-you with their place in line, and they're first to call if someone drops.\n**Someone drops after publish?** The managers get a DM with that squad's subs, and the board lists them under *Dropped out after placing*. Move a sub or bench member up with **Assign**; they get a fresh DM.\n**History** comes from attendance: who fought and who didn't. Leaders see it as squares on the board; members see only their own (**My record**)."]};
+const STATUS = {open:'sign-ups open', closed:'sign-ups closed', awaiting:'awaiting approval', published:'published', done:'done'};
+const SORTS = {signup:'sign-up order', power:'power', attendance:'attendance'};
+const SQUADS = {balanced:'balanced squads', stacked:'strongest 20 in Squad A'};
+const CHOICES = {};
+for (const sq of ['A','B']) { for (const k of TEAM_KEYS) CHOICES[sq+':main:'+k] = 'Squad '+sq+' · '+TEAMS[k].name; CHOICES[sq+':sub:'] = 'Squad '+sq+' · sub'; }
+CHOICES[':bench:'] = 'Bench'; CHOICES['none'] = 'Back to auto-fill (unplaced)';
+const TITLE = 'Shadowfront · Sat Nov 07';
+const T_A = 'Saturday, 7 November 2026 18:00 UTC', T_B = 'Saturday, 7 November 2026 23:00 UTC', T_DL = 'Friday, 6 November 2026 18:00 UTC';
+const LOCKED = '**Published:** the lineup is locked so nobody moves without hearing it. ✏️ Assign still works and DMs everyone it moves.';
+const VOIDED = " It had been submitted, so it's back with the managers: Submit again when it's ready.";
+
+/* ── helpers ── */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function md(s){
+  let t = esc(s);
+  t = t.replace(/```\n?([\s\S]*?)```/g, (_, c) => '<pre>'+c.trim()+'</pre>');
+  t = t.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\*(.+?)\*/g, '<i>$1</i>').replace(/`([^`]+)`/g, '<code>$1</code>');
+  return t;
+}
+const fmtPower = p => !p ? '?' : p >= 1e9 ? (p/1e9).toFixed(2)+'B' : (p/1e6).toFixed(1)+'M';
+function parsePower(text){
+  let t = text.trim().toUpperCase().replace(/\s+/g, '');
+  if (/^\d+,\d{1,2}[KMB]?$/.test(t)) t = t.replace(',', '.');
+  const m = /^(\d+(?:\.\d+)?)([KMB]?)$/.exec(t.replace(/,/g, ''));
+  if (!m) return null;
+  let n = parseFloat(m[1]) * ({'':1, K:1e3, M:1e6, B:1e9})[m[2]];
+  if (n < 10000) n *= 1e6;
+  return n > 0 && n <= 1e10 ? Math.round(n) : null;
+}
+const squares = h => h.map(f => f ? '▣' : '▢').join('') || 'new';
+function recordText(h){
+  if (!h.length) return 'No battles on record yet. History starts fresh this week and builds from attendance after each battle.';
+  return 'Played '+h.filter(Boolean).length+' of your last '+h.length+':\n'+h.map((f, i) => (f ? '▣' : '▢')+' Shadowfront · demo week -'+(i+1)).join('\n');
+}
+const botHead = (chan, right) => `<div class="chan"><span>${chan}</span><span>${right || ''}</span></div>`;
+const msg = (inner, who='Prime Radiant', ts='today') => `<div class="msg"><div class="av">PR</div><div><div class="who"><span class="n">${who}</span><span class="bot">BOT</span><span class="ts">${ts}</span></div>${inner}</div></div>`;
+const eph = body => `<div class="eph"><div class="eh"><span class="eye">👁</span> Only you can see this</div><div class="eb">${body}</div></div>`;
+function embed(o){
+  let h = `<div class="emb">`;
+  if (o.title) h += `<div class="et${o.url ? ' link' : ''}">${o.title}</div>`;
+  if (o.desc) h += `<div class="ed">${o.desc}</div>`;
+  if (o.fields && o.fields.length) h += `<div class="fields">`+o.fields.map(f => `<div class="f${f.inline ? '' : ' full'}"><div class="fn">${f.name}</div><div class="fv">${f.value}</div></div>`).join('')+`</div>`;
+  if (o.image) h += `<img src="${o.image}" alt="${o.alt || ''}" loading="lazy">`;
+  if (o.foot) h += `<div class="foot">${o.foot}</div>`;
+  return h+`</div>`;
+}
+const learnButtons = id => `<div class="btns">`+Object.entries(LEARN).map(([k, [l]]) => `<button class="dbtn" data-learn="${k}" data-for="${id}">${l}</button>`).join('')+`</div><div id="${id}-learn"></div>`;
+function wireLearn(root){
+  root.querySelectorAll('[data-learn]').forEach(b => b.onclick = () => {
+    const [t, body] = LEARN[b.dataset.learn];
+    root.querySelector('#'+b.dataset.for+'-learn').innerHTML = eph(embed({title:t, desc:md(body)}));
+  });
+}
+
+/* ── the card, as card() builds it ── */
+function cardHTML(o, id){
+  if (o.slot === 'bench')
+    return embed({title:TITLE+' · not this time', desc:`All 60 spots are taken this time; you were #${o.place} of ${o.total} in line. You're next if someone drops, so keep an eye on your DMs. Thanks for signing up!`}) + learnButtons(id);
+  const t = o.squad === 'A' ? T_A : T_B;
+  const name = 'Squad '+o.squad+' · '+(o.team ? TEAMS[o.team].name : o.slot === 'sub' ? 'Substitute' : 'Main');
+  const star = o.commander ? ' · <b>Commander</b> ⭐' : '';
+  const foot = `You were #${o.place} of ${o.total} in line · the buttons below explain more`;
+  const planB = md(fmt(PLAN_B[o.commander ? 'commander' : 'member']));
+  if (o.team && o.role && ROLES[o.team][o.role]) {
+    const title = ROLES[o.team][o.role];
+    const [stand, play, when] = ROLE_TEXT[o.role].map(fmt);
+    const fields = [
+      {name:`Your team · ${TEAMS[o.team].name}`, value:`<b>Where you go:</b> ${WHERE[o.team]}\n<b>The job:</b> ${PLAN[o.team].job}\n<b>At an Awakening:</b> ${PLAN[o.team].wake}\n<b>Stay or come back:</b> ${PLAN[o.team].stay}`},
+      {name:`Your role · ${o.role} ${title}`, value:`<b>Where you stand:</b> ${stand}\n<b>How you play:</b> ${md(play)}`},
+      {name:'If / when', value:md(when)},
+      {name:PLAN_B_NAME, value:planB}];
+    if (o.commander) fields.push({name:'Commander', value:COMMANDER});
+    fields.push({name:'Everyone', value:EVERYONE});
+    return embed({title:TITLE+' · your spot', url:true, desc:`<b>${name} · ${o.role} ${title}</b>${star}<br>Battle ${t} (in 3 days)`, fields,
+        image:`maps/role_${o.role}.png`, alt:`Close-up of the ${TEAMS[o.team].name} circle with the ${o.role} spot ringed`, foot})
+      + embed({image:`maps/${o.team}.png`, alt:`The battlefield with ${TEAMS[o.team].name}'s Vaults lit`})
+      + embed({image:'maps/planb.png', alt:'Plan B: the Lessers closest to our outpost lit in order, the Central given up'})
+      + learnButtons(id);
+  }
+  const fields = [];
+  if (o.team) fields.push({name:'Where you go', value:WHERE[o.team]}, {name:'Your job', value:PLAN[o.team].job}, {name:'At an Awakening', value:PLAN[o.team].wake}, {name:'Stay or come back', value:PLAN[o.team].stay});
+  else fields.push({name:'Your job', value:o.slot === 'sub' ? SUB_JOB : "Your commander calls your team at the start. The map shows the whole squad's plan."});
+  fields.push({name:PLAN_B_NAME, value:planB});
+  if (o.commander) fields.push({name:'Commander', value:COMMANDER});
+  fields.push({name:'Everyone', value:EVERYONE});
+  return embed({title:TITLE+' · your spot', desc:`<b>${name}</b>${star}<br>Battle ${t} (in 3 days)`, fields,
+      image:o.team ? `maps/${o.team}.png` : 'maps/plan.png', alt:'The battlefield from our outpost', foot}) + learnButtons(id);
+}
+
+/* ── 1. the week ── */
+const STEPS = [
+  {k:'1 · Open', t:'A leader opens the week', who:'Any R4 or R5', body:"On the desk, <b>Open a sign-up</b> asks for a title, both squads' battle times in UTC and when sign-ups close. The bot posts the week's card in #shadowfront and the board as the week's own post in the leaders' forum, tagged with its status, then asks which corner we start from. Whoever opens it manages the week; they can add co-managers.", aside:['<b>Default times</b> point at the coming Saturday: Squad A 18:00, Squad B 23:00 UTC, sign-ups closing a day before A.', '<b>Corner</b> can wait: My spot shows every corner\'s Vaults until it is set.']},
+  {k:'2 · Sign up', t:'Members tap I\'m in', who:'Everyone with Energy Core 15', body:"The post asks for your power and Energy Core level. You get a private answer with your place in line and a DM receipt. Sign-ups close by themselves at the deadline, and the post always says when that is.", aside:['<b>Private.</b> Nobody sees who signed up except leadership on their board.', '<b>I\'m out</b> any time. Back in later means the back of the line.']},
+  {k:'3 · Draft', t:'Managers build the squads', who:'This week\'s managers', body:"On the board: <b>Sort</b> the pool (sign-up order, power, attendance), <b>Auto-fill</b> the 60 spots, <b>Assign</b> anyone by hand. The whole of leadership reads the same board; only the managers can change it.", aside:['<b>Auto-fill</b> never moves a hand-placed member (✎).', '<b>History squares</b> on every row: ▣ fought, ▢ no-show.']},
+  {k:'4 · Submit', t:'Submit for approval', who:'A manager', body:"Once everyone has a spot and nothing is over a limit, <b>Submit</b> flips the week to <i>awaiting approval</i> and pings R4 and R5 under the board. If something is still wrong, Submit refuses and lists why.", aside:['<b>Refused when</b> anyone is unplaced, a squad or team is over its limit, or nobody signed up.']},
+  {k:'5 · Approve', t:'A leader approves', who:'An R4 or R5, ideally not the one who drafted it', body:"They look the board over and tap <b>Approve &amp; publish</b>. A manager running the week alone may approve their own draft; the board then says <b>Self-approved</b>, so the rest of leadership sees it. Any change after Submit, including a placed member dropping out, sends the draft back to the managers.", aside:['<b>Self-approval</b> is allowed but never hidden.', '<b>Second tap</b> on Approve changes nothing: one publish, one set of DMs.']},
+  {k:'6 · Cards', t:'Everyone gets their card', who:'The bot, by DM', body:"Placed members get their team, their role, both plans and three maps. The bench gets a thank-you with their place in line. <b>My spot</b> on the post shows the same card, so closed DMs lose nothing. The approver sees who the DMs didn't reach.", aside:['<b>From here</b> Auto-fill is locked. Assign still moves people and DMs whoever it moved.', '<b>Roles hold:</b> a dropout leaves a gap; a sub assigned in takes it.']},
+  {k:'7 · Battle', t:'In game, then wrap-up', who:'An R4 or R5, then the bot', body:"An R4 or R5 enters the same squads, battle times and commanders in the game's Deployment Setup before its deadline. The bot can't touch the game; if nothing is set in time the game fills Squad One by itself. Three hours after Squad B's battle the week wraps up on its own, or a manager taps <b>Wrap up</b> sooner.", aside:['<b>Wrapped up:</b> the board turns read-only and the post shrinks to My record.', '<b>Attendance</b> after the battle builds everyone\'s history for next time.']}];
+(function(){
+  const bar = document.getElementById('steps'), body = document.getElementById('stepbody');
+  let cur = 0;
+  function draw(){
+    bar.innerHTML = STEPS.map((s, i) => `<button class="${i === cur ? 'on' : ''}" data-i="${i}"><span class="k">${s.k}</span><span class="t">${s.t}</span></button>`).join('');
+    const s = STEPS[cur];
+    body.innerHTML = `<div><div class="who">${s.who}</div><h3>${s.t}</h3><p>${s.body}</p></div><aside>${s.aside.map(a => '<div>'+a+'</div>').join('')}</aside>`;
+    bar.querySelectorAll('button').forEach(b => b.onclick = () => { cur = +b.dataset.i; draw(); });
+  }
+  draw();
+})();
+
+/* ── 2. the member's post ── */
+(function(){
+  const root = document.getElementById('m-post');
+  const M = {joined:false, power:null, core:null, published:false, total:40, hist:[]};
+  let reply = '', dms = [];
+  function post(){
+    const count = M.total + (M.joined ? 1 : 0);
+    if (M.published) return embed({title:TITLE, desc:`<b>Squad A</b> battles ${T_A} (in 3 days)<br><b>Squad B</b> battles ${T_B} (in 3 days)<br><b>Squads:</b> 20 mains + 10 subs each · Energy Core 15 needed<br><b>Sign-ups close</b> ${T_DL} (in 2 days)<br><br><b>${count} signed up</b> · 60 spots<br><b>Spots are out.</b> Tap <b>My spot</b>.`, foot:"Tap I'm in. Every reply is private: only you see it."});
+    return embed({title:TITLE, desc:`Bring voice. Squad B is the late one.<br><br><b>Squad A</b> battles ${T_A} (in 3 days)<br><b>Squad B</b> battles ${T_B} (in 3 days)<br><b>Squads:</b> 20 mains + 10 subs each · Energy Core 15 needed<br><b>Sign-ups close</b> ${T_DL} (in 2 days)<br><br><b>${count} signed up</b> · 60 spots<br>Leaders pick and approve, then <b>My spot</b> opens.`, foot:"Tap I'm in. Every reply is private: only you see it."});
+  }
+  function draw(extra=''){
+    root.innerHTML = botHead('# 🌑︱shadowfront', 'the week\'s post') + msg(post() +
+      `<div class="btns"><button class="dbtn s" id="mi">✅ I'm in</button><button class="dbtn" id="mo">I'm out</button><button class="dbtn p" id="ms">📍 My spot</button><button class="dbtn" id="mr">My record</button></div>`)
+      + extra + (reply ? eph(reply) : '') + (dms.length ? `<div class="dm"><div class="dh">Your DMs from Prime Radiant</div>${dms.map(d => '<div class="dmsg">'+d+'</div>').join('')}</div>` : '');
+    wireLearn(root);
+    root.querySelector('#mi').onclick = () => {
+      if (M.published) { reply = `Sign-ups are closed for <b>${TITLE}</b>. Tap <b>My spot</b> to see where you stand.`; return draw(); }
+      if (M.joined) { reply = `You're already in: #${M.total+1} of ${M.total+1} in line, 60 spots. <b>My spot</b> tells you more.`; return draw(); }
+      reply = '';
+      draw(`<div class="modal"><div class="mt">Shadowfront sign-up</div><label>Your power, as the game shows it<input class="dinput" id="mp" value="52.7M"></label><label>Your Energy Core level<input class="dinput" id="mc" value="22" placeholder="15 or higher to enter"></label><div class="btns" style="margin:0"><button class="dbtn p" id="msub">Submit</button><button class="dbtn" id="mcan">Cancel</button></div></div>`);
+      root.querySelector('#mcan').onclick = () => draw();
+      root.querySelector('#msub').onclick = () => {
+        const p = parsePower(root.querySelector('#mp').value), c = parseInt(root.querySelector('#mc').value.trim(), 10);
+        if (p === null) reply = "I couldn't read that power. Write it as the game shows it, like 52.7M, then tap I'm in again.";
+        else if (Number.isNaN(c)) reply = "I couldn't read that Energy Core level. Just the number, like 22, then tap I'm in again.";
+        else if (c > 60) reply = 'Energy Core goes up to 60. Just your level, like 22, then tap I\'m in again.';
+        else if (c < 15) reply = `Shadowfront needs Energy Core 15; you're at ${c}. You can't enter the battlefield yet, so I haven't signed you up. Soon!`;
+        else {
+          M.joined = true; M.power = p; M.core = c;
+          reply = `You're in for <b>${TITLE}</b>: #${M.total+1} of ${M.total+1} in line, 60 spots. Power noted as ${fmtPower(p)}. Leaders pick and approve, then <b>My spot</b> opens.`;
+          dms.push(`You're signed up for <b>${TITLE}</b>: #${M.total+1} in line, 60 spots. Squad A battles ${T_A}, Squad B ${T_B}. I'll send your spot here when leaders publish. Changed your mind? Tap I'm out on the post.`);
+        }
+        draw();
+      };
+    };
+    root.querySelector('#mo').onclick = () => {
+      if (!M.joined) { reply = "You weren't signed up, so nothing changed."; return draw(); }
+      M.joined = false;
+      reply = `You're out of <b>${TITLE}</b>. Changed your mind? Tap I'm in again while sign-ups are open; you'd go to the back of the line.`;
+      dms.push(`You're out of <b>${TITLE}</b>.`);
+      draw();
+    };
+    root.querySelector('#ms').onclick = () => {
+      if (!M.joined) { reply = `You haven't signed up for <b>${TITLE}</b>. Tap <b>I'm in</b> while sign-ups are open.`; return draw(); }
+      if (!M.published) { reply = `<b>Not yet.</b> You're #${M.total+1} of ${M.total+1} in line for <b>${TITLE}</b>, 60 spots. Leaders pick and approve, then this opens.\n\n<b>Your record:</b> ${recordText(M.hist)}`; return draw(); }
+      reply = cardHTML({slot:'main', squad:'A', team:'anchor', role:'H1', place:M.total+1, total:64, commander:0}, 'm');
+      draw();
+    };
+    root.querySelector('#mr').onclick = () => { reply = `<b>Your record:</b> ${recordText(M.hist)}`; draw(); };
+  }
+  document.getElementById('m-publish').onclick = () => {
+    if (M.published) return;
+    M.published = true;
+    if (M.joined) { dms.push('<b>Your spot</b> arrived as a card: team, role, both plans and three maps (tap My spot to see it here).'); reply = ''; }
+    else reply = 'Leaders published. You weren\'t signed up, so nothing came for you; My spot says so.';
+    draw();
+  };
+  document.getElementById('m-reset').onclick = () => { M.joined = false; M.published = false; reply = ''; dms = []; draw(); };
+  draw();
+})();
+
+/* ── 3. the card explorer ── */
+(function(){
+  const tabs = document.getElementById('c-teams'), chips = document.getElementById('c-roles'), out = document.getElementById('c-card');
+  let team = 'anchor', role = 'H1';
+  function draw(){
+    const kinds = [...TEAM_KEYS.map(k => [k, TEAMS[k].name]), ['sub', 'Substitute'], ['bench', 'Bench']];
+    tabs.innerHTML = kinds.map(([k, n]) => `<button class="${k === team ? 'on' : ''}" data-k="${k}">${n}</button>`).join('');
+    tabs.querySelectorAll('button').forEach(b => b.onclick = () => { team = b.dataset.k; role = ROLES[team] ? Object.keys(ROLES[team])[0] : null; draw(); });
+    chips.innerHTML = ROLES[team] ? Object.entries(ROLES[team]).map(([c, n]) => `<span class="chip ${c === role ? 'on' : ''}" data-c="${c}" tabindex="0" role="button">${c} ${n}</span>`).join('') : '';
+    chips.querySelectorAll('.chip').forEach(ch => { ch.onclick = () => { role = ch.dataset.c; draw(); }; ch.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); ch.click(); } }; });
+    const o = team === 'bench' ? {slot:'bench', place:63, total:64}
+      : team === 'sub' ? {slot:'sub', squad:'B', team:null, role:null, place:52, total:64, commander:0}
+      : {slot:'main', squad:'A', team, role, place:9, total:64, commander:CALLERS.includes(role) ? 1 : 0};
+    out.innerHTML = botHead('Direct message', 'Prime Radiant → you') + msg(cardHTML(o, 'c'));
+    wireLearn(out);
+  }
+  draw();
+})();
+
+/* ── 4. the leaders' board: the bot's own fill and role rules ── */
+(function(){
+  const ACTORS = {you:{name:'you', leader:true, admin:false}, r4:{name:'R4 Alpha', leader:true, admin:false}, admin:{name:'Admin', leader:true, admin:true}};
+  const desk = document.getElementById('b-desk'), boardEl = document.getElementById('b-board'), side = document.getElementById('b-side');
+  let S, actor = 'you', panel = '', replyHTML = '', chat = [], dms = [];
+  function rng(seed){ return function(){ seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  function tri(r, lo, hi, mode){ const u = r(), c = (mode - lo) / (hi - lo); return u < c ? lo + Math.sqrt(u * (hi - lo) * (mode - lo)) : hi - Math.sqrt((1 - u) * (hi - lo) * (hi - mode)); }
+  function pool(n){
+    const r = rng(9), rows = [];
+    for (let i = 1; i <= n; i++) {
+      const hist = []; for (let w = 0; w < 2; w++) if (r() < .85) hist.push(r() < .85 ? 1 : 0);
+      rows.push({id:'m'+i, name:'Member '+String(i).padStart(2, '0'), power:Math.round(tri(r, 18e6, 130e6, 45e6)), signed:i*4 + Math.floor(r()*4), seq:i, hist,
+        squad:null, slot:null, team:null, role:null, commander:0, manual:0, withdrawn:false});
+    }
+    return rows;
+  }
+  function reset(){
+    S = {opened:false, status:'open', sort:'signup', squads:'balanced', corner:null, managers:['you'], submittedBy:null, publishedBy:null, self:false, wrapped:null, rows:[]};
+    panel = ''; replyHTML = ''; chat = []; dms = []; draw();
+  }
+  const active = () => S.rows.filter(r => !r.withdrawn).sort(arrival);
+  function arrival(a, b){ return a.signed - b.signed || a.seq - b.seq; }
+  const fought = r => r.hist.filter(Boolean).length;
+  function sortRows(rows){
+    if (S.sort === 'power') return [...rows].sort((a, b) => b.power - a.power || arrival(a, b));
+    if (S.sort === 'attendance') return [...rows].sort((a, b) => fought(b) - fought(a) || arrival(a, b));
+    return [...rows].sort(arrival);
+  }
+  function autofill(rows){
+    const manual = rows.filter(r => r.manual), auto = rows.filter(r => !r.manual);
+    const cap = {'A:main':20, 'B:main':20, 'A:sub':10, 'B:sub':10};
+    for (const r of manual) { const k = r.squad+':'+r.slot; if (k in cap) cap[k] = Math.max(0, cap[k] - 1); }
+    const nMain = cap['A:main'] + cap['B:main'], nSub = cap['A:sub'] + cap['B:sub'];
+    const out = {};
+    function deal(group, slot){
+      const placed = {A:[], B:[]}, order = ['A', 'B', 'B', 'A'];
+      [...group].sort((a, b) => b.power - a.power).forEach((r, i) => {
+        const want = S.squads === 'stacked' ? ['A', 'B'] : [order[i % 4], order[(i + 1) % 4]];
+        for (const sq of [...want, 'A', 'B']) if (cap[sq+':'+slot] > 0) { cap[sq+':'+slot]--; placed[sq].push(r); out[r.id] = {squad:sq, slot, team:null, commander:0}; break; }
+      });
+      return placed;
+    }
+    const mains = deal(auto.slice(0, nMain), 'main');
+    deal(auto.slice(nMain, nMain + nSub), 'sub');
+    for (const r of auto.slice(nMain + nSub)) out[r.id] = {squad:null, slot:'bench', team:null, commander:0};
+    for (const sq of ['A', 'B']) {
+      const teamCap = {anchor:10, home:5, side:5}; let leaders = 0; const starred = new Set();
+      for (const r of manual) if (r.squad === sq && r.slot === 'main') { if (r.team in teamCap) teamCap[r.team]--; if (r.commander) { leaders++; starred.add(r.team); } }
+      const strongest = [...mains[sq]].sort((a, b) => b.power - a.power);
+      for (const r of strongest) { const team = TEAM_KEYS.find(k => teamCap[k] > 0) || 'side'; teamCap[team]--; out[r.id].team = team; }
+      for (const team of TEAM_KEYS) { const best = strongest.find(r => out[r.id].team === team); if (best && !starred.has(team) && leaders < 3) { out[best.id].commander = 1; leaders++; } }
+    }
+    return out;
+  }
+  function runFill(){
+    const placed = autofill(sortRows(active()));
+    for (const r of S.rows) if (placed[r.id]) Object.assign(r, placed[r.id], {role:null});
+  }
+  function roles(rows){
+    const teams = {};
+    for (const r of rows) if (r.slot === 'main' && ROLES[r.team]) (teams[r.squad+':'+r.team] ||= []).push(r);
+    const out = {};
+    for (const key in teams) {
+      const team = key.split(':')[1], members = teams[key], free = Object.keys(ROLES[team]);
+      for (const r of [...members].sort(arrival)) if (r.role && free.includes(r.role)) { out[r.id] = r.role; free.splice(free.indexOf(r.role), 1); }
+      let rest = members.filter(r => !(r.id in out)).sort((a, b) => b.power - a.power);
+      if (rest.length && free.length && CALLERS.includes(free[0])) {
+        const lead = rest.find(r => r.commander && r.manual) || rest.find(r => r.commander) || rest[0];
+        out[lead.id] = free.shift(); rest = rest.filter(r => r !== lead);
+      }
+      rest.forEach((r, i) => { if (i < free.length) out[r.id] = free[i]; });
+    }
+    return out;
+  }
+  function keepRoles(){ const codes = roles(active()); for (const r of S.rows) if (codes[r.id]) r.role = codes[r.id]; }
+  function placements(rows){ const codes = roles(rows); const o = {}; for (const r of rows) o[r.id] = [r.squad, r.slot, r.team, codes[r.id] || null, r.commander].join('|'); return o; }
+  function full(rows, id, squad, slot, team, cmd, everyone){
+    const others = rows.filter(r => r.id !== id && r.squad === squad && (everyone || r.manual));
+    const mains = others.filter(r => r.slot === 'main');
+    if (slot === 'main' && mains.length >= 20) return `Squad ${squad} has its 20 mains`;
+    if (slot === 'main' && TEAMS[team] && mains.filter(r => r.team === team).length >= TEAMS[team].cap) return `Squad ${squad} · ${TEAMS[team].name} has its ${TEAMS[team].cap}`;
+    if (slot === 'main' && cmd && mains.filter(r => r.commander).length >= 3) return `Squad ${squad} has its 3 commanders`;
+    if (slot === 'sub' && others.filter(r => r.slot === 'sub').length >= 10) return `Squad ${squad} has its 10 subs`;
+    return null;
+  }
+  function over(rows){
+    const out = [];
+    for (const sq of ['A', 'B']) {
+      const mains = rows.filter(r => r.squad === sq && r.slot === 'main'), subs = rows.filter(r => r.squad === sq && r.slot === 'sub').length, stars = mains.filter(r => r.commander).length;
+      if (mains.length > 20) out.push(`Squad ${sq} mains ${mains.length}/20`);
+      for (const k of TEAM_KEYS) { const n = mains.filter(r => r.team === k).length; if (n > TEAMS[k].cap) out.push(`${sq} · ${TEAMS[k].name} ${n}/${TEAMS[k].cap}`); }
+      if (subs > 10) out.push(`Squad ${sq} subs ${subs}/10`);
+      if (stars > 3) out.push(`Squad ${sq} commanders ${stars}/3`);
+    }
+    return out;
+  }
+  function describe(r, code){
+    if (!r.slot) return 'unplaced';
+    if (r.slot === 'bench') return 'bench';
+    let t = `Squad ${r.squad} ${r.slot}`;
+    if (r.team) { t += ', '+TEAMS[r.team].name; const c = code || r.role; if (c && ROLES[r.team][c]) t += ` ${c} ${ROLES[r.team][c]}`; }
+    if (r.commander) t += ', commander';
+    return t;
+  }
+  const line = (r, place, code) => `<span class="row"><span class="mono">${String(place).padStart(2, '0')}</span> ${code ? '<b>'+code+'</b> ' : ''}${r.name} · ${fmtPower(r.power)} · ${squares(r.hist)}${(r.commander ? ' ⭐' : '') + (r.manual ? ' ✎' : '')}</span>`;
+  function listing(texts){
+    if (!texts.length) return '—';
+    const shown = texts.slice(0, 16);
+    return shown.join('') + (texts.length > 16 ? `<span class="row">…and ${texts.length - 16} more</span>` : '');
+  }
+  function boardHTML(){
+    const rows = active(), ordered = sortRows(rows), codes = roles(rows);
+    const place = {}; rows.forEach((r, i) => place[r.id] = i + 1);
+    const dropped = S.rows.filter(r => r.withdrawn && r.slot);
+    let desc = `<b>Managers:</b> ${S.managers.map(m => '@'+ACTORS[m].name).join(', ')} · <b>Our outpost:</b> ${S.corner || 'not known yet'}<br>`
+      + `<b>Sign-ups:</b> ${rows.length} · 60 spots · sorted by ${SORTS[S.sort]} · ${SQUADS[S.squads]}<br>`
+      + `Battles Sat 7 Nov 18:00 (A) and 23:00 (B) · sign-ups close in 2 days<br>`
+      + `<code>#</code> place in line · <b>H1</b> role · ▣ fought ▢ no-show · ⭐ commander · ✎ assigned by hand<br>The controls work for the managers; everyone here can read the draft.`;
+    if (S.publishedBy) { desc += `<br>Published by @${ACTORS[S.publishedBy].name} just now.`; if (S.self) desc += ' <b>Self-approved.</b>'; }
+    if (S.wrapped) desc += `<br>Wrapped up by @${ACTORS[S.wrapped].name} just now. The board is read-only.`;
+    else desc += `<br>Wraps up by itself 3 hours after Squad B's battle, or sooner with <b>Wrap up</b>.`;
+    const fields = [];
+    for (const sq of ['A', 'B']) {
+      for (const k of TEAM_KEYS) {
+        const order = Object.keys(ROLES[k]);
+        const items = ordered.filter(r => r.squad === sq && r.slot === 'main' && r.team === k).sort((a, b) => (order.indexOf(codes[a.id]) + 99) % 99 - (order.indexOf(codes[b.id]) + 99) % 99 || b.power - a.power);
+        fields.push({name:`${sq} · ${TEAMS[k].name} ${items.length}/${TEAMS[k].cap}`, value:listing(items.map(r => line(r, place[r.id], codes[r.id]))), inline:true});
+      }
+      const loose = ordered.filter(r => r.squad === sq && r.slot === 'main' && !TEAMS[r.team]);
+      if (loose.length) fields.push({name:`${sq} · mains without a team ${loose.length}`, value:listing(loose.map(r => line(r, place[r.id])))});
+      const subs = ordered.filter(r => r.squad === sq && r.slot === 'sub');
+      fields.push({name:`${sq} · Subs ${subs.length}/10`, value:listing(subs.map(r => line(r, place[r.id])))});
+    }
+    const unplaced = ordered.filter(r => !r.slot), bench = ordered.filter(r => r.slot === 'bench');
+    if (unplaced.length) fields.push({name:`Unplaced ${unplaced.length}`, value:listing(unplaced.map(r => line(r, place[r.id])))});
+    if (dropped.length) fields.push({name:`Dropped out after placing ${dropped.length}`, value:listing(dropped.map(r => `<span class="row">${r.name} · was ${describe(r)}</span>`))});
+    if (bench.length) fields.push({name:`Bench ${bench.length}`, value:listing(bench.map(r => line(r, place[r.id])))});
+    return embed({title:`${TITLE} · ${STATUS[S.status]}`, desc, fields});
+  }
+  function controls(){
+    const st = S.status, done = st === 'done', pub = st === 'published';
+    const sel = (id, opts, cur, dis) => `<select class="dsel" data-sel="${id}" ${dis ? 'disabled' : ''}>${opts.map(([v, l]) => `<option value="${v}" ${v === cur ? 'selected' : ''}>${l}</option>`).join('')}</select>`;
+    const btn = (a, l, cls='', dis=false) => `<button class="dbtn ${cls}" data-act="${a}" ${dis || done ? 'disabled' : ''}>${l}</button>`;
+    return `<div class="ctrl">
+      <div class="r">${sel('sort', Object.entries(SORTS).map(([k, v]) => [k, 'Sort: '+v]), S.sort, done)}</div>
+      <div class="r">${sel('squads', Object.entries(SQUADS).map(([k, v]) => [k, 'Auto-fill: '+v]), S.squads, done || pub)}</div>
+      <div class="r">${btn('fill', '⚡ Auto-fill', 'p', pub)}${btn('assign', '✏️ Assign')}${btn('managers', '👥 Managers')}<button class="dbtn" data-act="guide">📘 Leader guide</button></div>
+      <div class="r">${btn('close', st === 'closed' || st === 'awaiting' ? 'Reopen sign-ups' : 'Close sign-ups', '', pub)}${btn('submit', 'Submit for approval', 's', st === 'awaiting' || pub)}${btn('approve', '📣 Approve & publish', 's', st !== 'awaiting')}${btn('wrap', '🏁 Wrap up')}</div>
+      <div class="r">${sel('corner', [['NW', 'Our corner: North-west (NW)'], ['NE', 'Our corner: North-east (NE)'], ['SW', 'Our corner: South-west (SW)'], ['SE', 'Our corner: South-east (SE)'], ['unknown', 'Our corner: not known yet']], S.corner || 'unknown', done)}</div>
+    </div>`;
+  }
+  function deskHTML(){
+    const d = embed({title:'Shadowfront desk', desc:`<b>Open a sign-up</b> posts the week's card in #🌑︱shadowfront and opens a post for it in this forum, holding its board; the post's tag shows where that week stands. Pick our starting corner then, or later on the board.<br>Whoever opens it manages it; add co-managers with <b>Managers</b>. Only managers change the draft, every leader reads it, and an R4 or R5 approves before members see anything (approving your own week is allowed and marked on the board).<br><b>New to this?</b> The buttons below explain how it works and why we play the way we do.<br>Type <b>demo</b> in the note to add 64 made-up sign-ups for a play test.`});
+    const guide = Object.entries(LEAD).map(([k, [l]]) => `<button class="dbtn" data-lead="${k}">${l}</button>`).join('');
+    return botHead('# 🌑︱shadowfront-weeks · Desk (pinned post)', 'leaders only') + msg(d + `<div class="btns"><button class="dbtn p" data-act="open" ${S.opened ? 'disabled' : ''}>🌑 Open a sign-up</button></div><div class="btns">${guide}</div>`) + (S.opened ? '' : panel);
+  }
+  function say(html){ replyHTML = html; }
+  function sideHTML(){
+    let h = `<div class="dh">What leaders see privately</div>`;
+    if (replyHTML) h += `<div class="dmsg">${eph(replyHTML)}</div>`;
+    if (chat.length) h += `<div class="dh" style="margin-top:4px">Desk chat</div>` + chat.map(c => `<div class="dmsg">${c}</div>`).join('');
+    if (dms.length) h += `<div class="dh" style="margin-top:4px">Managers' DMs</div>` + dms.map(c => `<div class="dmsg">${c}</div>`).join('');
+    if (!replyHTML && !chat.length && !dms.length) h += `<div class="dmsg muted">Replies to your taps, the desk ping and manager DMs land here.</div>`;
+    return h;
+  }
+  function draw(){
+    desk.innerHTML = deskHTML();
+    boardEl.hidden = !S.opened;
+    if (S.opened) boardEl.innerHTML = botHead('# 🌑︱shadowfront-weeks · '+TITLE, 'the week\'s post · tapping as <b>'+ACTORS[actor].name+'</b>') + msg(boardHTML() + controls()) + panel;
+    side.innerHTML = sideHTML();
+    document.querySelectorAll('#b-desk [data-lead]').forEach(b => b.onclick = () => { const [t, body] = LEAD[b.dataset.lead]; say(embed({title:'Leader guide · '+t, desc:md(body)})); draw(); });
+    document.querySelectorAll('#b-desk [data-act="open"]').forEach(b => b.onclick = openForm);
+    boardEl.querySelectorAll('[data-act]').forEach(b => b.onclick = () => action(b.dataset.act));
+    boardEl.querySelectorAll('[data-sel]').forEach(s => s.onchange = () => action(s.dataset.sel, s.value));
+    wirePanel();
+  }
+  function openForm(){
+    panel = `<div class="modal"><div class="mt">Open a Shadowfront sign-up</div>
+      <label>Title<input class="dinput" id="o-title" value="${TITLE}"></label>
+      <label>Squad A battle time, UTC (YYYY-MM-DD HH:MM)<input class="dinput" value="2026-11-07 18:00"></label>
+      <label>Squad B battle time, UTC (blank = same as A)<input class="dinput" value="2026-11-07 23:00"></label>
+      <label>Sign-ups close, UTC (blank = a day before A)<input class="dinput" value="2026-11-06 18:00"></label>
+      <label>Note for the post (demo = made-up sign-ups)<input class="dinput" id="o-note" value="demo"></label>
+      <div class="btns" style="margin:0"><button class="dbtn p" id="o-go">Open</button><button class="dbtn" id="o-cancel">Cancel</button></div></div>`;
+    draw();
+    desk.querySelector('#o-cancel').onclick = () => { panel = ''; draw(); };
+    desk.querySelector('#o-go').onclick = () => {
+      const demo = /\bdemo\b/i.test(desk.querySelector('#o-note').value);
+      S.opened = true; S.rows = demo ? pool(64) : [];
+      dms.push(`You're managing <b>${TITLE}</b>. The board: #🌑︱shadowfront-weeks`);
+      panel = eph(`Posted: #🌑︱shadowfront<br>Board: #🌑︱shadowfront-weeks<br><br><b>Where do we start?</b><div class="btns"><button class="dbtn p" data-corner="NW">↖ North-west</button><button class="dbtn p" data-corner="NE">↗ North-east</button></div><div class="btns"><button class="dbtn p" data-corner="SW">↙ South-west</button><button class="dbtn p" data-corner="SE">↘ South-east</button></div><div class="btns"><button class="dbtn" data-corner="unknown">Not known yet</button></div>`);
+      draw();
+    };
+  }
+  function wirePanel(){
+    boardEl.querySelectorAll('[data-corner]').forEach(b => b.onclick = () => { const k = b.dataset.corner; S.corner = k === 'unknown' ? null : k; panel = ''; say(k === 'unknown' ? 'Corner left open. Change it any time with the board\'s corner picker.' : `Our corner: <b>${k}</b>. Change it any time with the board's corner picker.`); draw(); });
+    const who = boardEl.querySelector('#a-who'); if (who) who.onchange = () => assignForm(who.value);
+    const byPlace = boardEl.querySelector('#a-place'); if (byPlace) byPlace.onclick = () => {
+      const n = parseInt(boardEl.querySelector('#a-n').value.trim(), 10), rows = active();
+      if (!(n >= 1 && n <= rows.length)) { say(`No sign-up has that place number: they run from 1 to ${rows.length}.`); panel = ''; return draw(); }
+      assignForm(rows[n - 1].id);
+    };
+    const wrapYes = boardEl.querySelector('#w-yes'); if (wrapYes) wrapYes.onclick = () => { S.status = 'done'; S.wrapped = actor; panel = ''; say('Wrapped up.'); draw(); };
+    const wrapNo = boardEl.querySelector('#w-no'); if (wrapNo) wrapNo.onclick = () => { panel = ''; say('Nothing changed.'); draw(); };
+    const mgSave = boardEl.querySelector('#mg-save'); if (mgSave) mgSave.onclick = () => {
+      const picked = [...boardEl.querySelectorAll('[data-mg]:checked')].map(c => c.dataset.mg);
+      const lead = picked.filter(p => ACTORS[p]), left = picked.filter(p => !ACTORS[p]);
+      if (!lead.length) { say('Not changed: managers are leaders, and none of those picked is one.'); panel = ''; return draw(); }
+      const before = new Set(S.managers); S.managers = lead; panel = '';
+      say('Managers: '+lead.map(m => '@'+ACTORS[m].name).join(', ') + (left.length ? '<br>Left out (not leaders): @Member 12' : ''));
+      for (const m of lead) if (!before.has(m)) dms.push(`${ACTORS[actor].name} made @${ACTORS[m].name} a manager of <b>${TITLE}</b>. The board: #🌑︱shadowfront-weeks`);
+      draw();
+    };
+  }
+  function action(a, value){
+    const isMgr = S.managers.includes(actor), isAdmin = ACTORS[actor].admin;
+    if (S.status === 'done' && a !== 'guide') { say(`<b>${TITLE}</b> is wrapped up; the board is read-only.`); return draw(); }
+    if (a === 'guide') { say(embed({title:'Leader guide', desc:'New to running Shadowfront? Start with <b>How it works</b>, then <b>The three teams</b>. Every answer is private to you. (The buttons are on the desk panel above.)'})); return draw(); }
+    if (a === 'approve') {
+      if (S.status !== 'awaiting') { say(S.status === 'published' ? "It's published already." : 'Submit the draft for approval first.'); return draw(); }
+      const own = isMgr || actor === S.submittedBy;
+      // approving your own draft is allowed; the board marks it Self-approved
+      S.status = 'published'; S.publishedBy = actor; S.self = own; keepRoles();
+      const rows = active(), fake = rows.length;
+      say(`Published. DMs: 0 sent, ${fake} made-up.<br><span class="muted">(Every sign-up here is a playground fake, so no real DM goes out. On the real server each placed member gets their card, the bench a thank-you, and this reply names anyone a DM couldn't reach.)</span>`);
+      chat.push(`<b>Spots are out for ${TITLE}.</b> Tap <b>My spot</b> on the sign-up post; placed members also have a DM. <span class="muted">(posted under the public post, no pings)</span>`);
+      return draw();
+    }
+    if (!isMgr && !((a === 'managers' || a === 'wrap') && isAdmin)) { say(`Only this week's managers can change the draft: ${S.managers.map(m => '@'+ACTORS[m].name).join(', ')}.`); return draw(); }
+    if (a === 'wrap') {
+      const unsent = S.status === 'published' ? '' : ' It was never published, so nobody got a spot.';
+      panel = eph(`Wrap up <b>${TITLE}</b> now? The board turns read-only, the public card shrinks to My record, and in the forum version the post is tagged Done and locked. It can't be reopened.${unsent} Without a tap it happens by itself 3 hours after Squad B's battle.<div class="btns"><button class="dbtn d" id="w-yes">🏁 Wrap up now</button><button class="dbtn" id="w-no">Cancel</button></div>`);
+      say(''); return draw();
+    }
+    if (S.status === 'published' && (a === 'fill' || a === 'squads' || a === 'close')) { say(md(LOCKED)); return draw(); }
+    if (a === 'assign') {
+      const rows = active();
+      panel = eph(`Who do you want to place?<div class="btns"><select class="dsel" id="a-who"><option value="">Pick a member who signed up</option>${rows.map((r, i) => `<option value="${r.id}">${String(i + 1).padStart(2, '0')} ${r.name} · ${fmtPower(r.power)}</option>`).join('')}</select></div><div class="btns" style="align-items:center"><input class="dinput" id="a-n" placeholder="Place number (the # on the board)" style="max-width:260px"><button class="dbtn" id="a-place">By place number</button></div>`);
+      say(''); return draw();
+    }
+    if (a === 'managers') {
+      panel = eph(`Managers now: ${S.managers.map(m => '@'+ACTORS[m].name).join(', ')}. Pick the new list (up to 5):<div class="btns" style="flex-direction:column;align-items:flex-start;gap:6px">${[['you', 'you'], ['r4', 'R4 Alpha'], ['admin', 'Admin'], ['m12', 'Member 12 (R2, not a leader)']].map(([k, l]) => `<label style="display:flex;gap:8px;align-items:center;text-transform:none;font-weight:400;font-size:14px;color:var(--dc-fg)"><input type="checkbox" data-mg="${k}" ${S.managers.includes(k) ? 'checked' : ''}> ${l}</label>`).join('')}</div><div class="btns"><button class="dbtn p" id="mg-save">Save</button></div>`);
+      say(''); return draw();
+    }
+    let note = '', submitted = false;
+    if (a === 'sort') S.sort = value;
+    else if (a === 'squads') S.squads = value;
+    else if (a === 'fill') { runFill(); note = 'Auto-filled. Hand-placed rows (✎) were left alone.'; if (S.status === 'awaiting') { S.status = 'closed'; note += VOIDED; } }
+    else if (a === 'close' && (S.status === 'closed' || S.status === 'awaiting')) S.status = 'open';
+    else if (a === 'close') S.status = 'closed';
+    else if (a === 'submit') {
+      const rows = active(), unplaced = rows.filter(r => !r.slot).length;
+      const problems = (unplaced ? [`${unplaced} sign-up${unplaced > 1 ? 's are' : ' is'} unplaced: tap ⚡ Auto-fill (hand-placed rows stay)`] : []).concat(over(rows));
+      if (S.status === 'awaiting' || S.status === 'published') note = `It's ${STATUS[S.status]} already.`;
+      else if (!rows.length) note = 'Nobody has signed up yet.';
+      else if (problems.length) note = '<b>Not submitted yet:</b><br>' + problems.map(p => '• '+p).join('<br>');
+      else { S.status = 'awaiting'; S.submittedBy = actor; submitted = true; }
+    }
+    else if (a === 'corner') { S.corner = value === 'unknown' ? null : value; if (S.status === 'published') note = 'Saved. My spot shows the new map; cards already sent by DM keep the general one.'; }
+    if (submitted) chat.push(`<b>@R4 @R5</b> <b>${TITLE}</b> is drafted and waiting for approval from an R4 or R5. Look it over on the board above and tap <b>Approve &amp; publish</b>.`);
+    say(note); draw();
+  }
+  function assignForm(id){
+    const r = S.rows.find(x => x.id === id); if (!r) return;
+    const rows = active(), codes = roles(rows);
+    const F = {spot:r.slot ? `${r.squad || ''}:${r.slot}:${r.team || ''}` : 'none', role:r.role || 'auto', cmd:r.commander ? 'yes' : 'no'};
+    function team(){ const p = F.spot.split(':'); return p.length === 3 && p[1] === 'main' && ROLES[p[2]] ? p[2] : null; }
+    function text(){
+      const main = F.spot.includes(':main:'), t = team();
+      if (t && !ROLES[t][F.role]) F.role = 'auto';
+      const role = t ? (F.role !== 'auto' ? ` · role <b>${F.role} ${ROLES[t][F.role]}</b>` : ' · role by power') : '';
+      const star = F.cmd === 'yes' && main ? ' · commander ⭐' : '', warn = F.cmd === 'yes' && !main ? ' (only mains can command)' : '';
+      return `<b>${r.name}</b> · ${fmtPower(r.power)}<br>Will save: <b>${CHOICES[F.spot] || 'no change'}</b>${role}${star}${warn}. Tap Save.`;
+    }
+    function render(){
+      const t = team(), codesT = t ? ROLES[t] : {};
+      panel = eph(`<div id="a-text">${text()}</div>
+        <div class="btns"><select class="dsel" id="a-spot">${Object.entries(CHOICES).map(([k, l]) => `<option value="${k}" ${k === F.spot ? 'selected' : ''}>${l}</option>`).join('')}</select></div>
+        <div class="btns"><select class="dsel" id="a-role" ${t ? '' : 'disabled'}><option value="auto">Role: by power (Auto-fill's pick)</option>${Object.entries(codesT).map(([c, n]) => `<option value="${c}" ${c === F.role ? 'selected' : ''}>Role: ${c} · ${n}</option>`).join('')}</select></div>
+        <div class="btns"><select class="dsel" id="a-cmd"><option value="yes" ${F.cmd === 'yes' ? 'selected' : ''}>Commander ⭐</option><option value="no" ${F.cmd === 'no' ? 'selected' : ''}>Not a commander</option></select></div>
+        <div class="btns"><button class="dbtn s" id="a-save">Save</button><button class="dbtn" id="a-cancel">Cancel</button></div>`);
+      say(`<b>${r.name}</b> · ${fmtPower(r.power)} · now: ${describe(r, codes[r.id])}<br>Pick their spot, then Save.`);
+      draw();
+      boardEl.querySelector('#a-spot').onchange = e => { F.spot = e.target.value; render(); };
+      boardEl.querySelector('#a-role').onchange = e => { F.role = e.target.value; render(); };
+      boardEl.querySelector('#a-cmd').onchange = e => { F.cmd = e.target.value; render(); };
+      boardEl.querySelector('#a-cancel').onclick = () => { panel = ''; say('Nothing changed.'); draw(); };
+      boardEl.querySelector('#a-save').onclick = save;
+    }
+    function save(){
+      let squad = null, slot = null, tm = null, cmd = 0, manual = 0;
+      if (F.spot !== 'none') { [squad, slot, tm] = F.spot.split(':'); squad = squad || null; tm = tm || null; cmd = F.cmd === 'yes' && slot === 'main' ? 1 : 0; manual = 1; }
+      const role = slot === 'main' && tm && ROLES[tm][F.role] ? F.role : null;
+      if (S.status === 'done' || !S.managers.includes(actor)) { panel = ''; say("Not saved: this week is wrapped up, or you're not one of its managers any more."); return draw(); }
+      const rowsNow = active();
+      const why = full(rowsNow, r.id, squad, slot, tm, cmd, S.status === 'published');
+      if (why) { say(`${text()}<br><b>Not saved:</b> ${why}. Move someone out first, or pick another spot.`); return draw(); }
+      const before = placements(rowsNow);
+      let taken = null;
+      if (role) for (const x of rowsNow) if (x.id !== r.id && x.squad === squad && x.slot === 'main' && x.team === tm && x.role === role) { taken = x; x.role = null; }
+      Object.assign(r, {squad, slot, team:tm, role, commander:cmd, manual});
+      if (S.status === 'published') keepRoles();
+      const wasAwaiting = S.status === 'awaiting'; if (wasAwaiting) S.status = 'closed';
+      const rowsAfter = active(), codesAfter = roles(rowsAfter), after = placements(rowsAfter);
+      let note = taken ? ` ${taken.name} had ${role}; their role goes by power now.` : '';
+      const crowded = over(rowsAfter).filter(p => squad && (p.startsWith(squad+' ') || p.startsWith('Squad '+squad+' ')));
+      if (crowded.length) note += ` Over the limit now: ${crowded.join(', ')}. ⚡ Auto-fill re-deals the others; Submit waits until it fits.`;
+      if (wasAwaiting) note += VOIDED;
+      panel = '';
+      say(`Saved: <b>${r.name}</b> → ${describe(r, codesAfter[r.id])}.${note}`);
+      if (S.status === 'published') { const moved = rowsAfter.filter(x => after[x.id] !== before[x.id]); if (moved.length) dms.push(`<b>Your spot changed</b> went by DM, with a fresh card, to: ${moved.map(x => x.name+' ('+describe(x, codesAfter[x.id])+')').join('; ')}.`); }
+      draw();
+    }
+    render();
+  }
+  document.getElementById('b-drop').onclick = () => {
+    if (!S.opened) { say('Open a sign-up first.'); return draw(); }
+    const rows = active(), codes = roles(rows);
+    const r = rows.find(x => x.slot === 'main' && codes[x.id] && !x.commander) || rows.find(x => x.slot === 'main' || x.slot === 'sub');
+    if (!r || S.status === 'done') { say('Nobody is placed yet, or the week is over. Run ⚡ Auto-fill first.'); return draw(); }
+    r.withdrawn = true;
+    const tell = (r.slot === 'main' || r.slot === 'sub') && (S.status === 'awaiting' || S.status === 'published'), voided = tell && S.status === 'awaiting';
+    if (voided) S.status = 'closed';
+    const left = active(), subs = left.filter(x => x.squad === r.squad && x.slot === 'sub').sort((a, b) => b.power - a.power);
+    const ready = subs.length ? subs : left.filter(x => x.slot === 'bench').slice(0, 3);
+    const who = ready.map(x => x.name+' '+fmtPower(x.power)).join(', ') || 'nobody';
+    say(`<i>${r.name} tapped I'm out on the post.</i> They got: "You're out of <b>${TITLE}</b>."` + (tell ? '' : ' Before Submit nobody is told: the board just updates.'));
+    if (tell) dms.push(`<b>${r.name}</b> dropped out of <b>${TITLE}</b>: was ${describe(r)}.<br>` + (subs.length ? `Squad ${r.squad}'s subs: ${who}.<br>` : `Squad ${r.squad} has no subs left. First on the bench: ${who}.<br>`) + (voided ? 'The draft is back with the managers, since it had been submitted: Submit again when it\'s ready.' : 'Move someone up with ✏️ Assign; they get their card by DM.'));
+    draw();
+  };
+  document.getElementById('b-reset').onclick = reset;
+  document.querySelectorAll('[data-actor]').forEach(b => b.onclick = () => { actor = b.dataset.actor; document.querySelectorAll('[data-actor]').forEach(x => x.classList.toggle('on', x === b)); panel = ''; say(`Now tapping as <b>${ACTORS[actor].name}</b>.`); draw(); });
+  reset();
+})();
+
+/* ── 5. the plan ── */
+(function(){
+  const el = document.getElementById('teams');
+  const extra = {anchor:'Takes and holds our nearest Central Vault: +2 Battle Points a second, the backbone of the score. The strongest fleets go here.', home:'Holds our two nearest Lessers, +1 a second each, next to our safe outpost. Steady members who stay put.', side:'Hits the nearest Lessers of the guild fighting us for our Central. Mobile, experienced players who know when to come back.'};
+  el.innerHTML = TEAM_KEYS.map(k => `<div class="team"><h3>${TEAMS[k].name} <span>${TEAMS[k].cap} mains</span></h3><p>${extra[k]}</p><div class="roles">${Object.entries(ROLES[k]).map(([c, n]) => `<code>${c} ${n}${CALLERS.includes(c) ? ' ⭐' : ''}</code>`).join('')}</div><p><b>Where:</b> ${WHERE[k]}</p><p><b>At an Awakening:</b> ${PLAN[k].wake}</p><p><b>Stay or come back:</b> ${PLAN[k].stay}</p><img src="maps/${k}.png" alt="${TEAMS[k].name}'s Vaults lit on the battlefield" loading="lazy" style="border-radius:6px;border:1px solid var(--line);background:#061011"></div>`).join('');
+})();
+</script>
+
+</body>
+</html>
