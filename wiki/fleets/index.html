@@ -1,0 +1,865 @@
+<!doctype html>
+<!-- FGF Wiki - (c) 2026 UID 4053721. All rights reserved. Original fan wiki; copies carry this owner's fingerprint. -->
+<html lang="en" data-owner="4053721">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#06131c">
+<title data-i="fl.page">Fleets &middot; FGF Wiki</title>
+<meta name="description" content="Fleets in Foundation: Galactic Frontier: flagships, champions and combat craft, styles and counters, Command Points, damage and repair, and the Valor Arena. Unofficial fan wiki.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FGF Wiki">
+<meta property="og:title" content="Fleets · FGF Wiki">
+<meta property="og:description" content="Fleets in Foundation: Galactic Frontier: flagships, champions and combat craft, styles and counters, Command Points, damage and repair, and the Valor Arena. Unofficial fan wiki.">
+<meta property="og:url" content="https://jeeemomega.github.io/shadowfront-guide/wiki/fleets/">
+<meta name="twitter:card" content="summary">
+<meta name="author" content="UID 4053721">
+<meta name="copyright" content="(c) 2026 UID 4053721">
+<link rel="canonical" href="https://jeeemomega.github.io/shadowfront-guide/wiki/fleets/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23120f38'/%3E%3Cpath d='M16 4l7 9-7 15-7-15z' fill='%23f3cf86'/%3E%3Cpath d='M16 4l7 9H9z' fill='%23fff4dc'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Saira+Extra+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<script>
+(function(d){var s=/still/.test(location.hash)||!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
+d.className+=(s?" still":" mo")+" js";window.addEventListener("error",function(){d.classList.remove("mo");});
+try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.removeItem("ox-woosh");if(!s&&w&&w.k==="fl"&&Date.now()-w.t<12000)d.className+=" ox-in";}catch(e){}})(document.documentElement);
+</script>
+<style>
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--pk-bg)}
+body{margin:0;min-height:100vh;background:var(--pk-bg);color:var(--pk-ink);font:400 15.5px/1.55 "Noto Sans","Segoe UI",system-ui,sans-serif}
+button,input{font:inherit}
+h1,h2,h3,h4,p,ul,ol,dl,dd,figure{margin:0;padding:0}
+ul,ol{list-style:none}
+:focus-visible{outline:2px solid var(--pk-focus);outline-offset:2px}
+.paused *,.paused *::before,.paused *::after{animation-play-state:paused!important}
+.wrap{position:relative;z-index:1;max-width:520px;margin:0 auto;overflow-x:clip;background:var(--pk-page)}
+.hero{position:relative;overflow:hidden}
+.hero .hero-uid{top:10px;left:auto;right:12px;font-family:var(--mt)}
+.pk-main{position:relative;padding:14px 12px 4px}
+.cap{font-size:13.5px;line-height:1.5;color:var(--pk-cap)}
+.cap b{color:var(--pk-cap-b)}
+.ownr{margin:12px 0 16px}
+.ownr .owner{margin-top:0}
+
+.ix{margin:0 0 16px}
+.ix-h{display:flex;align-items:center;gap:10px;margin:0 2px 10px;font:700 14px/1 var(--mt);letter-spacing:.26em;text-transform:uppercase;color:var(--pk-ix-h)}
+.ix-h::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--pk-ix-line),rgba(0,0,0,0))}
+.ix a{-webkit-tap-highlight-color:transparent}
+.ix a:active{filter:brightness(1.15)}
+
+.sec,.evt,.lt{position:relative;scroll-margin-top:8px}
+.sec{margin:0 0 14px}
+.sec-h h2{font:700 22px/1.05 var(--mt);letter-spacing:.1em;text-transform:uppercase}
+.sec-b>:first-child,.evt-b>:first-child{margin-top:0}
+.sec-b p,.evt-b p{margin-top:10px}
+.sub{font:700 18px/1.1 var(--mt);letter-spacing:.1em;text-transform:uppercase;color:var(--pk-key)}
+h3.sub{display:flex;align-items:center;gap:8px;margin-top:18px;padding-top:14px;border-top:1px solid var(--pk-line)}
+h3.sub::before{content:"";flex:none;width:14px;height:3px;background:var(--pk-acc)}
+h4.sub{margin-top:16px;font-size:16.5px}
+ul.dots{margin-top:10px}
+ul.dots>li{position:relative;padding-left:18px;margin-top:7px}
+ul.dots>li::before{content:"";position:absolute;left:2px;top:.62em;width:7px;height:7px;transform:rotate(45deg);background:var(--pk-acc)}
+ul.dots.pending>li::before{left:1px;top:.5em;width:9px;height:9px;border:1.5px dashed var(--pk-gap-line);border-radius:50%;background:none;transform:none}
+ol.steps{counter-reset:st;margin-top:12px}
+ol.steps>li{position:relative;counter-increment:st;min-height:24px;padding-left:34px;margin-top:9px}
+ol.steps>li::before{content:counter(st);position:absolute;left:0;top:0;width:24px;height:24px;display:grid;place-items:center;font:700 15px/1 var(--mt);color:var(--pk-num-ink);background:var(--pk-num);border-radius:2px}
+ol.steps.short>li{margin-top:6px}
+dl.kv{display:grid;gap:8px;margin-top:12px}
+dl.kv>div{padding:9px 12px 10px;background:var(--pk-tile);border-radius:3px}
+dl.kv dt{font:700 17px/1.1 var(--mt);letter-spacing:.08em;text-transform:uppercase;color:var(--pk-key)}
+dl.kv dd{margin-top:3px;font-size:14px;line-height:1.5}
+dl.kv.short>div{display:grid;grid-template-columns:76px minmax(0,1fr);gap:10px;align-items:baseline}
+dl.kv.short dd{margin-top:0}
+ul.ups{display:grid;gap:8px;margin-top:12px}
+ul.ups>li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 10px;align-items:center;padding:9px 12px 10px;background:var(--pk-tile);border-radius:3px}
+ul.ups b{font:700 17px/1.1 var(--mt);letter-spacing:.08em;text-transform:uppercase;color:var(--pk-key)}
+ul.ups .cost{display:flex;align-items:baseline;flex-wrap:wrap;justify-content:flex-end;gap:2px 6px;padding:4px 10px;border-radius:999px;background:var(--pk-chip);color:var(--pk-chip-ink);font-size:12.5px;line-height:1.25}
+ul.ups .cost small{font:700 11.5px/1 var(--mt);letter-spacing:.14em;text-transform:uppercase;opacity:.8}
+ul.ups .cost em{font-style:normal;font-weight:600}
+ul.ups>li>p{grid-column:1/-1;margin:0;font-size:14px;line-height:1.5}
+.tbl{margin-top:12px;border-radius:3px;overflow:hidden;background:var(--pk-tile)}
+.tbl table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.3}
+.tbl thead th{padding:9px 6px 8px;font:700 14px/1.1 var(--mt);letter-spacing:.1em;text-transform:uppercase;text-align:center;color:var(--pk-th-ink);background:var(--pk-th)}
+.tbl thead th:first-child{padding-left:12px;text-align:left}
+.tbl tbody th{padding:9px 6px 9px 12px;text-align:left;font-weight:600}
+.tbl td{padding:9px 6px;text-align:center;font-variant-numeric:tabular-nums}
+.tbl tbody tr+tr{border-top:1px solid var(--pk-line)}
+.tbl td span{display:block;font-weight:700}
+.tbl .bar{display:block;width:calc(var(--v) * 4%);min-width:4px;max-width:100%;height:4px;margin:4px auto 0;border-radius:2px;background:var(--pk-acc)}
+p.gap,p.s1{display:flex;align-items:baseline;flex-wrap:wrap;gap:5px 9px;margin-top:12px;padding:8px 10px;border:1px dashed var(--pk-gap-line);border-radius:3px;font-size:13.5px;line-height:1.45}
+p.gap>b,p.s1>b{flex:none;padding:4px 7px 3px;border-radius:2px;font:700 12.5px/1 var(--mt);letter-spacing:.14em;text-transform:uppercase;background:var(--pk-gap);color:var(--pk-gap-ink)}
+p.gap>span,p.s1>span{flex:1 1 190px;min-width:0}
+p.s1{border-style:solid;border-color:var(--pk-s1-line)}
+p.s1>b{background:var(--pk-s1);color:var(--pk-s1-ink)}
+p.note{font-size:13px;line-height:1.45;color:var(--pk-mute)}
+.ex{margin-top:12px;padding:9px 12px 10px;border-left:3px solid var(--pk-acc);border-radius:0 3px 3px 0;background:var(--pk-tile2)}
+.ex b{display:block;font:700 13px/1 var(--mt);letter-spacing:.16em;text-transform:uppercase;color:var(--pk-mute)}
+.ex p{margin-top:4px;font-size:14.5px}
+.ex p b{display:inline;font:inherit;font-weight:700;letter-spacing:0;text-transform:none;color:inherit}
+ul.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+ul.chips li{padding:6px 10px 5px;border-radius:2px;font:700 15px/1 var(--mt);letter-spacing:.1em;text-transform:uppercase;background:var(--pk-chip);color:var(--pk-chip-ink)}
+p.sees{display:grid;gap:8px;margin-top:14px}
+a.see{display:grid;grid-template-columns:40px minmax(0,1fr) 18px;align-items:center;gap:10px;min-height:52px;padding:6px 12px 6px 8px;border-radius:4px;text-decoration:none;background:var(--pk-see);color:var(--pk-see-ink);-webkit-tap-highlight-color:transparent}
+a.see>svg:first-child{width:40px;height:40px}
+a.see .see-t small{display:block;font:700 12px/1 var(--mt);letter-spacing:.2em;text-transform:uppercase;color:var(--pk-see-k)}
+a.see .see-t b{display:block;margin-top:3px;font:700 19px/1.05 var(--mt);letter-spacing:.08em;text-transform:uppercase}
+a.see .chev{width:18px;height:18px;color:var(--pk-see-k)}
+a.see:active{filter:brightness(1.14)}
+a.see:focus-visible{outline:2px solid var(--pk-focus);outline-offset:2px}
+
+.end{padding:20px 16px calc(84px + env(safe-area-inset-bottom,0px));background:var(--pk-end,transparent);text-align:center;font-size:12.5px;line-height:1.5;color:var(--pk-foot)}
+.end b{display:block;margin-bottom:4px;font:700 16px/1.2 var(--mt);letter-spacing:.14em;text-transform:uppercase;color:var(--fx-lane)}
+.dock{position:fixed;left:50%;bottom:0;transform:translateX(-50%);z-index:20;width:100%;max-width:520px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;align-items:center;
+  padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));background:var(--pk-dock);border-top:1px solid var(--pk-dock-line);box-shadow:0 -8px 20px rgba(0,0,0,.4)}
+.js .dock{grid-template-columns:52px repeat(4,minmax(0,1fr))}
+.dock a{display:grid;place-items:center;height:46px;padding:0 2px;font:700 16px/1 var(--mt);letter-spacing:.06em;text-transform:uppercase;text-align:center;color:var(--pk-dock-ink);text-decoration:none;-webkit-tap-highlight-color:transparent}
+.dock a.on{color:var(--pk-dock-on-ink);background:var(--pk-dock-on)}
+.dock a:focus-visible{outline:2px solid var(--fx-focus);outline-offset:-3px}
+.dock .ox-mb{width:52px;min-width:0;height:46px;padding:0}
+@media print{.dock{display:none}.end{padding-bottom:22px}}
+:root{--pk-bg:#06131c;--pk-page:#0a1f2a;--pk-ink:#24313a;--pk-focus:#ffe2a6;--pk-cap:#b5cbd3;--pk-cap-b:#eaf7fb;
+  --pk-ix-h:#8fe3f2;--pk-ix-line:rgba(143,227,242,.45);
+  --pk-key:#17485c;--pk-acc:#d9622b;--pk-acc-ink:#b8440f;--pk-line:rgba(31,44,52,.16);--pk-tile:#e2ded1;--pk-tile2:#f7f4ea;--pk-mute:#55636b;
+  --pk-num:#22313b;--pk-num-ink:#fff;--pk-chip:#fbf8ef;--pk-chip-ink:#2a3840;--pk-th:#5c6c74;--pk-th-ink:#fff;
+  --pk-gap:#55636b;--pk-gap-ink:#fff;--pk-gap-line:#8d989c;--pk-s1:#17485c;--pk-s1-ink:#eaf7fb;--pk-s1-line:rgba(23,72,92,.45);
+  --pk-see:linear-gradient(180deg,#22313b,#141e25);--pk-see-ink:#fff4dc;--pk-see-k:#f3cf86;--pk-foot:#9fb6be;
+  --pk-dock:linear-gradient(180deg,rgba(18,40,52,.98),rgba(8,22,30,.98));--pk-dock-line:rgba(143,227,242,.35);--pk-dock-ink:#a9c6cf;
+  --pk-dock-on:linear-gradient(180deg,#ffffff,#dfe9ec);--pk-dock-on-ink:#14222b;
+  --ow-line:rgba(143,227,242,.45);--ow-bg:rgba(8,26,36,.7);--ow-ink:#cfe3ea;--ow-acc:#f3cf86}
+
+.fl-hero{height:calc(min(100vw,520px) * .7692);min-height:270px;color:#fff;background:#06131c}
+.fl-sky{position:absolute;inset:0;display:block;width:100%;height:100%}
+.fl-form{position:absolute;left:-1%;top:32%;width:76.9%;height:60%;overflow:visible;will-change:transform}
+.mo .fl-form{animation:fl-drift 8s ease-in-out infinite alternate}
+@keyframes fl-drift{from{transform:translate(-1.2%,1.6%)}to{transform:translate(1.6%,-2%)}}
+.fl-tw i{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;box-shadow:0 0 6px 1px rgba(200,240,255,.9);opacity:.5}
+.fl-tw i:nth-child(1){left:12%;top:36%}
+.fl-tw i:nth-child(2){left:60%;top:72%}
+.fl-tw i:nth-child(3){left:88%;top:66%}
+.mo .fl-tw i{animation:fl-tw 5s ease-in-out infinite both}
+.mo .fl-tw i:nth-child(2){animation-delay:1.7s}
+.mo .fl-tw i:nth-child(3){animation-delay:3.1s}
+@keyframes fl-tw{0%,100%{opacity:.2;transform:scale(.6)}50%{opacity:1;transform:scale(1.2)}}
+.fl-hero .hero-tx{position:absolute;left:16px;top:16px;right:16px}
+.fl-hero .kick{font:700 13px/1 var(--mt);letter-spacing:.3em;text-transform:uppercase;color:#8fe3f2}
+.fl-hero h1{margin-top:6px;font:700 clamp(64px,21vw,100px)/.9 var(--mt);letter-spacing:.04em;text-transform:uppercase;color:#fff;text-shadow:0 2px 14px rgba(4,18,26,.65)}
+.fl-bar{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:10px;min-height:42px;padding:6px 14px;background:linear-gradient(180deg,#d95a22,#b5400f);box-shadow:inset 0 1px 0 rgba(255,220,190,.5),0 -6px 18px rgba(4,18,26,.45)}
+.fl-bar svg{flex:none;width:18px;height:22px}
+.fl-bar p{font:700 17px/1.1 var(--mt);letter-spacing:.14em;text-transform:uppercase;color:#fff}
+
+.fl .ix ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;counter-reset:ix}
+.fl .ix li{counter-increment:ix}
+.fl .ix a{display:flex;flex-direction:column;justify-content:center;gap:5px;min-height:54px;padding:7px 8px 6px;border:1px solid rgba(143,227,242,.28);border-radius:3px;background:linear-gradient(180deg,#14303e,#0d222d);color:#eaf7fb;text-decoration:none;font:700 15.5px/1.05 var(--mt);letter-spacing:.07em;text-transform:uppercase}
+.fl .ix a::before{content:counter(ix,decimal-leading-zero);font:700 12px/1 var(--mt);letter-spacing:.14em;color:#8fe3f2}
+.fl .ix li.pend a{border-style:dashed;color:#b5cbd3}
+
+.fl .pk-main{counter-reset:sec}
+.fl .sec{counter-increment:sec}
+.fl .sec-h{display:flex;align-items:center;gap:10px;min-height:46px;padding:7px 24px 6px 10px;color:#fff;background:linear-gradient(180deg,#27363f,#18242b);clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%)}
+.fl .sec-h::before{content:counter(sec,decimal-leading-zero);flex:none;min-width:30px;padding:6px 6px 5px;border-radius:2px;text-align:center;font:700 16px/1 var(--mt);letter-spacing:.06em;color:#18242b;background:linear-gradient(180deg,#fff,#dfe9ec)}
+.fl .sec.pend .sec-h{background:linear-gradient(180deg,#3d4a51,#2b363c)}
+.fl .sec-b{padding:14px 14px 16px;border-radius:0 0 4px 4px;background:#efece2;--pk-focus:#17485c}
+
+ol.an{display:grid;gap:6px;margin-top:12px}
+ol.an>li{display:grid;grid-template-columns:118px minmax(0,1fr) auto;align-items:center;gap:12px;min-height:64px;padding:8px 12px 8px 8px;border-radius:3px;background:var(--pk-tile)}
+.an-art{display:flex;align-items:center;justify-content:center;gap:5px;height:48px;border-radius:3px;background:linear-gradient(160deg,#17384a,#0d2230)}
+.an-ship .an-art svg{width:96px;height:40px}
+.an-champ .an-art svg{width:30px;height:38px}
+.an-craft .an-art{display:grid;grid-template-columns:repeat(5,18px);gap:4px;justify-content:center;align-content:center}
+.an-craft .an-art svg{width:18px;height:18px}
+.an-tx b{display:block;font:700 19px/1 var(--mt);letter-spacing:.08em;text-transform:uppercase;color:var(--pk-key)}
+.an-tx small{display:block;margin-top:3px;font-size:12.5px;line-height:1.3;color:var(--pk-mute)}
+ol.an em{font:700 26px/1 var(--mt);font-style:normal;letter-spacing:.02em;color:var(--pk-acc-ink)}
+
+figure.tri{position:relative;max-width:300px;margin:14px auto 0}
+figure.tri svg{display:block;width:100%;height:auto}
+.tri-n{position:absolute;transform:translateX(-50%);font:700 17px/1 var(--mt);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;color:var(--pk-key)}
+.tri-n.beam{left:50%;top:32%}
+.tri-n.kin{left:79.3%;top:90.4%}
+.tri-n.ion{left:20.7%;top:90.4%}
+.tri-c{position:absolute;left:50%;top:57%;transform:translate(-50%,-50%);text-align:center}
+.tri-c small{display:block;font:700 12px/1 var(--mt);letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;color:var(--pk-mute)}
+.tri-c b{display:block;margin-top:4px;font:700 25px/1 var(--mt);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;color:var(--pk-acc-ink)}
+
+.t-resonance tbody th{padding-left:12px;font:700 26px/1 var(--mt);color:var(--pk-key)}
+.t-resonance td span{font:700 20px/1 var(--mt);letter-spacing:.04em;color:var(--pk-acc-ink)}
+@font-face{font-family:"FGF Title Fallback";font-weight:600 900;size-adjust:64%;src:local("Arial Bold"),local("Arial-BoldMT"),local("Helvetica Bold"),local("Helvetica-Bold"),local("Roboto Bold"),local("Roboto-Bold"),local("DejaVu Sans Bold"),local("DejaVuSans-Bold")}
+@font-face{font-family:"FGF Title Fallback";font-weight:100 599;size-adjust:64%;src:local("Arial"),local("ArialMT"),local("Helvetica"),local("Roboto"),local("Roboto-Regular"),local("DejaVu Sans"),local("DejaVuSans")}
+:root{--mt:"Saira Extra Condensed","Avenir Next Condensed","Roboto Condensed","Bahnschrift Condensed","Arial Narrow",sans-serif-condensed,"FGF Title Fallback",sans-serif;
+  --mb:"Noto Sans","Segoe UI",system-ui,sans-serif;
+  --fx-bar1:rgba(10,10,30,.97);--fx-bar2:rgba(10,10,30,.92);--fx-hair:rgba(243,207,134,.45);--fx-ink:#c9cff2;--fx-at:#fff4dc;
+  --fx-lane:#f3cf86;--fx-glow:rgba(243,207,134,.5);--fx-acc:#f3cf86;--fx-focus:#ffe2a6;--fx-maxw:520px;
+  --fx-tab1:rgba(24,26,64,.93);--fx-tab2:rgba(10,10,30,.9);--fx-tab-ink:#fff4dc;--fx-tab-arrow:#ffe2a6;
+  --fx-btn1:#f9f1de;--fx-btn2:#e3d1aa;--fx-btn-ink:#2b2119;--fx-btn-line:rgba(243,207,134,.6);
+  --fx-pn1:#1e1948;--fx-pn2:#0d0b26;--fx-shade:rgba(5,4,16,.7);
+  --tk1:#f8f0dd;--tk2:#e8d9b8;--tk-st1:#ecdcb6;--tk-st2:#dcc699;--tk-ink:#2b2119;--tk-sub:#5e4c3b;--tk-perf:rgba(90,70,50,.35);
+  --tk-go1:#33224d;--tk-go2:#22163a;--tk-go-ink:#f6e7c8;--tk-focus:#5a3fb0;
+  --tk-here1:#efe2ff;--tk-here2:#d9c6f3;--tk-here-st1:#e0cdf7;--tk-here-st2:#c9b0ec;--tk-here-ink:#4b2c80;
+  --rs-p1:#15123a;--rs-p2:#0b0a24;--rs-grid:rgba(169,193,255,.07);--rs-edge:rgba(243,207,134,.42);--rs-ink:#fff4dc;--rs-sub:#c6c7e4;
+  --rs-fade:#0d0b2c;--rs-pad:12px;--rs-tint:rgba(110,130,230,.2);--rs-tint2:rgba(243,160,110,.1)}
+
+.m-tab{display:inline-flex;align-items:center;gap:9px;height:44px;padding:0 26px 0 14px;background:linear-gradient(180deg,var(--fx-tab1),var(--fx-tab2));clip-path:polygon(0 0,100% 0,calc(100% - 16px) 100%,0 100%);color:var(--fx-tab-ink);text-decoration:none;font:700 21px/1 var(--mt);letter-spacing:.1em;text-transform:uppercase;box-shadow:inset 0 1px 0 rgba(255,236,200,.3),inset 0 -1px 0 rgba(0,0,0,.4)}
+.m-tab svg{flex:none;width:18px;height:18px}
+.m-tab svg.bk{width:31px;height:17px;color:var(--fx-tab-arrow)}
+.m-tab:focus-visible{outline:2px solid var(--fx-focus);outline-offset:-4px}
+.m-sq{flex:none;display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid rgba(255,236,200,.5);border-radius:4px;background:rgba(14,14,40,.62);color:#fff4dc;font:700 16px/1 var(--mt);letter-spacing:.1em}
+.m-h{display:flex;align-items:center;gap:10px;margin:0 2px 12px;text-align:left;text-indent:0;font:700 15px/1 var(--mt);letter-spacing:.26em;text-transform:uppercase;color:var(--fx-acc)}
+.m-h::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--fx-hair),rgba(0,0,0,0))}
+.m-vh,.mx-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.m-tks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.m-tk{position:relative;display:grid;grid-template-columns:58px 1fr auto;align-items:center;min-height:66px;border-radius:7px;background:linear-gradient(180deg,var(--tk1),var(--tk2));color:var(--tk-ink);text-decoration:none;
+  -webkit-mask:radial-gradient(circle 7px at 58px 0,transparent 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 7px at 58px 100%,transparent 98%,#000) bottom/100% 51% no-repeat;
+  mask:radial-gradient(circle 7px at 58px 0,transparent 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 7px at 58px 100%,transparent 98%,#000) bottom/100% 51% no-repeat}
+a.m-tk:active{filter:brightness(.94)}
+a.m-tk:focus-visible{outline:3px solid var(--tk-focus);outline-offset:-4px}
+.m-stub{align-self:stretch;display:grid;place-items:center;border-right:2px dashed var(--tk-perf);background:linear-gradient(180deg,var(--tk-st1),var(--tk-st2));border-radius:7px 0 0 7px;color:var(--tk-ink)}
+.m-stub svg{width:36px;height:36px}
+.m-bd{min-width:0;padding:9px 6px 9px 14px}
+.m-bd b{display:block;font:700 21px/1 var(--mt);letter-spacing:.08em;text-transform:uppercase;color:inherit}
+.m-bd small{display:block;margin-top:3px;font:400 12.5px/1.3 var(--mb);color:var(--tk-sub)}
+.m-go{display:flex;align-items:center;gap:2px;height:36px;margin-right:12px;padding:0 6px 0 14px;background:linear-gradient(180deg,var(--tk-go1),var(--tk-go2));color:var(--tk-go-ink);font:700 15px/1 var(--mt);letter-spacing:.12em;text-transform:uppercase;clip-path:polygon(9px 0,100% 0,100% 100%,0 100%)}
+.m-go svg{width:16px;height:16px}
+.m-tk.off{background:linear-gradient(180deg,#c6bdad,#aca292);color:#2e2822}
+.m-tk.off .m-stub{background:linear-gradient(180deg,#bcb2a1,#a59a89);color:#3a322a}
+.m-tk.off small{color:#3a322a}
+.m-tk .m-lk{width:18px;height:18px;margin-right:16px;color:#3a322a}
+.m-tk.here{background:linear-gradient(180deg,var(--tk-here1),var(--tk-here2))}
+.m-tk.here .m-stub{background:linear-gradient(180deg,var(--tk-here-st1),var(--tk-here-st2))}
+.mx-here{display:block;margin-bottom:5px;font:700 12px/1 var(--mt);font-style:normal;letter-spacing:.2em;text-transform:uppercase;color:var(--tk-here-ink)}
+
+.rs-wrap{position:relative;z-index:1;padding:36px var(--rs-pad) 12px;background:linear-gradient(180deg,rgba(0,0,0,0),var(--rs-fade) 34px)}
+.rs{position:relative;max-width:496px;margin:0 auto;padding:0 0 4px;color:var(--rs-ink);border:1px solid var(--rs-edge);border-radius:3px;box-shadow:0 12px 30px rgba(0,0,0,.45);
+  background:radial-gradient(1.2px 1.2px at 62px 38px,rgba(255,250,240,.75),rgba(0,0,0,0) 70%) 0 0/250px 190px,radial-gradient(1px 1px at 180px 120px,rgba(220,230,255,.7),rgba(0,0,0,0) 70%) 0 0/250px 190px,
+    radial-gradient(1.5px 1.5px at 214px 22px,rgba(255,240,215,.8),rgba(0,0,0,0) 70%) 0 0/250px 190px,radial-gradient(1px 1px at 118px 164px,rgba(255,250,240,.6),rgba(0,0,0,0) 70%) 0 0/250px 190px,
+    linear-gradient(90deg,var(--rs-grid) 1px,rgba(0,0,0,0) 1px) 0 0/26px 26px,linear-gradient(180deg,var(--rs-grid) 1px,rgba(0,0,0,0) 1px) 0 0/26px 26px,
+    radial-gradient(110% 46% at 0% 0%,var(--rs-tint),rgba(0,0,0,0) 72%) 0 0/100% 100% no-repeat,radial-gradient(90% 40% at 100% 100%,var(--rs-tint2),rgba(0,0,0,0) 70%) 0 0/100% 100% no-repeat,
+    linear-gradient(180deg,var(--rs-p1),var(--rs-p2))}
+.rs::before{content:"";position:absolute;inset:-1px;pointer-events:none;
+  background:linear-gradient(var(--fx-lane),var(--fx-lane)) 0 0/18px 2px no-repeat,linear-gradient(var(--fx-lane),var(--fx-lane)) 0 0/2px 18px no-repeat,
+    linear-gradient(var(--fx-lane),var(--fx-lane)) 100% 0/18px 2px no-repeat,linear-gradient(var(--fx-lane),var(--fx-lane)) 100% 0/2px 18px no-repeat,
+    linear-gradient(var(--fx-lane),var(--fx-lane)) 0 100%/18px 2px no-repeat,linear-gradient(var(--fx-lane),var(--fx-lane)) 0 100%/2px 18px no-repeat,
+    linear-gradient(var(--fx-lane),var(--fx-lane)) 100% 100%/18px 2px no-repeat,linear-gradient(var(--fx-lane),var(--fx-lane)) 100% 100%/2px 18px no-repeat}
+.rs-hd{display:flex;align-items:baseline;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;padding:16px 14px 12px 18px;border-bottom:1px solid var(--rs-edge)}
+.rs-hd h2{margin:0;text-align:left;text-indent:0;font:700 17px/1 var(--mt);letter-spacing:.26em;text-transform:uppercase;color:var(--fx-acc)}
+.rs-hd span{font:600 13px/1 var(--mt);letter-spacing:.16em;text-transform:uppercase;color:var(--rs-sub)}
+.rs-ln{position:relative;list-style:none;margin:0;padding:6px 0 0}
+.rs-ln::before,.rs-ln::after{content:"";position:absolute;top:0;bottom:0;width:9px;pointer-events:none;opacity:.5;
+  background:repeating-linear-gradient(180deg,var(--fx-lane) 0 1px,rgba(0,0,0,0) 1px 13px) 0 0/5px 100% no-repeat,repeating-linear-gradient(180deg,var(--fx-lane) 0 1px,rgba(0,0,0,0) 1px 65px) 0 0/9px 100% no-repeat}
+.rs-ln::before{left:0}
+.rs-ln::after{right:0;transform:scaleX(-1)}
+.rs-ln li{position:relative}
+.rs-ln li::before{content:"";position:absolute;left:41px;top:0;bottom:0;width:2px;background:repeating-linear-gradient(180deg,var(--fx-lane) 0 4px,rgba(0,0,0,0) 4px 10px);box-shadow:0 0 7px var(--fx-glow)}
+.rs-ln li:first-child::before{top:50%}
+.rs-ln li:last-child::before{bottom:50%}
+.rs-ln li::after{content:"";position:absolute;left:36px;top:-6px;width:12px;height:100%;pointer-events:none;opacity:0;
+  background:radial-gradient(circle,#fffaf0 0 1.6px,var(--fx-lane) 2.6px,rgba(0,0,0,0) 6px) 0 0/12px 12px no-repeat}
+.rs-ln li:first-child::after{top:calc(50% - 6px);height:50%}
+.rs-ln li:last-child::after{height:50%}
+.mo .rs-ln li::after{animation:rs-run 2.4s linear infinite}
+@keyframes rs-run{0%{opacity:0;transform:translateY(0)}14%,86%{opacity:1}100%{opacity:0;transform:translateY(100%)}}
+.rs-here,.rs-st{position:relative;display:grid;grid-template-columns:84px 1fr auto;align-items:center;min-height:74px;padding:9px 16px 9px 0}
+.rs-st{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.rs-st:active{background:rgba(255,255,255,.06)}
+.rs-st:focus-visible{outline:2px solid var(--fx-focus);outline-offset:-3px}
+.rs-pl{position:relative;z-index:1;justify-self:center;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:radial-gradient(circle,var(--rs-p2) 60%,rgba(0,0,0,0) 63%);color:var(--rs-ink)}
+.rs-pl svg{width:42px;height:42px}
+.rs-here .rs-pl{width:62px;height:62px}
+.rs-here .rs-pl svg{width:56px;height:56px}
+.rs-pu{position:absolute;inset:-4px;border-radius:50%;border:1.5px solid var(--fx-lane);opacity:0;pointer-events:none}
+.mo .rs-pu{animation:m-ping 3.4s ease-out infinite}
+.still .rs-pu{opacity:.5;transform:scale(.92)}
+@keyframes m-ping{0%{transform:scale(.45);opacity:.9}100%{transform:scale(1.5);opacity:0}}
+.rs-tx{min-width:0}
+.rs-tx b{display:block;font:700 22px/1 var(--mt);letter-spacing:.08em;text-transform:uppercase;color:var(--rs-ink)}
+.rs-tx small{display:block;margin-top:4px;font:400 12.5px/1.35 var(--mb);color:var(--rs-sub)}
+.rs-nx,.rs-yh{display:block;margin-bottom:6px;font:700 12px/1 var(--mt);font-style:normal;letter-spacing:.2em;text-transform:uppercase;color:var(--fx-acc)}
+.rs-yh{color:var(--fx-lane)}
+.rs-go{display:grid;place-items:center;width:40px;height:40px;margin-left:8px;border:1px solid var(--rs-edge);border-radius:3px;background:rgba(0,0,0,.18);color:var(--fx-lane)}
+.rs-go svg{width:18px;height:18px}
+.rs-home .rs-pl{box-shadow:0 0 0 2px var(--rs-p2),0 0 0 3.5px var(--fx-lane)}
+.m-tab,.m-tk,.rs-st,.mx-jb,.mx-x{-webkit-tap-highlight-color:transparent}
+:root{--fx-bar1:rgba(16,40,52,.97);--fx-bar2:rgba(8,22,30,.95);--fx-hair:rgba(243,207,134,.42);--fx-ink:#bcd3da;--fx-tab1:rgba(30,58,72,.97);--fx-tab2:rgba(14,32,42,.95);--fx-pn1:#17394a;--fx-pn2:#091a23;--fx-shade:rgba(3,10,14,.72);--rs-p1:#10303f;--rs-p2:#071821;--rs-grid:rgba(160,220,240,.07);--rs-edge:rgba(243,207,134,.4);--rs-sub:#a9c6cf;--rs-fade:#081a24;--rs-tint:rgba(70,170,210,.24);--rs-tint2:rgba(232,110,50,.12);--ox-base:#07161f;--ox-glow:#1d5f7a}
+html.still{scroll-behavior:auto!important}
+.still *,.still *::before,.still *::after{animation:none!important;transition:none!important}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+.ox-rib{position:relative;z-index:2;padding:calc(7px + env(safe-area-inset-top,0px)) 6px 6px;color:var(--rs-ink);border-bottom:1px solid var(--rs-edge);
+  background:radial-gradient(1.2px 1.2px at 62px 18px,rgba(255,250,240,.75),rgba(0,0,0,0) 70%) 0 0/230px 110px,radial-gradient(1px 1px at 170px 80px,rgba(220,230,255,.7),rgba(0,0,0,0) 70%) 0 0/230px 110px,
+    radial-gradient(1.4px 1.4px at 204px 40px,rgba(255,240,215,.8),rgba(0,0,0,0) 70%) 0 0/230px 110px,
+    linear-gradient(90deg,var(--rs-grid) 1px,rgba(0,0,0,0) 1px) 0 0/26px 26px,linear-gradient(180deg,var(--rs-grid) 1px,rgba(0,0,0,0) 1px) 0 0/26px 26px,
+    radial-gradient(70% 120% at 0% 0%,var(--rs-tint),rgba(0,0,0,0) 72%) 0 0/100% 100% no-repeat,radial-gradient(60% 120% at 100% 100%,var(--rs-tint2),rgba(0,0,0,0) 70%) 0 0/100% 100% no-repeat,
+    linear-gradient(180deg,var(--rs-p1),var(--rs-p2))}
+.ox-rib-in{max-width:var(--fx-maxw);margin:0 auto}
+.ox-rib-hd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 6px 3px;font:700 11.5px/1 var(--mt);letter-spacing:.2em;text-transform:uppercase;color:var(--fx-lane)}
+.ox-rib-hd span{display:flex;align-items:center;gap:6px}
+.ox-rib-hd svg{width:12px;height:12px}
+.ox-rib-hd small{font:600 10px/1 var(--mt);letter-spacing:.16em;color:var(--rs-sub)}
+.ox-rib ol{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(var(--ox-n,6),minmax(0,1fr))}
+.ox-rib ol::before{content:"";position:absolute;left:calc(50% / var(--ox-n,6));right:calc(50% / var(--ox-n,6));top:24px;height:2px;background:repeating-linear-gradient(90deg,var(--fx-lane) 0 4px,rgba(0,0,0,0) 4px 10px);box-shadow:0 0 7px var(--fx-glow)}
+.ox-rib-in{container:oxrib/inline-size}
+.ox-rib-sc{--ml:0px;--mr:26px;margin-top:-16px;padding-top:16px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;overscroll-behavior-x:contain;
+  -webkit-mask:linear-gradient(90deg,rgba(0,0,0,0),#000 var(--ml),#000 calc(100% - var(--mr)),rgba(0,0,0,0));mask:linear-gradient(90deg,rgba(0,0,0,0),#000 var(--ml),#000 calc(100% - var(--mr)),rgba(0,0,0,0))}
+.ox-rib-sc::-webkit-scrollbar{display:none}
+.ox-rib-sc.ox-mid{--ml:26px}
+.ox-rib-sc.ox-end{--ml:26px;--mr:0px}
+.ox-rib-sc ol{width:calc(var(--ox-n,6) * 100% / 5.5);min-width:100%}
+@container oxrib (min-width:756px){
+  .ox-rib-sc{margin-top:0;padding-top:0;overflow:visible;-webkit-mask:none;mask:none}
+  .ox-rib-sc ol{width:auto}
+}
+@media print{.ox-rib-sc{margin:0;padding:0;overflow:visible;-webkit-mask:none;mask:none}.ox-rib-sc ol{width:auto}}
+.ox-rib li{position:relative;min-width:0;margin:0;padding:0}
+.ox-rib li::before{content:none}
+.ox-rib a,.ox-rib .here{display:flex;flex-direction:column;align-items:center;gap:3px;min-height:72px;padding:0 1px 4px;color:var(--rs-sub);text-decoration:none;-webkit-tap-highlight-color:transparent}
+.ox-rib a:focus-visible{outline:2px solid var(--fx-focus);outline-offset:-2px}
+.ox-rib a:active{background:rgba(255,255,255,.06)}
+.ox-st{position:relative;flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:radial-gradient(circle,var(--rs-p2) 58%,rgba(0,0,0,0) 62%)}
+.ox-st svg{width:38px;height:38px}
+.ox-rib small{display:block;max-width:100%;font:700 clamp(9.5px,2.8vw,11.5px)/1.1 var(--mt);letter-spacing:.06em;text-transform:uppercase;text-align:center;
+  -webkit-hyphens:auto;hyphens:auto}
+@media (max-width:399.98px){.ox-rib small{letter-spacing:0}}
+.mx-sh .m-bd b{-webkit-hyphens:auto;hyphens:auto}
+@media (max-width:379.98px){.mx-sh .m-bd b{font-size:19px;letter-spacing:.04em}}
+:lang(ko) .ox-rib small,:lang(ko) .m-bd b,:lang(ko) .m-bd small,:lang(ko) .rs-tx b,:lang(ko) .rs-tx small{word-break:keep-all}
+.ox-rib .here small{color:var(--fx-lane)}
+.ox-rib .here .ox-st{box-shadow:0 0 0 2px var(--rs-p2),0 0 0 3.5px var(--fx-lane),0 0 14px var(--fx-glow)}
+.ox-rib .here .rs-pu{inset:-6px}
+.ox-rib.paused *,.ox-rib.paused *::before,.ox-rib.paused *::after{animation-play-state:paused!important}
+
+.ox-mb{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:50px;height:44px;margin:0;padding:0 5px;border:1px solid var(--fx-btn-line);border-radius:3px;cursor:pointer;color:var(--fx-lane);
+  background:radial-gradient(circle at 50% 28%,rgba(255,226,166,.18),rgba(0,0,0,0) 62%),linear-gradient(180deg,var(--fx-tab1),var(--fx-tab2));font:inherit;-webkit-tap-highlight-color:transparent}
+.ox-mb svg{flex:none;width:20px;height:14px}
+.ox-mb span{font:700 9.5px/1 var(--mt);letter-spacing:.14em;text-transform:uppercase;color:var(--fx-at);white-space:nowrap}
+.ox-mb:focus-visible{outline:2px solid var(--fx-focus);outline-offset:2px}
+.ox-mb:active{filter:brightness(1.15)}
+html:not(.js) .ox-mb{display:none}
+.ox-name{flex:1;min-width:0;display:flex;align-items:center;gap:8px;margin:0;font:700 17px/1.35 var(--mt);letter-spacing:.14em;text-transform:uppercase;color:var(--fx-at);white-space:nowrap}
+.ox-name svg{flex:none;width:24px;height:24px}
+.ox-name span{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:379.98px){.ox-name{letter-spacing:.09em}}
+
+.mx-sh{position:fixed;z-index:45;inset:0}
+.mx-sh[hidden]{display:none}
+.mx-bd{position:absolute;inset:0;background:var(--fx-shade)}
+.mx-pn{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:520px;max-height:88vh;max-height:88dvh;overflow:auto;padding:14px 12px calc(18px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,var(--fx-pn1),var(--fx-pn2));border-top:1px solid var(--fx-hair);border-radius:12px 12px 0 0;box-shadow:0 -12px 30px rgba(0,0,0,.6);text-align:left}
+.mo .mx-pn{animation:mx-up .32s cubic-bezier(.2,.8,.2,1)}
+@keyframes mx-up{from{transform:translate(-50%,40px);opacity:.4}}
+.mx-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px}
+.mx-top h2{margin:0;text-align:left;text-indent:0;font:700 22px/1 var(--mt);letter-spacing:.14em;text-transform:uppercase;color:var(--fx-at)}
+.mx-x{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid var(--fx-btn-line);border-radius:4px;background:transparent;color:var(--fx-at);cursor:pointer}
+.mx-x svg{width:20px;height:20px}
+.mx-x:focus-visible{outline:2px solid var(--fx-focus);outline-offset:2px}
+.mx-sh .m-tks{margin:0;padding:0}
+.mx-sh .m-tks li{margin:0;padding:0}
+.mx-sh .m-tks li::before{content:none}
+.rs-wrap.paused *,.rs-wrap.paused *::before,.rs-wrap.paused *::after{animation-play-state:paused!important}
+html.mx-lock,html.mx-lock body{overflow:hidden}
+
+.ox-fm{display:block;margin:0 0 4px;font:700 16px/1.2 var(--mt);letter-spacing:.14em;text-transform:uppercase;color:var(--fx-lane)}
+.ox-fm svg{width:12px;height:12px;margin:0 6px -1px 0}
+
+.ox-warp{position:fixed;inset:0;z-index:80;pointer-events:auto;overflow:hidden}
+.ox-wb{position:absolute;inset:0;opacity:0;background:radial-gradient(circle at 50% 42%,var(--wg) 0,var(--wc) 64%);animation:ox-wb .46s cubic-bezier(.5,0,.75,0) forwards}
+.ox-ws{position:absolute;left:50%;top:42%;width:62vmax;height:2px;margin-top:-1px;transform-origin:0 50%;opacity:0;
+  background:linear-gradient(90deg,rgba(255,244,220,0),rgba(255,236,200,.9) 70%,rgba(255,244,220,0));animation:ox-ws .46s cubic-bezier(.55,0,.8,.2) forwards}
+.ox-wp{position:absolute;left:var(--x);top:var(--y);width:48px;height:48px;margin:-24px 0 0 -24px;will-change:transform,opacity;animation:ox-wp .46s cubic-bezier(.6,0,.85,.25) forwards}
+@keyframes ox-wb{to{opacity:1}}
+@keyframes ox-ws{0%{opacity:0;transform:rotate(var(--a)) translateX(2vmax) scaleX(.04)}30%{opacity:1}100%{opacity:.15;transform:rotate(var(--a)) translateX(42vmax) scaleX(1)}}
+@keyframes ox-wp{0%{transform:translate(0,0) scale(1)}55%{opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(16);opacity:0}}
+html.ox-in::after{content:"";position:fixed;inset:0;z-index:80;pointer-events:none;background:radial-gradient(circle at 50% 42%,var(--ox-glow) 0,var(--ox-base) 64%);animation:ox-in .55s cubic-bezier(.15,.6,.25,1) forwards}
+@keyframes ox-in{from{opacity:1}to{opacity:0;transform:scale(1.5)}}
+html.ox-in .ox-rib .here .ox-st{animation:ox-land .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes ox-land{from{transform:scale(2.4);opacity:.35}}
+.still.ox-in::after,html:not(.mo).ox-in::after{display:none}
+@media (prefers-reduced-motion:reduce){html.ox-in::after,.ox-warp{display:none}}
+@media print{.ox-mb,.mx-sh,.ox-warp,html.ox-in::after{display:none!important}}
+
+:root{--owner:"UID 4053721"}
+.owner{display:flex;align-items:center;justify-content:center;gap:7px;width:max-content;max-width:100%;margin:16px auto 0;padding:6px 13px;border:1px solid var(--ow-line,rgba(243,207,134,.45));border-radius:999px;background:var(--ow-bg,rgba(12,10,32,.6));font:600 12px/1 "Saira Extra Condensed","Avenir Next Condensed","Roboto Condensed","Bahnschrift Condensed","Arial Narrow",sans-serif-condensed,"FGF Title Fallback",sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--ow-ink,#ddd6f0)}
+.owner b{font-weight:700;letter-spacing:.1em;color:var(--ow-acc,#f3cf86)}
+.hero-uid{position:absolute;z-index:8;top:calc(64px + env(safe-area-inset-top,0px));left:14px;font:600 10px/1 var(--t,sans-serif);letter-spacing:.16em;color:rgba(255,236,200,.5);pointer-events:none}
+.wm{position:fixed;inset:0;z-index:40;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='250'%3E%3Ctext x='210' y='130' text-anchor='middle' transform='rotate(-24 210 125)' font-family='Arial,sans-serif' font-size='16' font-weight='700' letter-spacing='3' fill='%23f3e3c0' fill-opacity='0.075'%3EUID 4053721 %C2%B7 FGF WIKI%3C/text%3E%3C/svg%3E");background-size:420px 250px}
+@media print{.wm{display:block}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-gem" viewBox="0 0 20 20"><path d="M10 1l4 6-4 12-4-12z" fill="#ffd9a0"/><path d="M10 1l4 6h-8z" fill="#fff4dc"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 20 14"><path d="M1.2 1.4h17.6M1.2 7h17.6M1.2 12.6h11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="17.4" cy="12.6" r="1.6" fill="currentColor"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-back" viewBox="0 0 36 20"><path d="M1 10L14.5 2.2 11.6 10 14.5 17.8Z" fill="currentColor"/><path d="M13.6 7.4L35 4.2 31.2 9.1 15 9.4Z" fill="currentColor" opacity=".85"/><path d="M13.6 12.6L35 15.8 31.2 10.9 15 10.6Z" fill="currentColor" opacity=".85"/></symbol>
+  <symbol id="i-blades" viewBox="0 0 24 24" fill="currentColor"><path d="M3 2.4L4.7 2.3 15.3 12.9 13.1 15.1 2.5 4.5Z"/><path d="M21 2.4L19.3 2.3 8.7 12.9 10.9 15.1 21.5 4.5Z"/><path d="M12.4 14.4l1.6-1.6 4.4 4.4-1.6 1.6zM9.9 12.8l1.6 1.6-4.4 4.4-1.6-1.6z"/><path d="M17.2 18.8l1.5-1.5 2.7 2.7-1.5 1.5zM6.8 18.8L5.3 17.3 2.6 20l1.5 1.5z"/></symbol>
+  <symbol id="i-squad" viewBox="0 0 24 24"><path d="M12 5L5 17H19Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/><g fill="currentColor"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/></g></symbol>
+  <symbol id="i-signup" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12l2 2 4-4.5M9 17.5h7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-ship" viewBox="0 0 24 24" fill="currentColor"><path d="M2 12C6 9.2 13 8.6 22 12 13 15.4 6 14.8 2 12Z"/><path d="M8.6 10.3L11.2 6h3l-1.5 4.2zM8.6 13.7L11.2 18h3l-1.5-4.2z"/></symbol>
+  <symbol id="i-banner" viewBox="0 0 24 24"><path d="M5.5 2v20" stroke="currentColor" stroke-width="1.8"/><path d="M6.5 3.5h13l-3 4.5 3 4.5h-13z" fill="currentColor"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><path d="M7.5 10.5V8a4.5 4.5 0 0 1 9 0v2.5" fill="none" stroke="currentColor" stroke-width="2"/><rect x="5" y="10.5" width="14" height="10.5" rx="2" fill="currentColor"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.3" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15.4 15.4L21 21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M5.5 5.5l13 13M18.5 5.5l-13 13" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-planet" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.2" fill="currentColor"/><ellipse cx="12" cy="12" rx="11" ry="3.4" fill="none" stroke="currentColor" stroke-width="1.5" transform="rotate(-18 12 12)"/></symbol>
+  <symbol id="i-star4" viewBox="-12 -12 24 24"><path d="M0-11L2.6-2.6 11 0 2.6 2.6 0 11-2.6 2.6-11 0-2.6-2.6Z" fill="currentColor"/></symbol>
+</svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="gg-s2" cx="66%" cy="30%" r="78%"><stop offset="0" stop-color="#f1e4ff"/><stop offset=".18" stop-color="#b08ced"/><stop offset=".45" stop-color="#6240aa"/><stop offset=".75" stop-color="#2c175c"/><stop offset="1" stop-color="#120a2c"/></radialGradient>
+    <radialGradient id="gg-sf" cx="34%" cy="30%" r="80%"><stop offset="0" stop-color="#c9fff0"/><stop offset=".22" stop-color="#5fb8a2"/><stop offset=".58" stop-color="#1f4d46"/><stop offset="1" stop-color="#071514"/></radialGradient>
+    <radialGradient id="gg-tm" cx="40%" cy="34%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".3" stop-color="#9fc3ff"/><stop offset=".72" stop-color="#3a5bb0"/><stop offset="1" stop-color="#16224a"/></radialGradient>
+    <radialGradient id="gg-sh" cx="74%" cy="24%" r="100%"><stop offset=".5" stop-color="#0a0418" stop-opacity="0"/><stop offset="1" stop-color="#0a0418" stop-opacity=".72"/></radialGradient>
+    <clipPath id="gc-s2"><circle r="12"/></clipPath>
+    <clipPath id="gc-sf"><circle r="11"/></clipPath>
+    <radialGradient id="gg-fl" cx="36%" cy="30%" r="80%"><stop offset="0" stop-color="#f3fbff"/><stop offset=".26" stop-color="#9fd0e6"/><stop offset=".62" stop-color="#2f6f8f"/><stop offset="1" stop-color="#0b2434"/></radialGradient>
+    <radialGradient id="gg-gd" cx="36%" cy="30%" r="80%"><stop offset="0" stop-color="#e2fff8"/><stop offset=".26" stop-color="#6fcdbd"/><stop offset=".62" stop-color="#1c6660"/><stop offset="1" stop-color="#062321"/></radialGradient>
+    <radialGradient id="gg-gl" cx="36%" cy="30%" r="80%"><stop offset="0" stop-color="#f4fff9"/><stop offset=".26" stop-color="#9be6c8"/><stop offset=".62" stop-color="#2f9478"/><stop offset="1" stop-color="#0a3329"/></radialGradient>
+  </defs>
+  <symbol id="g-s2" viewBox="-20 -20 40 40">
+    <g transform="rotate(-14)" fill="none"><path d="M-18 0A18 4.4 0 0 1 18 0" stroke="#2a1850" stroke-opacity=".5" stroke-width="3"/><path d="M-18 0A18 4.4 0 0 1 18 0" stroke="#e9bb5c" stroke-width="1.3"/></g>
+    <circle r="12" fill="url(#gg-s2)"/>
+    <g clip-path="url(#gc-s2)" fill="none" stroke="#ffd98f" stroke-width="1" stroke-linecap="round"><path d="M-12-3c4-2 7 2 11 0s7-3 11-1"/><path d="M-11 5c4-2 7 2 11 0s6-2 10-1"/><path d="M-3-12l2 6-2 4 3 4-1 6"/></g>
+    <circle r="12" fill="url(#gg-sh)"/>
+    <circle r="12.2" fill="none" stroke="#e6d6ff" stroke-opacity=".6" stroke-width=".7"/>
+    <g transform="rotate(-14)" fill="none"><path d="M18 0A18 4.4 0 0 1-18 0" stroke="#2a1850" stroke-opacity=".5" stroke-width="3"/><path d="M18 0A18 4.4 0 0 1-18 0" stroke="#ffe3a3" stroke-width="1.3"/></g>
+  </symbol>
+  <symbol id="g-sf" viewBox="-20 -20 40 40">
+    <path d="M6.9-16.6 16.6-6.9 16.6 6.9 6.9 16.6-6.9 16.6-16.6 6.9-16.6-6.9-6.9-16.6Z" fill="none" stroke="#3f9e86" stroke-width="1.1" stroke-dasharray="1.6 2.6"/>
+    <g fill="#3f9e86"><circle cx="6.9" cy="-16.6" r="1.5"/><circle cx="16.6" cy="-6.9" r="1.5"/><circle cx="16.6" cy="6.9" r="1.5"/><circle cx="-6.9" cy="16.6" r="1.5"/><circle cx="-16.6" cy="6.9" r="1.5"/><circle cx="-16.6" cy="-6.9" r="1.5"/><circle cx="-6.9" cy="-16.6" r="1.5"/></g>
+    <circle cx="6.9" cy="16.6" r="1.8" fill="#f2a641"/>
+    <circle r="11" fill="url(#gg-sf)"/>
+    <g clip-path="url(#gc-sf)" fill="none" stroke="#a8ead2" stroke-opacity=".35"><path d="M-11-2c5-2 15-2 22 1"/><path d="M-11 5c6 3 15 3 22-1"/></g>
+    <ellipse cx="3.6" cy="3" rx="3.4" ry="2" fill="#ffc46b"/>
+    <circle r="11" fill="url(#gg-sh)"/>
+    <circle r="11.2" fill="none" stroke="#c9fff0" stroke-opacity=".55" stroke-width=".7"/>
+  </symbol>
+  <symbol id="g-tm" viewBox="-20 -20 40 40">
+    <circle r="17" fill="#9fc3ff" fill-opacity=".16"/>
+    <g transform="rotate(-16)" fill="none"><path d="M-16 0A16 5.4 0 0 1 16 0" stroke="#1b2a55" stroke-opacity=".5" stroke-width="3.4"/><path d="M-16 0A16 5.4 0 0 1 16 0" stroke="#7d98d6" stroke-width="2"/><path d="M-16 0H16M0-5.4V5.4" stroke="#7d98d6" stroke-width=".9"/></g>
+    <path d="M0-6V-14.4" stroke="#7d98d6" stroke-width="1.1"/><circle cy="-15.4" r="1.7" fill="#f2b94c"/>
+    <circle r="6.4" fill="url(#gg-tm)"/>
+    <g transform="rotate(-16)" fill="none"><path d="M16 0A16 5.4 0 0 1-16 0" stroke="#1b2a55" stroke-opacity=".55" stroke-width="3.4"/><path d="M16 0A16 5.4 0 0 1-16 0" stroke="#b9cdff" stroke-width="2"/></g>
+    <g transform="rotate(-16)" fill="#f2b94c"><circle cy="5.4" r="1.1"/><circle cx="-11" cy="3.9" r=".9"/><circle cx="11" cy="3.9" r=".9"/></g>
+  </symbol>
+  <symbol id="g-tp" viewBox="-20 -20 40 40">
+    <circle r="16" fill="none" stroke="currentColor" stroke-opacity=".5" stroke-width="1.4"/>
+    <path d="M0-16A16 16 0 0 1 16 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M0-7.5L7 5H-7Z" fill="none" stroke="currentColor" stroke-opacity=".6" stroke-dasharray="1.6 2"/>
+    <g fill="currentColor"><path d="M0-12.4l3.6 6.4L0-7.6-3.6-6z"/><path d="M-7 .3l3.6 6.4L-7 5.1l-3.6 1.6z"/><path d="M7 .3l3.6 6.4L7 5.1l-3.6 1.6z"/></g>
+  </symbol>
+  <symbol id="g-cm" viewBox="-20 -20 40 40">
+    <path d="M0-16L13.9-8V8L0 16-13.9 8V-8Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+    <path d="M0-11L9.5-5.5V5.5L0 11-9.5 5.5V-5.5Z" fill="none" stroke="currentColor" stroke-opacity=".5" stroke-dasharray="1.6 2"/>
+    <path d="M-3.4-1.4V-3.8a3.4 3.4 0 0 1 6.8 0v2.4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <rect x="-5" y="-1.4" width="10" height="7.6" rx="1.3" fill="currentColor"/>
+  </symbol>
+  <symbol id="g-su" viewBox="-20 -20 40 40">
+    <path d="M-7 15L0-4 7 15Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+    <path d="M-4.4 8.6H4.4" stroke="currentColor" stroke-width="1.3"/>
+    <circle cy="-6.6" r="3.1" fill="currentColor"/>
+    <g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M-7-11.6a10 10 0 0 1 14 0"/><path d="M-11.6-15.6a16.5 16.5 0 0 1 23.2 0" stroke-opacity=".6"/></g>
+  </symbol>
+  <symbol id="g-fl" viewBox="-20 -20 40 40">
+    <circle r="17.4" fill="none" stroke="#6fb6d6" stroke-opacity=".5" stroke-width=".9" stroke-dasharray="1.6 2.6"/>
+    <circle r="11" fill="url(#gg-fl)"/>
+    <circle r="11" fill="url(#gg-sh)"/>
+    <circle r="11.2" fill="none" stroke="#dff3ff" stroke-opacity=".6" stroke-width=".7"/>
+    <g transform="rotate(-28)">
+      <g stroke="#ff9a4d" stroke-width="1.7" stroke-linecap="round"><path d="M-3.4 0h-7"/><path d="M-10.4-8.6h-5" stroke-opacity=".8"/><path d="M-10.4 8.6h-5" stroke-opacity=".8"/></g>
+      <g fill="#fff" stroke="#0b2434" stroke-width=".9" stroke-linejoin="round"><path d="M13 0L-2.4-5.4.4 0-2.4 5.4Z"/><path d="M1.6-8.6L-9.6-12.4-7.6-8.6-9.6-4.8Z"/><path d="M1.6 8.6L-9.6 4.8-7.6 8.6-9.6 12.4Z"/></g>
+    </g>
+  </symbol>
+  <symbol id="g-gd" viewBox="-20 -20 40 40">
+    <g transform="rotate(-18)" fill="none"><path d="M-17 0A17 5 0 0 1 17 0" stroke="#083533" stroke-opacity=".5" stroke-width="2.6"/><path d="M-17 0A17 5 0 0 1 17 0" stroke="#4fb3a4" stroke-width="1" stroke-dasharray="1.6 2.4"/></g>
+    <circle r="11" fill="url(#gg-gd)"/>
+    <circle r="11" fill="url(#gg-sh)"/>
+    <circle r="11.2" fill="none" stroke="#d6fff5" stroke-opacity=".6" stroke-width=".7"/>
+    <g transform="rotate(-18)"><path d="M17 0A17 5 0 0 1-17 0" fill="none" stroke="#083533" stroke-opacity=".5" stroke-width="2.6"/><path d="M17 0A17 5 0 0 1-17 0" fill="none" stroke="#9fe6d6" stroke-width="1" stroke-dasharray="1.6 2.4"/>
+      <g fill="#f2b94c" stroke="#3a2406" stroke-width=".5"><circle cx="-11" cy="3.8" r="1.5"/><circle cy="5" r="1.5"/><circle cx="11" cy="3.8" r="1.5"/></g></g>
+    <path d="M.8-18.6h12.4" stroke="#f2b94c" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M2.2-18.2h9.6v13.6l-4.8-3.4-4.8 3.4Z" fill="#9a3440" stroke="#2a0a10" stroke-width=".9" stroke-linejoin="round"/>
+    <circle cx="7" cy="-12.6" r="2.1" fill="none" stroke="#ffe7b0" stroke-width="1.1"/>
+  </symbol>
+  <symbol id="g-gl" viewBox="-20 -20 40 40">
+    <circle r="16.6" fill="none" stroke="#5fc9a6" stroke-opacity=".75" stroke-width="2.2" stroke-dasharray=".9 3.45"/>
+    <circle r="11" fill="url(#gg-gl)"/>
+    <circle r="11" fill="url(#gg-sh)"/>
+    <circle r="11.2" fill="none" stroke="#e2fff2" stroke-opacity=".6" stroke-width=".7"/>
+    <path d="M-7.2-3.6q3.6-1.9 7.2 0 3.6-1.9 7.2 0v8q-3.6-1.9-7.2 0-3.6-1.9-7.2 0Z" fill="#f6fff9" stroke="#0a3329" stroke-width=".9" stroke-linejoin="round"/>
+    <path d="M0-3.6v8M-5.2-1.2q1.7-.6 3.2-.1M-5.2 1.3q1.7-.6 3.2-.1M2-1.3q1.6-.5 3.2.1M2 1.2q1.6-.5 3.2.1" fill="none" stroke="#0a3329" stroke-width=".8" stroke-linecap="round"/>
+    <path d="M11.4-15.2l1 3 3 1-3 1-1 3-1-3-3-1 3-1Z" fill="#f2b94c" stroke="#3a2406" stroke-width=".5" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+    <linearGradient id="fd-hull" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#d7eaf2"/><stop offset="1" stop-color="#8fb6c8"/></linearGradient>
+    <linearGradient id="fd-jet" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#ffb066"/><stop offset="1" stop-color="#ffb066" stop-opacity="0"/></linearGradient>
+  </defs>
+  <symbol id="fl-ship" viewBox="0 0 96 40">
+    <path d="M24 17L2 20l22 3Z" fill="url(#fd-jet)"/>
+    <path d="M46 14L28 3 20 4l10 11ZM46 26L28 37l-8-1 10-11Z" fill="#b9d6e2"/>
+    <path d="M94 20L66 14.5 40 12.5 26 15.5 21 20l5 4.5 14 3 26-2Z" fill="url(#fd-hull)"/>
+    <path d="M86 20H30" stroke="#5fa8c4" stroke-width="1.2"/>
+    <path d="M62 17.4L72 20l-10 2.6Z" fill="#17485c"/>
+    <ellipse cx="34" cy="20" rx="4.2" ry="12.5" fill="none" stroke="#f2b94c" stroke-width="2.2"/>
+    <path d="M34 7.5a4.2 12.5 0 0 0 0 25" fill="none" stroke="#b9822a" stroke-width="2.2"/>
+  </symbol>
+  <symbol id="fl-champ" viewBox="0 0 32 40">
+    <path d="M16 2L29 9.5V30.5L16 38 3 30.5V9.5Z" fill="#0f2a38" stroke="#8fe3f2" stroke-width="1.6" stroke-linejoin="round"/>
+    <circle cx="16" cy="15" r="5.4" fill="#eaf7fb"/>
+    <path d="M6.4 31.2q9.6-11.4 19.2 0L16 36.6Z" fill="#eaf7fb"/>
+  </symbol>
+  <symbol id="fl-craft" viewBox="0 0 18 18">
+    <rect x=".8" y=".8" width="16.4" height="16.4" rx="2" fill="#12303f" stroke="#8fe3f2" stroke-opacity=".5"/>
+    <path d="M14.4 9L4.4 4.8 6.6 9 4.4 13.2Z" fill="#eaf7fb"/>
+  </symbol>
+  <symbol id="fl-flame" viewBox="0 0 20 24">
+    <path d="M10 1c2.4 4.4 7 6.6 7 12.4A7 7 0 0 1 3 13.4c0-3.2 2-4.6 3-7 1.2 2 2.2 2.4 3.2 3.4C9.4 6.4 8.8 4 10 1Z" fill="#fff4dc"/>
+    <path d="M10 12c1.4 2 3 3 3 5.2a3 3 0 0 1-6 0c0-1.6 1-2.4 1.6-3.6.5.9 1 1.1 1.4 1.6Z" fill="#e2622b"/>
+  </symbol>
+    <symbol id="fl-tri" viewBox="0 0 300 250">
+    <g fill="none" stroke="#e2622b" stroke-width="5" stroke-linecap="round"><path d="M192 62Q232 84 240 146"/><path d="M202 197Q150 214 106 197"/><path d="M60 146Q68 84 108 62"/></g>
+    <g fill="#e2622b"><path d="M241.7 158.9L247.9 145 232.1 147Z"/><path d="M93.9 192.3L108.9 189.5 103.1 204.5Z"/><path d="M119.4 55.7L111.9 69 104.1 55Z"/></g>
+    <g transform="translate(150 46)"><circle r="30" fill="#0f2a38"/><circle r="28.5" fill="none" stroke="#4fb7f0" stroke-width="3"/>
+      <path d="M-13 10L7-4" stroke="#4fb7f0" stroke-width="4.4" stroke-linecap="round"/><path d="M10-18l2.2 7.2 7.2 2.2-7.2 2.2-2.2 7.2-2.2-7.2-7.2-2.2 7.2-2.2Z" fill="#fff"/></g>
+    <g transform="translate(238 190)"><circle r="30" fill="#0f2a38"/><circle r="28.5" fill="none" stroke="#e9a23b" stroke-width="3"/>
+      <path d="M-8-6.5H4L14 0 4 6.5H-8Z" fill="#e9a23b"/><path d="M-17-4.4h4.4M-19 0h6.4M-17 4.4h4.4" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></g>
+    <g transform="translate(62 190)"><circle r="30" fill="#0f2a38"/><circle r="28.5" fill="none" stroke="#a67cf0" stroke-width="3"/>
+      <ellipse rx="16" ry="6.4" fill="none" stroke="#a67cf0" stroke-width="2.4" transform="rotate(-32)"/><ellipse rx="16" ry="6.4" fill="none" stroke="#a67cf0" stroke-width="2.4" transform="rotate(32)"/><circle r="4.6" fill="#fff"/></g>
+  </symbol>
+</svg>
+<div class="wrap fl" id="top">
+<nav class="ox-rib" aria-labelledby="ox-rib-n"><div class="ox-rib-in">
+  <p class="ox-rib-hd"><span id="ox-rib-n"><svg aria-hidden="true"><use href="#i-gem"/></svg>FGF Wiki</span><small data-owner="4053721">UID 4053721</small></p>
+  <div class="ox-rib-sc"><ol style="--ox-n:9">
+    <li><a href="../" data-wk="tm"><span class="ox-st"><svg aria-hidden="true"><use href="#g-tm"/></svg></span><small data-i="rb.tm">Map</small></a></li>
+    <li><a href="../season2/" data-wk="s2"><span class="ox-st"><svg aria-hidden="true"><use href="#g-s2"/></svg></span><small data-i="rb.s2">Season 2</small></a></li>
+    <li><span class="here" aria-current="page"><span class="ox-st"><svg aria-hidden="true"><use href="#g-fl"/></svg><i class="rs-pu" aria-hidden="true"></i></span><small data-i="rb.fl">Fleets</small></span></li>
+    <li><a href="../guilds/" data-wk="gd"><span class="ox-st"><svg aria-hidden="true"><use href="#g-gd"/></svg></span><small data-i="rb.gd">Guilds</small></a></li>
+    <li><a href="../glossary/" data-wk="gl"><span class="ox-st"><svg aria-hidden="true"><use href="#g-gl"/></svg></span><small data-i="rb.gl">Glossary</small></a></li>
+    <li><a href="../../" data-wk="sf" data-lang><span class="ox-st"><svg aria-hidden="true"><use href="#g-sf"/></svg></span><small data-i="rb.sf">Guide</small></a></li>
+    <li><a href="../../teams/" data-wk="tp" data-lang><span class="ox-st"><svg aria-hidden="true"><use href="#g-tp"/></svg></span><small data-i="rb.tp">Teams</small></a></li>
+    <li><a href="../../signups/" data-wk="su"><span class="ox-st"><svg aria-hidden="true"><use href="#g-su"/></svg></span><small data-i="rb.su">Sign-ups</small></a></li>
+    <li><a href="../../roster/" data-wk="cm" data-lang><span class="ox-st"><svg aria-hidden="true"><use href="#g-cm"/></svg></span><small data-i="rb.cm">Commander</small></a></li>
+  </ol></div><script data-nofacts>(function(s){if(!s)return;var h=s.querySelector(".here"),l=h&&h.parentNode;function e(){var m=s.scrollWidth-s.clientWidth,x=s.scrollLeft;s.classList.toggle("ox-mid",x>2&&x<m-2);s.classList.toggle("ox-end",m>2&&x>=m-2);}if(l&&s.scrollWidth>s.clientWidth)s.scrollLeft=l.offsetLeft-(s.clientWidth-l.offsetWidth)/2;s.addEventListener("scroll",e,{passive:true});window.addEventListener("resize",e);e();})(document.currentScript.previousElementSibling);</script>
+</div></nav>
+  <header class="hero fl-hero">
+        <svg class="fl-sky" viewBox="0 0 390 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="fh-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#06131c"/><stop offset=".56" stop-color="#0b2c3a"/><stop offset="1" stop-color="#125360"/></linearGradient>
+        <radialGradient id="fh-pl" cx="34%" cy="30%" r="78%"><stop offset="0" stop-color="#f7ffff"/><stop offset=".22" stop-color="#cfeaec"/><stop offset=".55" stop-color="#6fb0ba"/><stop offset=".86" stop-color="#255865"/><stop offset="1" stop-color="#113642"/></radialGradient>
+        <radialGradient id="fh-sh" cx="26%" cy="22%" r="100%"><stop offset=".45" stop-color="#04121a" stop-opacity="0"/><stop offset="1" stop-color="#04121a" stop-opacity=".84"/></radialGradient>
+        <radialGradient id="fh-gw" cx=".5" cy=".5" r=".5"><stop offset=".5" stop-color="#8fe3f2" stop-opacity=".3"/><stop offset="1" stop-color="#8fe3f2" stop-opacity="0"/></radialGradient>
+        <linearGradient id="fh-hz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2fa3a8" stop-opacity="0"/><stop offset="1" stop-color="#2fa3a8" stop-opacity=".34"/></linearGradient>
+        <pattern id="fh-s1" width="83" height="71" patternUnits="userSpaceOnUse"><g fill="#fff"><circle cx="9" cy="12" r=".5" opacity=".7"/><circle cx="44" cy="30" r=".45" opacity=".5"/><circle cx="70" cy="55" r=".55" opacity=".8"/><circle cx="26" cy="62" r=".4" opacity=".55"/><circle cx="61" cy="8" r=".4" opacity=".5"/></g></pattern>
+        <pattern id="fh-s2" width="157" height="131" patternUnits="userSpaceOnUse"><circle cx="30" cy="24" r=".9" fill="#dff6ff"/><circle cx="118" cy="70" r=".8" fill="#fff" opacity=".85"/><circle cx="66" cy="112" r=".75" fill="#ffe9c9" opacity=".8"/></pattern>
+        <clipPath id="fh-cp"><circle cx="306" cy="92" r="84"/></clipPath>
+      </defs>
+      <rect width="390" height="300" fill="url(#fh-sky)"/>
+      <rect width="390" height="300" fill="url(#fh-s1)"/>
+      <rect width="390" height="300" fill="url(#fh-s2)"/>
+      <circle cx="306" cy="92" r="128" fill="url(#fh-gw)"/>
+      <circle cx="306" cy="92" r="84" fill="url(#fh-pl)"/>
+      <g clip-path="url(#fh-cp)" fill="none" stroke="#fff" stroke-linecap="round">
+        <path d="M214 64C252 50 332 48 394 74" stroke-opacity=".16" stroke-width="5"/>
+        <path d="M212 108C264 92 334 100 396 122" stroke-opacity=".1" stroke-width="10"/>
+        <path d="M228 146C274 136 332 146 382 162" stroke-opacity=".14" stroke-width="4"/>
+      </g>
+      <g clip-path="url(#fh-cp)" fill="#0e3a47" opacity=".2"><ellipse cx="272" cy="80" rx="16" ry="7"/><ellipse cx="332" cy="126" rx="22" ry="8"/><ellipse cx="320" cy="48" rx="10" ry="4"/></g>
+      <circle cx="306" cy="92" r="84" fill="url(#fh-sh)"/>
+      <circle cx="306" cy="92" r="84.5" fill="none" stroke="#dff6f8" stroke-opacity=".35"/>
+      <circle cx="232" cy="188" r="6.5" fill="#cfe6ea"/><circle cx="234.4" cy="189.6" r="6.5" fill="#082431" opacity=".55"/>
+            <g fill="none" stroke="#8fe3f2"><circle cx="146" cy="186" r="96" stroke-opacity=".2" stroke-dasharray="2 6"/><circle cx="146" cy="186" r="60" stroke-opacity=".12"/>
+        <path d="M146 84v12M146 276v12M44 186h12M236 186h12" stroke-opacity=".45"/></g>
+      <rect y="210" width="390" height="90" fill="url(#fh-hz)"/>
+    </svg>
+    <svg class="fl-form" viewBox="-150 -90 300 180" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="ff-hull" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#d7eaf2"/><stop offset="1" stop-color="#86afc2"/></linearGradient>
+        <linearGradient id="ff-jet" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#ffb066" stop-opacity=".95"/><stop offset="1" stop-color="#ffb066" stop-opacity="0"/></linearGradient>
+        <linearGradient id="ff-tr" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#bfefff" stop-opacity=".8"/><stop offset="1" stop-color="#bfefff" stop-opacity="0"/></linearGradient>
+        <path id="ff-dart" d="M9 0L-5-4.2-2.2 0-5 4.2Z"/>
+      </defs>
+      <g transform="rotate(-24)">
+                <g fill="url(#ff-tr)"><path d="M-2-33L-34-34.6-2-36.2Z"/><path d="M-2 33L-34 34.6-2 36.2Z"/><path d="M-36-50L-66-51.6-36-53.2Z"/><path d="M-36 50L-66 51.6-36 53.2Z"/><path d="M-66-64L-94-65.6-66-67.2Z"/><path d="M-66 64L-94 65.6-66 67.2Z"/><path d="M-84-19L-110-20.6-84-22.2Z"/><path d="M-84 19L-110 20.6-84 22.2Z"/></g>
+        <g fill="#f4fbff"><use href="#ff-dart" x="4" y="-34.6"/><use href="#ff-dart" x="4" y="34.6"/><use href="#ff-dart" x="-30" y="-51.6"/><use href="#ff-dart" x="-30" y="51.6"/><use href="#ff-dart" x="-60" y="-65.6"/><use href="#ff-dart" x="-60" y="65.6"/><use href="#ff-dart" x="-78" y="-20.6"/><use href="#ff-dart" x="-78" y="20.6"/></g>
+                <path d="M-40-4L-132 0-40 4Z" fill="url(#ff-jet)"/>
+        <ellipse cx="-46" cy="0" rx="12" ry="4.6" fill="#ffd9a6" opacity=".9"/>
+        <path d="M-22-16.5a5 16.5 0 0 0 0 33" fill="none" stroke="#a87424" stroke-width="2.6"/>
+        <path d="M8-8L-22-27-36-25-18-8ZM8 8L-22 27-36 25-18 8Z" fill="#b9d6e2"/>
+        <path d="M60 0L20-7.4-10-9.4-34-5.4-41 0-34 5.4-10 9.4 20 7.4Z" fill="url(#ff-hull)"/>
+        <path d="M46 0H-30" stroke="#5fa8c4" stroke-width="1.3"/>
+        <path d="M22-3L35 0 22 3Z" fill="#17485c"/>
+        <path d="M-22-16.5a5 16.5 0 0 1 0 33" fill="none" stroke="#f2b94c" stroke-width="2.6"/>
+      </g>
+    </svg>
+    <span class="fl-tw" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="hero-uid" aria-hidden="true" data-owner="4053721">UID 4053721</span>
+    <div class="hero-tx">
+      <p class="kick" data-i="fl.kick">Field manual</p>
+      <h1 data-i="fl.title">Fleets</h1>
+    </div>
+    <div class="fl-bar"><svg aria-hidden="true"><use href="#fl-flame"/></svg><p data-i="fl.sub">Flagships, Champions, combat craft</p></div>
+  </header>
+
+  <main class="pk-main">
+    <p class="cap" data-i="fl.cap"><b>What this is:</b> how a fleet is put together and how it fights, from the game's own rule screens. Read in Season 1. Numbers are exact.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+    <div class="ownr" data-owner-slot><p class="owner" id="ownerBadge" data-owner="4053721"><span data-i="w.by">Wiki by</span> <b>UID 4053721</b></p></div>
+    <nav class="ix" aria-labelledby="ix-h"><h2 class="ix-h" id="ix-h" data-i="pk.ix">On this page</h2><ol><li><a href="#fleet"><span data-i="fl.ix.fleet">The fleet</span></a></li><li><a href="#styles"><span data-i="fl.ix.styles">Styles</span></a></li><li><a href="#resonance"><span data-i="fl.ix.resonance">Resonance</span></a></li><li><a href="#champs"><span data-i="fl.ix.champs">Champions</span></a></li><li><a href="#ships"><span data-i="fl.ix.ships">Flagships</span></a></li><li><a href="#crew"><span data-i="fl.ix.crew">Crew</span></a></li><li><a href="#cp"><span data-i="fl.ix.cp">Command Points</span></a></li><li><a href="#battle"><span data-i="fl.ix.battle">In battle</span></a></li><li><a href="#damage"><span data-i="fl.ix.damage">Damage</span></a></li><li><a href="#pvp"><span data-i="fl.ix.pvp">Trader fights</span></a></li><li><a href="#arena"><span data-i="fl.ix.arena">Valor Arena</span></a></li><li class="pend"><a href="#gaps"><span data-i="fl.ix.gaps">Not shown yet</span></a></li></ol></nav>
+
+      <section class="sec" id="fleet" data-tab="0" aria-labelledby="h-fleet">
+        <div class="sec-h"><h2 id="h-fleet" data-i="fl.fleet.h">What a fleet is</h2></div>
+        <div class="sec-b">
+          <p class="lede" data-i="fl.fleet.lede">A fleet is <b>1 Flagship</b>, <b>3 Champions</b> and a set of <b>combat craft</b>.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+          <ol aria-label="The parts of a fleet" class="an" data-ia="fl.an.label"><li class="an-ship"><span class="an-art"><svg aria-hidden="true"><use href="#fl-ship"/></svg></span><span class="an-tx"><b data-i="fl.an.ship">Flagship</b><small data-i="fl.an.ship.d">Sets the fleet's style</small></span><em>&times;1</em></li><li class="an-champ"><span class="an-art"><svg aria-hidden="true"><use href="#fl-champ"/></svg><svg aria-hidden="true"><use href="#fl-champ"/></svg><svg aria-hidden="true"><use href="#fl-champ"/></svg></span><span class="an-tx"><b data-i="fl.an.champ">Champions</b><small data-i="fl.an.champ.d">Abilities fire left to right</small></span><em>&times;3</em></li><li class="an-craft"><span class="an-art"><svg aria-hidden="true"><use href="#fl-craft"/></svg><svg aria-hidden="true"><use href="#fl-craft"/></svg><svg aria-hidden="true"><use href="#fl-craft"/></svg><svg aria-hidden="true"><use href="#fl-craft"/></svg><svg aria-hidden="true"><use href="#fl-craft"/></svg><svg aria-hidden="true"><use href="#fl-craft"/></svg><svg aria-hidden="true"><use href="#fl-craft"/></svg><svg aria-hidden="true"><use href="#fl-craft"/></svg><svg aria-hidden="true"><use href="#fl-craft"/></svg><svg aria-hidden="true"><use href="#fl-craft"/></svg></span><span class="an-tx"><b data-i="fl.an.craft">Combat craft</b><small data-i="fl.an.craft.d">Grows with Flagship level</small></span></li></ol>
+          <ul class="dots"><li data-i="fl.fleet.li.0">Set up your Flagships, Champions and combat craft on the <b>Fleet</b> page. Its button is on the left of the home screen.</li><li data-i="fl.fleet.li.1">How many fleets you can send out grows with your <b>Energy Core</b> level.</li><li data-i="fl.fleet.li.2">How many combat craft a fleet carries grows with its <b>Flagship's level</b>. The game's example adds one more craft at level 11.</li><li data-i="fl.fleet.li.3">Match your Champions to the Flagship's style and the fleet gets a bonus: see Style Resonance.</li></ul>
+          <h3 class="sub" data-i="fl.rate.h">Power and Fleet Rating</h3>
+          <p data-i="fl.rate.power"><b>Power</b> covers your whole account. It adds up six things: Flagships, combat craft, Champions, Technologies, Heroic Crew Members and Buildings. Your total sits at the top left of the home screen. Tap it for the breakdown.</p>
+          <p data-i="fl.rate.rating"><b>Fleet Rating</b> is one fleet's fighting strength. It counts the Flagship you deployed, its combat craft and Champions, plus your Technologies, Heroic Crew Members and certain Buildings.</p>
+          <ul class="dots"><li data-i="fl.rate.li.0">Compare both sides' Fleet Ratings on a target's profile panel.</li><li data-i="fl.rate.li.1">The Formation screen breaks your own rating down.</li><li data-i="fl.rate.li.2">The game grades each part of your Power against your Energy Core level. Raising the lowest-graded parts is the efficient way to grow Power.</li></ul>
+          <h3 class="sub" data-i="fl.attr.h">The four attributes</h3>
+          <dl class="kv short"><div data-fact="attr"><dt data-i="fl.attr.0.k">HP</dt><dd data-i="fl.attr.0.v">Maximum health. At 0 the fleet is defeated.</dd></div><div data-fact="attr"><dt data-i="fl.attr.1.k">ATK</dt><dd data-i="fl.attr.1.v">Raises the damage you deal, INT damage aside.</dd></div><div data-fact="attr"><dt data-i="fl.attr.2.k">DEF</dt><dd data-i="fl.attr.2.v">Cuts the damage you take, INT damage aside.</dd></div><div data-fact="attr"><dt data-i="fl.attr.3.k">INT</dt><dd data-i="fl.attr.3.v">Raises the INT damage you deal and cuts the INT damage you take.</dd></div></dl>
+          <p class="sees"><a class="see" href="../glossary/" data-wk="gl"><svg aria-hidden="true"><use href="#g-gl"/></svg><span class="see-t"><small data-i="rb.gl">Glossary</small><b data-i="fl.see.gl">Every term, A to Z</b></span><svg class="chev" aria-hidden="true"><use href="#i-chev"/></svg></a></p>
+        </div>
+      </section>
+      <section class="sec" id="styles" data-tab="0" aria-labelledby="h-styles">
+        <div class="sec-h"><h2 id="h-styles" data-i="fl.styles.h">Styles and counters</h2></div>
+        <div class="sec-b">
+          <p class="lede" data-i="fl.styles.lede">Every Flagship, Champion and combat craft belongs to one of three <b>styles</b>: Beam, Kinetic or Ion.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+          <figure aria-label="Beam counters Kinetic, Kinetic counters Ion, Ion counters Beam" class="tri" role="img" data-ia="fl.tri.label"><svg viewBox="0 0 300 250" aria-hidden="true"><use href="#fl-tri"/></svg><span class="tri-n beam" aria-hidden="true" data-i="fl.st.beam">Beam</span><span class="tri-n kin" aria-hidden="true" data-i="fl.st.kin">Kinetic</span><span class="tri-n ion" aria-hidden="true" data-i="fl.st.ion">Ion</span><span class="tri-c" aria-hidden="true"><small data-i="fl.tri.k">Counter bonus</small><b data-i="fl.tri.v">+5% damage</b></span></figure>
+          <ul class="dots"><li data-i="fl.styles.li.0"><b>Beam</b> counters Kinetic. <b>Kinetic</b> counters Ion. <b>Ion</b> counters Beam.</li><li data-i="fl.styles.li.1">Hit a style you counter and you deal <b>5% more damage</b>.</li><li data-i="fl.styles.li.2">The Flagship's style is the fleet's style. The Flagship's <b>Core Component</b> sets it, so swapping the Core Component changes the whole fleet's style.</li><li data-i="fl.styles.li.3">Three Shipyards on the Mothership build the combat craft, one for each style. Better craft unlock as a Shipyard levels up.</li></ul>
+        </div>
+      </section>
+      <section class="sec" id="resonance" data-tab="0" aria-labelledby="h-resonance">
+        <div class="sec-h"><h2 id="h-resonance" data-i="fl.resonance.h">Style Resonance</h2></div>
+        <div class="sec-b">
+          <p class="lede" data-i="fl.resonance.lede">Put Champions of the Flagship's style in the fleet, and the Flagship and the combat craft of that style get stronger.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+          <div class="tbl t-resonance"><table><caption class="m-vh" data-i="fl.res.cap">Style Resonance bonuses</caption><thead><tr><th scope="col" data-i="fl.res.h.0">Matching Champions</th><th scope="col" data-i="fl.res.h.1">Attack</th><th scope="col" data-i="fl.res.h.2">DEF</th><th scope="col" data-i="fl.res.h.3">INT</th></tr></thead><tbody><tr data-fact="resonance"><th scope="row">2</th><td><span>+10%</span></td><td><span>+10%</span></td><td><span>+10%</span></td></tr><tr data-fact="resonance"><th scope="row">3</th><td><span>+20%</span></td><td><span>+20%</span></td><td><span>+20%</span></td></tr></tbody></table></div>
+          <p class="note" data-i="fl.res.note">The game's panel lists these two steps and shows them for a Beam Flagship.</p>
+        </div>
+      </section>
+      <section class="sec" id="champs" data-tab="1" aria-labelledby="h-champs">
+        <div class="sec-h"><h2 id="h-champs" data-i="fl.champs.h">Champions</h2></div>
+        <div class="sec-b">
+          <p class="lede" data-i="fl.champs.lede">Champions command the fleet in space combat: they add attributes and fire <b>abilities</b>. On the ground you steer them yourself, in landing battles and Prime Radiant stages.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+          <dl class="kv"><div><dt data-i="fl.ch.0.k">Rarity</dt><dd data-i="fl.ch.0.v"><b>Epic</b> or <b>Legendary</b>. Legendary Champions are harder to get.</dd></div><div><dt data-i="fl.ch.1.k">Where they come from</dt><dd data-i="fl.ch.1.v">Venturous Recruitment, quest rewards, events and packs. These give Champions or Champion Fragments.</dd></div><div><dt data-i="fl.ch.2.k">Style</dt><dd data-i="fl.ch.2.v">Beam, Kinetic or Ion. A Champion only reaches full strength in a fleet of the same style.</dd></div><div><dt data-i="fl.ch.3.k">Role</dt><dd data-i="fl.ch.3.v">Attack, Defense, Healing or Support. Each does a different job in battle.</dd></div></dl>
+          <h3 class="sub" data-i="fl.tags.h">Tags on a Champion's card</h3>
+          <dl class="kv short"><div><dt data-i="fl.tag.0.k">Attack</dt><dd data-i="fl.tag.0.v">Built to deal heavy damage for the formation.</dd></div><div><dt data-i="fl.tag.1.k">Limited</dt><dd data-i="fl.tag.1.v">Marks the galaxy's famed figures.</dd></div></dl>
+          <p data-i="fl.tags.note">The card has three tabs: Info, Ability and Star Level.</p>
+          <p class="gap"><b data-i="pk.nsy">Not shown yet</b><span data-i="fl.tags.gap">The game's wording for Defense, Healing, Support and Epic.</span></p>
+          <h3 class="sub" data-i="fl.up.h">Making a Champion stronger</h3>
+          <ul class="ups"><li><b data-i="fl.up.0.k">Level</b><span class="cost"><small data-i="pk.spend">Spend</small><em data-i="fl.up.0.s">Food</em></span><p data-i="fl.up.0.v">Higher base attributes, and more Command Points for the fleet.</p></li><li><b data-i="fl.up.1.k">Star Level</b><span class="cost"><small data-i="pk.spend">Spend</small><em data-i="fl.up.1.s">Champion Fragments</em></span><p data-i="fl.up.1.v">A big jump in base attributes. At certain Star Levels, abilities unlock or awaken and their level caps rise.</p></li><li><b data-i="fl.up.2.k">Abilities</b><span class="cost"><small data-i="pk.spend">Spend</small><em data-i="fl.up.2.s">Training Manuals</em></span><p data-i="fl.up.2.v">Stronger abilities. The Star Level decides which abilities can unlock or awaken, and how far they can go.</p></li></ul>
+          <p data-i="fl.champs.core">The <b>Energy Core</b> caps it all: its level sets the highest level your Flagships, Champions and other buildings can reach.</p>
+        </div>
+      </section>
+      <section class="sec" id="ships" data-tab="1" aria-labelledby="h-ships">
+        <div class="sec-h"><h2 id="h-ships" data-i="fl.ships.h">Flagships</h2></div>
+        <div class="sec-b">
+          <p class="lede" data-i="fl.ships.lede">The Flagship is the heart of a fleet. It brings large attribute bonuses and abilities of its own.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+          <p data-i="fl.ships.bp">Flagship Blueprints come from attacking Tribute Vessels, from events and from packs.</p>
+          <ul class="ups"><li><b data-i="fl.sh.0.k">Upgrade</b><span class="cost"><small data-i="pk.spend">Spend</small><em data-i="fl.sh.0.s">Galactic Coins</em></span><p data-i="fl.sh.0.v">Raises the Flagship's level: higher base attributes, and room for more combat craft.</p></li><li><b data-i="fl.sh.1.k">Promotion</b><span class="cost"><small data-i="pk.spend">Spend</small><em data-i="fl.sh.1.s">Flagship Blueprints</em></span><p data-i="fl.sh.1.v">A large jump in base attributes. It also unlocks or improves the Flagship's skills.</p></li></ul>
+          <h3 class="sub" data-i="fl.cmp.h">Components</h3>
+          <dl class="kv"><div><dt data-i="fl.cmp.0.k">Flagship Components</dt><dd data-i="fl.cmp.0.v">Add to the Flagship's base attributes. Better quality adds more. Buy them in the Glory Shop, or win them from Ascendancy Shrines and Tribute Vessels.</dd></div><div><dt data-i="fl.cmp.1.k">Component sets</dt><dd data-i="fl.cmp.1.v">Fit enough components of the same type and quality and a set bonus switches on.</dd></div><div><dt data-i="fl.cmp.2.k">Core Component</dt><dd data-i="fl.cmp.2.v">Decides the Flagship's style, and so the fleet's. Swap it to counter an enemy.</dd></div><div><dt data-i="fl.cmp.3.k">Energy Resonance</dt><dd data-i="fl.cmp.3.v">Prismatic Cores empower Legendary components. When a full set reaches a set Empowerment Level, Energy Resonance adds more to the fleet's attributes. At Full Set +12, a Photon Stream trails the Flagship in flight.</dd></div></dl>
+        </div>
+      </section>
+      <section class="sec" id="crew" data-tab="1" aria-labelledby="h-crew">
+        <div class="sec-h"><h2 id="h-crew" data-i="fl.crew.h">Crew and the Echo Hub</h2></div>
+        <div class="sec-b">
+          <p class="lede" data-i="fl.crew.lede">Crew come in two kinds, <b>Heroic</b> and <b>Construction</b>. Most come from Crew Member Recruitment.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+          <ul class="dots"><li data-i="fl.crew.li.0">Open the <b>Crew Roster</b> by tapping the Energy Core on the Mothership. There you raise crew star levels and assign crew.</li><li data-i="fl.crew.li.1"><b>Construction Crew Members</b> work in the Mothership's buildings. They add production boosts and abilities.</li><li data-i="fl.crew.li.2"><b>Heroic Crew Members</b> go to the Echo Hub. Each is assigned to one of three styles and adds combat bonuses and abilities to fleets of that style.</li></ul>
+          <h3 class="sub" data-i="fl.hub.h">The Echo Hub</h3>
+          <ul class="dots"><li data-i="fl.hub.li.0">Unlocks when your Energy Core reaches <b>Lvl 20</b>.</li><li data-i="fl.hub.li.1">You start with one assignment slot. Enhancing the hub unlocks more slots and more Computation Nexuses.</li><li data-i="fl.hub.li.2">Each Nexus takes only one Heroic Crew Member of the same profession.</li><li data-i="fl.hub.li.3">The hub has <b>10 Enhancement Stages</b>, each made of several Nodes. Enhance Nodes with Echo Modules, then break through with Echoes of Deep Space. Finish every Node in a stage to move to the next.</li><li data-i="fl.hub.li.4">Professions seen on the hub: Warrior, Sage, Consultant and Guardian.</li></ul>
+          <p class="gap"><b data-i="pk.nsy">Not shown yet</b><span data-i="fl.hub.gap">What each profession boosts.</span></p>
+        </div>
+      </section>
+      <section class="sec" id="cp" data-tab="2" aria-labelledby="h-cp">
+        <div class="sec-h"><h2 id="h-cp" data-i="fl.cp.h">Command Points</h2></div>
+        <div class="sec-b">
+          <p class="lede" data-i="fl.cp.lede">In space combat, the side with more <b>Command Points</b> deals extra damage.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+          <h3 class="sub" data-i="fl.cp.ways">Five ways to raise them</h3>
+          <ol class="steps short"><li data-fact="cp" data-i="fl.cp.li.0">Upgrade Champions</li><li data-fact="cp" data-i="fl.cp.li.1">Upgrade Flagships</li><li data-fact="cp" data-i="fl.cp.li.2">Flagship abilities</li><li data-fact="cp" data-i="fl.cp.li.3">Technologies</li><li data-fact="cp" data-i="fl.cp.li.4">Crew Training</li></ol>
+          <p data-i="fl.cp.rows">Before a fight, the Command Points popup splits each side's total into Champion, Flagship, Technology and Others.</p>
+          <div class="ex"><b data-i="fl.cp.ex.k">One battle's reading</b><p data-i="fl.cp.ex.v">A side <b>43 points</b> ahead dealt <b>20% extra damage</b>. That is one battle, not the full scale.</p></div>
+          <p class="gap"><b data-i="pk.nsy">Not shown yet</b><span data-i="fl.cp.gap">The full scale of extra damage.</span></p>
+        </div>
+      </section>
+      <section class="sec" id="battle" data-tab="2" aria-labelledby="h-battle">
+        <div class="sec-h"><h2 id="h-battle" data-i="fl.battle.h">In battle</h2></div>
+        <div class="sec-b">
+          <p class="lede" data-i="fl.battle.lede">Three small rules decide how a fight plays out.</p>
+          <dl class="kv"><div><dt data-i="fl.bt.0.k">Skill order</dt><dd data-i="fl.bt.0.v">Champions use their abilities in the order they stand in the Formation, left to right. Reorder them to get the most from each ability.</dd></div><div><dt data-i="fl.bt.1.k">Energy</dt><dd data-i="fl.bt.1.v">Normal attacks build Energy. A full bar fires the Champion's Active Ability.</dd></div><div><dt data-i="fl.bt.2.k">Counterattack</dt><dd data-i="fl.bt.2.v">A fleet that is attacked hits back. That damage shows under the normal attack damage.</dd></div></dl>
+        </div>
+      </section>
+      <section class="sec" id="damage" data-tab="2" aria-labelledby="h-damage">
+        <div class="sec-h"><h2 id="h-damage" data-i="fl.damage.h">Damage and repair</h2></div>
+        <div class="sec-b">
+          <p class="lede" data-i="fl.damage.lede">Damage to a fleet is part <b>Minor</b> and part <b>Major</b>. The split depends on what you are fighting.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+          <dl class="kv"><div><dt data-i="fl.dm.0.k">Minor Damage</dt><dd data-i="fl.dm.0.v">Heals at once when the fleet leaves the battle. It costs no Repair Modules.</dd></div><div><dt data-i="fl.dm.1.k">Major Damage</dt><dd data-i="fl.dm.1.v">Needs Repair Modules. Repair in the Formation screen, from the formation list on the left of the screen, or in the Mothership's Repair Cabin.</dd></div><div><dt data-i="fl.dm.2.k">Destroyed</dt><dd data-i="fl.dm.2.v">In long battles, too much Major Damage can destroy combat craft. Destroyed craft are gone for good.</dd></div></dl>
+          <h3 class="sub" data-i="fl.cas.h">Casualty Rules</h3>
+          <div class="tbl t-casualty"><table><caption class="m-vh" data-i="fl.cas.cap">Casualty Rules: Major Damage Rate and Destruction Rate by target</caption><thead><tr><th scope="col" data-i="fl.cas.h.0">Target</th><th scope="col" data-i="fl.cas.h.1">Major Damage</th><th scope="col" data-i="fl.cas.h.2">Destruction</th></tr></thead><tbody><tr data-fact="casualty"><th scope="row" data-i="fl.cas.t.0">Ascendancy Minion</th><td><span>3%</span><i class="bar" style="--v:3" aria-hidden="true"></i></td><td><span>12.5%</span></td></tr><tr data-fact="casualty"><th scope="row" data-i="fl.cas.t.1">Tribute Vessel</th><td><span>3%</span><i class="bar" style="--v:3" aria-hidden="true"></i></td><td><span>12.5%</span></td></tr><tr data-fact="casualty"><th scope="row" data-i="fl.cas.t.2">Sacred Tribute Vessel</th><td><span>20%</span><i class="bar" style="--v:20" aria-hidden="true"></i></td><td><span>12.5%</span></td></tr><tr data-fact="casualty"><th scope="row" data-i="fl.cas.t.3">Ascendancy Shrine</th><td><span>25%</span><i class="bar" style="--v:25" aria-hidden="true"></i></td><td><span>12.5%</span></td></tr><tr data-fact="casualty"><th scope="row" data-i="fl.cas.t.4">Deliverer Ark</th><td><span>3%</span><i class="bar" style="--v:3" aria-hidden="true"></i></td><td><span>12.5%</span></td></tr><tr data-fact="casualty"><th scope="row" data-i="fl.cas.t.5">Ascendancy Frigate</th><td><span>20%</span><i class="bar" style="--v:20" aria-hidden="true"></i></td><td><span>12.5%</span></td></tr><tr data-fact="casualty"><th scope="row" data-i="fl.cas.t.6">Ascendancy Judicator</th><td><span>15%</span><i class="bar" style="--v:15" aria-hidden="true"></i></td><td><span>12.5%</span></td></tr><tr data-fact="casualty"><th scope="row" data-i="fl.cas.t.7">Elite Ascendancy Judicator</th><td><span>15%</span><i class="bar" style="--v:15" aria-hidden="true"></i></td><td><span>12.5%</span></td></tr><tr data-fact="casualty"><th scope="row" data-i="fl.cas.t.8">Calamity Befalls</th><td><span>10%</span><i class="bar" style="--v:10" aria-hidden="true"></i></td><td><span>12.5%</span></td></tr></tbody></table></div>
+          <p class="s1"><b data-i="pk.s1">Season 1</b><span data-i="fl.cas.note">These are Season 1's values. The game does not say what the rates are a share of.</span></p>
+          <p class="sees"><a class="see" href="../guilds/#rally" data-wk="gd"><svg aria-hidden="true"><use href="#g-gd"/></svg><span class="see-t"><small data-i="rb.gd">Guilds</small><b data-i="gd.ix.rally">Rallies</b></span><svg class="chev" aria-hidden="true"><use href="#i-chev"/></svg></a></p>
+        </div>
+      </section>
+      <section class="sec" id="pvp" data-tab="2" aria-labelledby="h-pvp">
+        <div class="sec-h"><h2 id="h-pvp" data-i="fl.pvp.h">Fighting other traders</h2></div>
+        <div class="sec-b">
+          <p class="lede" data-i="fl.pvp.lede">Fights between traders come with effects of their own.</p>
+          <dl class="kv"><div data-fact="status"><dt data-i="fl.pv.0.k">War Frenzy</dt><dd data-i="fl.pv.0.v">Attack another trader and every fleet in the attack gets War Frenzy for <b>5 minutes</b>: Fleet ATK +3%, and your attacks slow the target by 30%. Triggering it again restarts the clock.</dd></div><div data-fact="status"><dt data-i="fl.pv.1.k">Rally Up</dt><dd data-i="fl.pv.1.v">A destroyed fleet comes back at your Home Port after a wait, with Rally Up for <b>2 minutes</b>. Other traders cannot attack it. Attacking a trader yourself ends it.</dd></div><div data-fact="status"><dt data-i="fl.pv.2.k">Interstellar Shelter</dt><dd data-i="fl.pv.2.v">Destroyed by other traders <b>2 times</b> in total, a fleet gets Interstellar Shelter for <b>3 hours</b>, and no trader can attack it. Attacking a trader yourself ends it and resets the count.</dd></div><div data-fact="status"><dt data-i="fl.pv.3.k">Glory Protection</dt><dd data-i="fl.pv.3.v">Attack a much weaker trader and you earn less Glory; the cut grows with the gap between your Flagships and combat craft and theirs. From <b>20,000,000 Power</b> up, you no longer get this protection when others attack you.</dd></div><div data-fact="status"><dt data-i="fl.pv.4.k">Killstreak</dt><dd data-i="fl.pv.4.v">Defeat traders back to back to build a Killstreak. The target must be online, you must deal at least 30% of the damage it takes, and kills can be no more than 3 minutes apart. From 10 kills in a row the broadcast gets grander.</dd></div></dl>
+          <p class="sees"><a class="see" href="../guilds/#ports" data-wk="gd"><svg aria-hidden="true"><use href="#g-gd"/></svg><span class="see-t"><small data-i="rb.gd">Guilds</small><b data-i="gd.ix.ports">Ports</b></span><svg class="chev" aria-hidden="true"><use href="#i-chev"/></svg></a></p>
+        </div>
+      </section>
+      <section class="sec" id="arena" data-tab="3" aria-labelledby="h-arena">
+        <div class="sec-h"><h2 id="h-arena" data-i="fl.arena.h">Valor Arena</h2></div>
+        <div class="sec-b">
+          <p class="lede" data-i="fl.arena.lede">A ticketed ladder: pick an opponent, win Points and climb the ranking.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+          <ol class="steps"><li data-fact="arena" data-i="fl.arena.0">An <b>Arena Ticket</b> starts a challenge. Tickets refill to 3 at 00:00 UTC each day. Out of tickets? Buy more with Credits.</li><li data-fact="arena" data-i="fl.arena.1">Each challenge offers three opponents. Pick one. Beating it earns Points.</li><li data-fact="arena" data-i="fl.arena.2">Win or lose, every challenge pays <b>Valor Coins</b>. Spend them in the Valor Shop.</li><li data-fact="arena" data-i="fl.arena.3">When the event ends, Settlement Rewards go out by your final points and rank. If members of your Commerce Guild place high on the leaderboard, everyone in the guild also gets Commerce Guild Rewards.</li><li data-fact="arena" data-i="fl.arena.4">At the <b>Peerless Master</b> tier you also get a detailed battle report after each match.</li></ol>
+          <p data-i="fl.arena.tiers">Tiers seen so far: Radiant Diamond and Peerless Master.</p>
+          <p class="gap"><b data-i="pk.nsy">Not shown yet</b><span data-i="fl.arena.gap">The other tier names.</span></p>
+        </div>
+      </section>
+      <section class="sec pend" id="gaps" data-tab="3" aria-labelledby="h-gaps">
+        <div class="sec-h"><h2 id="h-gaps" data-i="fl.gaps.h">Not shown yet</h2></div>
+        <div class="sec-b">
+          <ul class="dots pending"><li data-i="fl.gaps.0">The game's wording for the Defense, Healing and Support roles</li><li data-i="fl.gaps.1">The Epic tag's text</li><li data-i="fl.gaps.2">What each crew profession boosts</li><li data-i="fl.gaps.3">The full Command Points scale</li><li data-i="fl.gaps.4">What the casualty rates are a share of</li><li data-i="fl.gaps.5">Casualty values for Season 2</li><li data-i="fl.gaps.6">The Valor Arena's other tier names</li></ul>
+        </div>
+      </section>
+  </main>
+
+<div class="rs-wrap">
+  <section class="rs" aria-labelledby="rs-h">
+    <div class="rs-hd"><h2 id="rs-h" data-i="fx.onward">Onward route</h2></div>
+    <ol class="rs-ln">
+      <li><div class="rs-here" aria-current="page"><span class="rs-pl"><svg aria-hidden="true"><use href="#g-fl"/></svg><i class="rs-pu" aria-hidden="true"></i></span><span class="rs-tx"><em class="rs-yh" data-i="fx.here">You are here</em><b data-i="sys.fl.name">Fleets</b><small data-i="sys.fl.line">Flagships, Champions, crew</small></span></div></li>
+      <li><a class="rs-st" href="../guilds/" data-wk="gd"><span class="rs-pl"><svg aria-hidden="true"><use href="#g-gd"/></svg></span><span class="rs-tx"><em class="rs-nx" data-i="fx.next">Next jump</em><b data-i="sys.gd.name">Guilds</b><small data-i="sys.gd.line">Ports, rallies, guild events</small></span><span class="rs-go"><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="rs-st" href="../glossary/" data-wk="gl"><span class="rs-pl"><svg aria-hidden="true"><use href="#g-gl"/></svg></span><span class="rs-tx"><b data-i="sys.gl.name">Glossary</b><small data-i="sys.gl.line">58 game terms in plain words</small></span><span class="rs-go"><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="rs-st" href="../../" data-wk="sf" data-lang><span class="rs-pl"><svg aria-hidden="true"><use href="#g-sf"/></svg></span><span class="rs-tx"><b data-i="sys.sf.name">Shadowfront</b><small data-i="sys.sf.line">Battle guide · 13 languages⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</small></span><span class="rs-go"><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="rs-st" href="../../teams/" data-wk="tp" data-lang><span class="rs-pl"><svg aria-hidden="true"><use href="#g-tp"/></svg></span><span class="rs-tx"><b data-i="sys.tp.name">Team Plans</b><small data-i="sys.tp.line">Who goes where, with a Plan B</small></span><span class="rs-go"><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="rs-st" href="../../signups/" data-wk="su"><span class="rs-pl"><svg aria-hidden="true"><use href="#g-su"/></svg></span><span class="rs-tx"><b data-i="sys.su.name">Sign-ups</b><small data-i="sys.su.line">Members sign up on Discord</small></span><span class="rs-go"><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="rs-st" href="../../roster/" data-wk="cm" data-lang><span class="rs-pl"><svg aria-hidden="true"><use href="#g-cm"/></svg></span><span class="rs-tx"><b data-i="sys.cm.name">Commander</b><small data-i="sys.cm.line">Roster & log · commanders only</small></span><span class="rs-go"><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="rs-st" href="../season2/" data-wk="s2"><span class="rs-pl"><svg aria-hidden="true"><use href="#g-s2"/></svg></span><span class="rs-tx"><b data-i="sys.s2.name">Siwenna</b><small data-i="sys.s2.line">Season 2 · The Usurper⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</small></span><span class="rs-go"><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li class="rs-home"><a class="rs-st" href="../" data-wk="tm"><span class="rs-pl"><svg aria-hidden="true"><use href="#g-tm"/></svg></span><span class="rs-tx"><b data-i="sys.tm.name">Terminus</b><small data-i="fx.home">Wiki home · back to the map</small></span><span class="rs-go"><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+    </ol>
+  </section>
+</div>
+  <footer class="end"><p id="ownerFoot" data-owner="4053721"><b><span data-i="w.name">FGF Wiki</span> &middot; &copy; 2026 UID 4053721</b><span data-i="w.foot">Unofficial fan guide. Not made by or affiliated with the game's developer or publisher.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</span></p></footer>
+</div>
+
+<nav aria-label="Fleets sections" class="dock" data-ia="fl.dock">
+  <button type="button" class="ox-mb" id="mx-jb" aria-haspopup="dialog" aria-expanded="false" aria-controls="mx-sh"><svg aria-hidden="true"><use href="#i-menu"/></svg><span data-i="fx.menu">Menu</span></button><a class="on" aria-current="location" href="#fleet" data-i="fl.dock.0">Fleet</a><a href="#champs" data-i="fl.dock.1">Build</a><a href="#cp" data-i="fl.dock.2">Battle</a><a href="#arena" data-i="fl.dock.3">Arena</a>
+</nav>
+<div class="mx-sh" id="mx-sh" role="dialog" aria-modal="true" aria-labelledby="mx-sht" hidden>
+  <div class="mx-bd" data-close></div>
+  <div class="mx-pn">
+    <div class="mx-top"><h2 id="mx-sht" data-i="fx.jumpto">Jump to</h2><button type="button" class="mx-x" data-close><svg aria-hidden="true"><use href="#i-close"/></svg><span class="mx-vh" data-i="fx.close">Close</span></button></div>
+    <ol class="m-tks">
+      <li><div class="m-tk here" aria-current="page"><span class="m-stub"><svg aria-hidden="true"><use href="#g-fl"/></svg></span><span class="m-bd"><em class="mx-here" data-i="fx.here">You are here</em><b data-i="sys.fl.name">Fleets</b><small data-i="sys.fl.line">Flagships, Champions, crew</small></span></div></li>
+      <li><a class="m-tk" href="../guilds/" data-wk="gd"><span class="m-stub"><svg aria-hidden="true"><use href="#g-gd"/></svg></span><span class="m-bd"><b data-i="sys.gd.name">Guilds</b><small data-i="sys.gd.line">Ports, rallies, guild events</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="../glossary/" data-wk="gl"><span class="m-stub"><svg aria-hidden="true"><use href="#g-gl"/></svg></span><span class="m-bd"><b data-i="sys.gl.name">Glossary</b><small data-i="sys.gl.line">58 game terms in plain words</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="../../" data-wk="sf" data-lang><span class="m-stub"><svg aria-hidden="true"><use href="#g-sf"/></svg></span><span class="m-bd"><b data-i="sys.sf.name">Shadowfront</b><small data-i="sys.sf.line">Battle guide · 13 languages⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="../../teams/" data-wk="tp" data-lang><span class="m-stub"><svg aria-hidden="true"><use href="#g-tp"/></svg></span><span class="m-bd"><b data-i="sys.tp.name">Team Plans</b><small data-i="sys.tp.line">Who goes where, with a Plan B</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="../../signups/" data-wk="su"><span class="m-stub"><svg aria-hidden="true"><use href="#g-su"/></svg></span><span class="m-bd"><b data-i="sys.su.name">Sign-ups</b><small data-i="sys.su.line">Members sign up on Discord</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="../../roster/" data-wk="cm" data-lang><span class="m-stub"><svg aria-hidden="true"><use href="#g-cm"/></svg></span><span class="m-bd"><b data-i="sys.cm.name">Commander</b><small data-i="sys.cm.line">Roster & log · commanders only</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="../season2/" data-wk="s2"><span class="m-stub"><svg aria-hidden="true"><use href="#g-s2"/></svg></span><span class="m-bd"><b data-i="sys.s2.name">Siwenna</b><small data-i="sys.s2.line">Season 2 · The Usurper⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="../" data-wk="tm"><span class="m-stub"><svg aria-hidden="true"><use href="#g-tm"/></svg></span><span class="m-bd"><b data-i="sys.tm.name">Terminus</b><small data-i="sys.tm.line">Wiki home · the map</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+    </ol>
+  </div>
+</div>
+<div class="wm" id="wm" aria-hidden="true" data-owner="4053721"></div>
+<script data-nofacts>
+(function(){
+var R=document.documentElement,jb=document.getElementById("mx-jb"),sh=document.getElementById("mx-sh"),off=[];
+if(!jb||!sh)return;
+function items(){return [].slice.call(sh.querySelectorAll("a[href],button"));}
+function open(){sh.hidden=false;jb.setAttribute("aria-expanded","true");R.classList.add("mx-lock");
+  off=[].filter.call(document.body.children,function(el){return el!==sh&&!el.hasAttribute("inert")&&!/^(SCRIPT|STYLE|TEMPLATE)$/.test(el.tagName);});
+  off.forEach(function(el){el.setAttribute("inert","");});
+  var x=sh.querySelector(".mx-x");if(x)x.focus();}
+function close(back){if(sh.hidden)return;sh.hidden=true;jb.setAttribute("aria-expanded","false");R.classList.remove("mx-lock");
+  off.forEach(function(el){el.removeAttribute("inert");});off=[];if(back!==false)jb.focus();}
+jb.addEventListener("click",open);
+sh.addEventListener("click",function(e){if(e.target.closest("[data-close]"))close();});
+document.addEventListener("keydown",function(e){if(sh.hidden)return;
+  if(e.key==="Escape"){close();return;}
+  if(e.key==="Tab"){var f=items(),a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}}});
+window.addEventListener("pageshow",function(e){if(e.persisted)close(false);});
+if(/(^|[#&])jump(&|$)/.test(location.hash))open();
+})();
+(function(){
+var R=document.documentElement,WC={"tm":["#05050f","#2c2a6e"],"s2":["#0b0826","#5b3e9e"],"sf":["#061011","#1f5b52"],"tp":["#061011","#1f5b52"],"cm":["#061011","#1f5b52"],"su":["#0e131a","#2c4456"],"fl":["#07161f","#1d5f7a"],"gd":["#0b2428","#2f8f88"],"gl":["#0a2a22","#3fa98a"]},GO=460,fly=null;
+function calm(){return !R.classList.contains("mo")||R.classList.contains("still")||!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);}
+function land(){
+  if(!fly)return;
+  clearTimeout(fly.go);clearTimeout(fly.up);if(fly.d.parentNode)fly.d.parentNode.removeChild(fly.d);fly=null;
+  try{sessionStorage.removeItem("ox-woosh");}catch(e){}
+}
+function woosh(a){
+  var k=a.getAttribute("data-wk"),c=WC[k]||WC.tm,g=a.querySelector('use[href="#g-'+k+'"]'),r=(g?g.parentNode:a).getBoundingClientRect(),
+      x=r.left+r.width/2,y=r.top+r.height/2,d=document.createElement("div"),s='<i class="ox-wb"></i>',i;
+  d.className="ox-warp";d.setAttribute("aria-hidden","true");
+  d.style.cssText="--x:"+x+"px;--y:"+y+"px;--dx:"+(innerWidth/2-x)+"px;--dy:"+(innerHeight*0.42-y)+"px;--wc:"+c[0]+";--wg:"+c[1];
+  for(i=0;i<18;i++)s+='<i class="ox-ws" style="--a:'+(i*20+(i%3)*7)+'deg;animation-delay:'+(i%4)*35+'ms"></i>';
+  s+='<svg class="ox-wp"><use href="#g-'+k+'"/></svg>';
+  d.innerHTML=s;document.body.appendChild(d);
+  try{sessionStorage.setItem("ox-woosh",JSON.stringify({k:k,t:Date.now()}));}catch(e){}
+  fly={d:d,gone:false};
+  fly.go=setTimeout(function(){if(fly){fly.gone=true;location.assign(a.href);}},GO);
+  fly.up=setTimeout(land,10000);
+}
+document.addEventListener("click",function(e){if(fly){e.preventDefault();e.stopPropagation();}},true);
+document.addEventListener("click",function(e){
+  var a=e.target.closest&&e.target.closest("a[data-wk]");
+  if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||(a.target&&a.target!=="_self")||calm())return;
+  e.preventDefault();woosh(a);
+});
+window.addEventListener("pagehide",function(){if(fly&&!fly.gone)land();});
+window.addEventListener("pageshow",function(e){if(!e.persisted)return;land();[].forEach.call(document.querySelectorAll(".ox-warp"),function(w){w.parentNode.removeChild(w);});});
+if(R.classList.contains("ox-in"))setTimeout(function(){R.classList.remove("ox-in");},1200);
+if(R.classList.contains("mo")&&"IntersectionObserver" in window)[].forEach.call(document.querySelectorAll(".ox-rib,.rs-wrap"),function(el){
+  new IntersectionObserver(function(es){es.forEach(function(en){el.classList.toggle("paused",!en.isIntersecting);});}).observe(el);});
+})();
+(function(){
+function stamp(){
+  var l=null;try{l=sessionStorage.getItem("sf-lang");}catch(e){}
+  if(!l||!/^[a-z]{2}$/.test(l))return;
+  [].forEach.call(document.querySelectorAll("a[data-lang]"),function(a){
+    var h=a.getAttribute("href")||"";
+    if(h.indexOf("#")<0||a.getAttribute("data-lang")==="tab"){a.setAttribute("href",h.split("#")[0]+"#lang-"+l);a.setAttribute("data-lang","tab");}
+  });
+}
+stamp();window.addEventListener("pageshow",function(e){if(e.persisted)stamp();});
+})();
+</script>
+<script data-nofacts>
+(function(){
+var R=document.documentElement,MO=R.classList.contains("mo"),hero=document.querySelector(".hero");
+var tabs=[].slice.call(document.querySelectorAll(".dock a")),secs=[].slice.call(document.querySelectorAll("[data-tab]")),tick=0;
+function sync(){tick=0;var mid=window.innerHeight/2,k=0;
+  secs.forEach(function(s){if(s.offsetParent!==null&&s.getBoundingClientRect().top<=mid)k=+s.getAttribute("data-tab");});
+  tabs.forEach(function(a,i){a.classList.toggle("on",i===k);if(i===k)a.setAttribute("aria-current","location");else a.removeAttribute("aria-current");});}
+window.addEventListener("scroll",function(){if(!tick)tick=requestAnimationFrame(sync);},{passive:true});
+window.addEventListener("resize",sync);
+window.pkSync=sync;
+if(MO&&hero&&"IntersectionObserver" in window)new IntersectionObserver(function(es){es.forEach(function(e){hero.classList.toggle("paused",!e.isIntersecting);});}).observe(hero);
+var qy=/y=(\d+)/.exec(location.hash);if(qy){R.style.scrollBehavior="auto";window.scrollTo(0,+qy[1]);}
+document.addEventListener("touchstart",function(){},{passive:true});
+sync();
+})();
+(function(){
+var OWN={"by": "Wiki by", "name": "FGF Wiki", "foot": "Unofficial fan guide. Not made by or affiliated with the game's developer or publisher.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠"},OWNER="UID "+[52,48,53,51,55,50,49].map(function(c){return String.fromCharCode(c);}).join("");
+function ensureOwner(){
+  var b=document.getElementById("ownerBadge");
+  if(!b){b=document.createElement("p");b.id="ownerBadge";b.className="owner";var at=document.querySelector("[data-owner-slot]")||document.body;at.insertBefore(b,at.firstChild);}
+  if(b.textContent.indexOf(OWNER)<0)b.innerHTML="<span>"+OWN.by+"</span> <b>"+OWNER+"</b>";
+  var f=document.getElementById("ownerFoot");
+  if(!f){f=document.createElement("p");f.id="ownerFoot";var ft=document.querySelector("footer")||document.body;
+    if(OWN.gold){f.className="owner-foot";ft.insertBefore(f,ft.firstChild);}else ft.appendChild(f);}
+  if(f.textContent.indexOf(OWNER)<0)f.innerHTML=(OWN.gold?'<b class="ox-fm"><svg aria-hidden="true"><use href="#i-gem"/></svg>':"<b>")+OWN.name+" · © 2026 "+OWNER+"</b>"+OWN.foot;
+  if(!document.getElementById("wm")){var w=document.createElement("div");w.id="wm";w.className="wm";w.setAttribute("aria-hidden","true");document.body.appendChild(w);}
+}
+ensureOwner();
+window.addEventListener("load",ensureOwner);
+try{console.info("%c"+OWN.name+" © 2026 "+OWNER,"color:#f3cf86;font-weight:700");}catch(e){}
+})();
+</script>
+</body>
+</html>

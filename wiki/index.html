@@ -6,11 +6,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0a0a1e">
 <title data-i="hm.page">FGF Wiki: the trade map</title>
-<meta name="description" content="Unofficial fan wiki for Foundation: Galactic Frontier. A trade map of the wiki: Season 2 (The Usurper), the Shadowfront battle guide, team plans and sign-ups.">
+<meta name="description" content="Unofficial fan wiki for Foundation: Galactic Frontier. A trade map of the wiki: Season 2 (The Usurper), fleets, guilds, a glossary of the game&#x27;s terms, the Shadowfront battle guide, team plans and sign-ups.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="FGF Wiki">
 <meta property="og:title" content="FGF Wiki: the trade map">
-<meta property="og:description" content="Unofficial fan wiki for Foundation: Galactic Frontier. A trade map of the wiki: Season 2 (The Usurper), the Shadowfront battle guide, team plans and sign-ups.">
+<meta property="og:description" content="Unofficial fan wiki for Foundation: Galactic Frontier. A trade map of the wiki: Season 2 (The Usurper), fleets, guilds, a glossary of the game&#x27;s terms, the Shadowfront battle guide, team plans and sign-ups.">
 <meta property="og:url" content="https://jeeemomega.github.io/shadowfront-guide/wiki/">
 <meta name="twitter:card" content="summary">
 <meta name="author" content="UID 4053721">
@@ -22,7 +22,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Saira+Extra+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
 <script>
 (function(d){var s=/still/.test(location.hash)||!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
-d.className+=(s?" still":" mo")+" js";window.onerror=function(){d.classList.remove("mo");};})(document.documentElement);
+d.className+=(s?" still":" mo")+" js";window.addEventListener("error",function(){d.classList.remove("mo");});
+try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.removeItem("ox-woosh");if(!s&&w&&w.k==="tm"&&Date.now()-w.t<12000)d.className+=" ox-in";}catch(e){}})(document.documentElement);
 </script>
 <style>
 *{box-sizing:border-box}
@@ -77,6 +78,11 @@ a.m-lb:active{filter:brightness(.94)}
 .m-lb.side{transform:translateY(-50%);align-items:flex-start;text-align:left}
 .m-lb.side::before{left:-6px;top:50%;margin:-6px 0 0;border:6px solid transparent;border-left:0;border-right-color:#f1e5c9}
 .m-lki{width:10px;height:10px;margin:0 4px -1px 0;vertical-align:baseline}
+.m-lb.el,.m-lb.er{transform:none}
+.m-lb.el{align-items:flex-start;text-align:left}
+.m-lb.er{align-items:flex-end;text-align:right}
+.m-lb.el::before{left:20px}
+.m-lb.er::before{left:auto;right:20px;margin:0 -6px 0 0}
 
 .m-routes{position:relative;padding:18px 12px 8px}
 .m-routes .m-h{margin-top:4px}
@@ -181,6 +187,102 @@ a.m-tk:focus-visible{outline:3px solid var(--tk-focus);outline-offset:-4px}
 .rs-go svg{width:18px;height:18px}
 .rs-home .rs-pl{box-shadow:0 0 0 2px var(--rs-p2),0 0 0 3.5px var(--fx-lane)}
 .m-tab,.m-tk,.rs-st,.mx-jb,.mx-x{-webkit-tap-highlight-color:transparent}
+:root{--ox-base:#05050f;--ox-glow:#2c2a6e}
+html.still{scroll-behavior:auto!important}
+.still *,.still *::before,.still *::after{animation:none!important;transition:none!important}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+.ox-rib{position:relative;z-index:2;padding:calc(7px + env(safe-area-inset-top,0px)) 6px 6px;color:var(--rs-ink);border-bottom:1px solid var(--rs-edge);
+  background:radial-gradient(1.2px 1.2px at 62px 18px,rgba(255,250,240,.75),rgba(0,0,0,0) 70%) 0 0/230px 110px,radial-gradient(1px 1px at 170px 80px,rgba(220,230,255,.7),rgba(0,0,0,0) 70%) 0 0/230px 110px,
+    radial-gradient(1.4px 1.4px at 204px 40px,rgba(255,240,215,.8),rgba(0,0,0,0) 70%) 0 0/230px 110px,
+    linear-gradient(90deg,var(--rs-grid) 1px,rgba(0,0,0,0) 1px) 0 0/26px 26px,linear-gradient(180deg,var(--rs-grid) 1px,rgba(0,0,0,0) 1px) 0 0/26px 26px,
+    radial-gradient(70% 120% at 0% 0%,var(--rs-tint),rgba(0,0,0,0) 72%) 0 0/100% 100% no-repeat,radial-gradient(60% 120% at 100% 100%,var(--rs-tint2),rgba(0,0,0,0) 70%) 0 0/100% 100% no-repeat,
+    linear-gradient(180deg,var(--rs-p1),var(--rs-p2))}
+.ox-rib-in{max-width:var(--fx-maxw);margin:0 auto}
+.ox-rib-hd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 6px 3px;font:700 11.5px/1 var(--mt);letter-spacing:.2em;text-transform:uppercase;color:var(--fx-lane)}
+.ox-rib-hd span{display:flex;align-items:center;gap:6px}
+.ox-rib-hd svg{width:12px;height:12px}
+.ox-rib-hd small{font:600 10px/1 var(--mt);letter-spacing:.16em;color:var(--rs-sub)}
+.ox-rib ol{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(var(--ox-n,6),minmax(0,1fr))}
+.ox-rib ol::before{content:"";position:absolute;left:calc(50% / var(--ox-n,6));right:calc(50% / var(--ox-n,6));top:24px;height:2px;background:repeating-linear-gradient(90deg,var(--fx-lane) 0 4px,rgba(0,0,0,0) 4px 10px);box-shadow:0 0 7px var(--fx-glow)}
+.ox-rib-in{container:oxrib/inline-size}
+.ox-rib-sc{--ml:0px;--mr:26px;margin-top:-16px;padding-top:16px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;overscroll-behavior-x:contain;
+  -webkit-mask:linear-gradient(90deg,rgba(0,0,0,0),#000 var(--ml),#000 calc(100% - var(--mr)),rgba(0,0,0,0));mask:linear-gradient(90deg,rgba(0,0,0,0),#000 var(--ml),#000 calc(100% - var(--mr)),rgba(0,0,0,0))}
+.ox-rib-sc::-webkit-scrollbar{display:none}
+.ox-rib-sc.ox-mid{--ml:26px}
+.ox-rib-sc.ox-end{--ml:26px;--mr:0px}
+.ox-rib-sc ol{width:calc(var(--ox-n,6) * 100% / 5.5);min-width:100%}
+@container oxrib (min-width:756px){
+  .ox-rib-sc{margin-top:0;padding-top:0;overflow:visible;-webkit-mask:none;mask:none}
+  .ox-rib-sc ol{width:auto}
+}
+@media print{.ox-rib-sc{margin:0;padding:0;overflow:visible;-webkit-mask:none;mask:none}.ox-rib-sc ol{width:auto}}
+.ox-rib li{position:relative;min-width:0;margin:0;padding:0}
+.ox-rib li::before{content:none}
+.ox-rib a,.ox-rib .here{display:flex;flex-direction:column;align-items:center;gap:3px;min-height:72px;padding:0 1px 4px;color:var(--rs-sub);text-decoration:none;-webkit-tap-highlight-color:transparent}
+.ox-rib a:focus-visible{outline:2px solid var(--fx-focus);outline-offset:-2px}
+.ox-rib a:active{background:rgba(255,255,255,.06)}
+.ox-st{position:relative;flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:radial-gradient(circle,var(--rs-p2) 58%,rgba(0,0,0,0) 62%)}
+.ox-st svg{width:38px;height:38px}
+.ox-rib small{display:block;max-width:100%;font:700 clamp(9.5px,2.8vw,11.5px)/1.1 var(--mt);letter-spacing:.06em;text-transform:uppercase;text-align:center;
+  -webkit-hyphens:auto;hyphens:auto}
+@media (max-width:399.98px){.ox-rib small{letter-spacing:0}}
+.mx-sh .m-bd b{-webkit-hyphens:auto;hyphens:auto}
+@media (max-width:379.98px){.mx-sh .m-bd b{font-size:19px;letter-spacing:.04em}}
+:lang(ko) .ox-rib small,:lang(ko) .m-bd b,:lang(ko) .m-bd small,:lang(ko) .rs-tx b,:lang(ko) .rs-tx small{word-break:keep-all}
+.ox-rib .here small{color:var(--fx-lane)}
+.ox-rib .here .ox-st{box-shadow:0 0 0 2px var(--rs-p2),0 0 0 3.5px var(--fx-lane),0 0 14px var(--fx-glow)}
+.ox-rib .here .rs-pu{inset:-6px}
+.ox-rib.paused *,.ox-rib.paused *::before,.ox-rib.paused *::after{animation-play-state:paused!important}
+
+.ox-mb{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:50px;height:44px;margin:0;padding:0 5px;border:1px solid var(--fx-btn-line);border-radius:3px;cursor:pointer;color:var(--fx-lane);
+  background:radial-gradient(circle at 50% 28%,rgba(255,226,166,.18),rgba(0,0,0,0) 62%),linear-gradient(180deg,var(--fx-tab1),var(--fx-tab2));font:inherit;-webkit-tap-highlight-color:transparent}
+.ox-mb svg{flex:none;width:20px;height:14px}
+.ox-mb span{font:700 9.5px/1 var(--mt);letter-spacing:.14em;text-transform:uppercase;color:var(--fx-at);white-space:nowrap}
+.ox-mb:focus-visible{outline:2px solid var(--fx-focus);outline-offset:2px}
+.ox-mb:active{filter:brightness(1.15)}
+html:not(.js) .ox-mb{display:none}
+.ox-name{flex:1;min-width:0;display:flex;align-items:center;gap:8px;margin:0;font:700 17px/1.35 var(--mt);letter-spacing:.14em;text-transform:uppercase;color:var(--fx-at);white-space:nowrap}
+.ox-name svg{flex:none;width:24px;height:24px}
+.ox-name span{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:379.98px){.ox-name{letter-spacing:.09em}}
+
+.mx-sh{position:fixed;z-index:45;inset:0}
+.mx-sh[hidden]{display:none}
+.mx-bd{position:absolute;inset:0;background:var(--fx-shade)}
+.mx-pn{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:520px;max-height:88vh;max-height:88dvh;overflow:auto;padding:14px 12px calc(18px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,var(--fx-pn1),var(--fx-pn2));border-top:1px solid var(--fx-hair);border-radius:12px 12px 0 0;box-shadow:0 -12px 30px rgba(0,0,0,.6);text-align:left}
+.mo .mx-pn{animation:mx-up .32s cubic-bezier(.2,.8,.2,1)}
+@keyframes mx-up{from{transform:translate(-50%,40px);opacity:.4}}
+.mx-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px}
+.mx-top h2{margin:0;text-align:left;text-indent:0;font:700 22px/1 var(--mt);letter-spacing:.14em;text-transform:uppercase;color:var(--fx-at)}
+.mx-x{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid var(--fx-btn-line);border-radius:4px;background:transparent;color:var(--fx-at);cursor:pointer}
+.mx-x svg{width:20px;height:20px}
+.mx-x:focus-visible{outline:2px solid var(--fx-focus);outline-offset:2px}
+.mx-sh .m-tks{margin:0;padding:0}
+.mx-sh .m-tks li{margin:0;padding:0}
+.mx-sh .m-tks li::before{content:none}
+.rs-wrap.paused *,.rs-wrap.paused *::before,.rs-wrap.paused *::after{animation-play-state:paused!important}
+html.mx-lock,html.mx-lock body{overflow:hidden}
+
+.ox-fm{display:block;margin:0 0 4px;font:700 16px/1.2 var(--mt);letter-spacing:.14em;text-transform:uppercase;color:var(--fx-lane)}
+.ox-fm svg{width:12px;height:12px;margin:0 6px -1px 0}
+
+.ox-warp{position:fixed;inset:0;z-index:80;pointer-events:auto;overflow:hidden}
+.ox-wb{position:absolute;inset:0;opacity:0;background:radial-gradient(circle at 50% 42%,var(--wg) 0,var(--wc) 64%);animation:ox-wb .46s cubic-bezier(.5,0,.75,0) forwards}
+.ox-ws{position:absolute;left:50%;top:42%;width:62vmax;height:2px;margin-top:-1px;transform-origin:0 50%;opacity:0;
+  background:linear-gradient(90deg,rgba(255,244,220,0),rgba(255,236,200,.9) 70%,rgba(255,244,220,0));animation:ox-ws .46s cubic-bezier(.55,0,.8,.2) forwards}
+.ox-wp{position:absolute;left:var(--x);top:var(--y);width:48px;height:48px;margin:-24px 0 0 -24px;will-change:transform,opacity;animation:ox-wp .46s cubic-bezier(.6,0,.85,.25) forwards}
+@keyframes ox-wb{to{opacity:1}}
+@keyframes ox-ws{0%{opacity:0;transform:rotate(var(--a)) translateX(2vmax) scaleX(.04)}30%{opacity:1}100%{opacity:.15;transform:rotate(var(--a)) translateX(42vmax) scaleX(1)}}
+@keyframes ox-wp{0%{transform:translate(0,0) scale(1)}55%{opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(16);opacity:0}}
+html.ox-in::after{content:"";position:fixed;inset:0;z-index:80;pointer-events:none;background:radial-gradient(circle at 50% 42%,var(--ox-glow) 0,var(--ox-base) 64%);animation:ox-in .55s cubic-bezier(.15,.6,.25,1) forwards}
+@keyframes ox-in{from{opacity:1}to{opacity:0;transform:scale(1.5)}}
+html.ox-in .ox-rib .here .ox-st{animation:ox-land .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes ox-land{from{transform:scale(2.4);opacity:.35}}
+.still.ox-in::after,html:not(.mo).ox-in::after{display:none}
+@media (prefers-reduced-motion:reduce){html.ox-in::after,.ox-warp{display:none}}
+@media print{.ox-mb,.mx-sh,.ox-warp,html.ox-in::after{display:none!important}}
+
 :root{--owner:"UID 4053721"}
 .owner{display:flex;align-items:center;justify-content:center;gap:7px;width:max-content;max-width:100%;margin:16px auto 0;padding:6px 13px;border:1px solid var(--ow-line,rgba(243,207,134,.45));border-radius:999px;background:var(--ow-bg,rgba(12,10,32,.6));font:600 12px/1 "Saira Extra Condensed","Avenir Next Condensed","Roboto Condensed","Bahnschrift Condensed","Arial Narrow",sans-serif-condensed,"FGF Title Fallback",sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--ow-ink,#ddd6f0)}
 .owner b{font-weight:700;letter-spacing:.1em;color:var(--ow-acc,#f3cf86)}
@@ -192,6 +294,7 @@ a.m-tk:focus-visible{outline:3px solid var(--tk-focus);outline-offset:-4px}
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <symbol id="i-gem" viewBox="0 0 20 20"><path d="M10 1l4 6-4 12-4-12z" fill="#ffd9a0"/><path d="M10 1l4 6h-8z" fill="#fff4dc"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 20 14"><path d="M1.2 1.4h17.6M1.2 7h17.6M1.2 12.6h11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="17.4" cy="12.6" r="1.6" fill="currentColor"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-back" viewBox="0 0 36 20"><path d="M1 10L14.5 2.2 11.6 10 14.5 17.8Z" fill="currentColor"/><path d="M13.6 7.4L35 4.2 31.2 9.1 15 9.4Z" fill="currentColor" opacity=".85"/><path d="M13.6 12.6L35 15.8 31.2 10.9 15 10.6Z" fill="currentColor" opacity=".85"/></symbol>
   <symbol id="i-blades" viewBox="0 0 24 24" fill="currentColor"><path d="M3 2.4L4.7 2.3 15.3 12.9 13.1 15.1 2.5 4.5Z"/><path d="M21 2.4L19.3 2.3 8.7 12.9 10.9 15.1 21.5 4.5Z"/><path d="M12.4 14.4l1.6-1.6 4.4 4.4-1.6 1.6zM9.9 12.8l1.6 1.6-4.4 4.4-1.6-1.6z"/><path d="M17.2 18.8l1.5-1.5 2.7 2.7-1.5 1.5zM6.8 18.8L5.3 17.3 2.6 20l1.5 1.5z"/></symbol>
@@ -206,13 +309,16 @@ a.m-tk:focus-visible{outline:3px solid var(--tk-focus);outline-offset:-4px}
   <symbol id="i-star4" viewBox="-12 -12 24 24"><path d="M0-11L2.6-2.6 11 0 2.6 2.6 0 11-2.6 2.6-11 0-2.6-2.6Z" fill="currentColor"/></symbol>
 </svg>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-    <defs>
+  <defs>
     <radialGradient id="gg-s2" cx="66%" cy="30%" r="78%"><stop offset="0" stop-color="#f1e4ff"/><stop offset=".18" stop-color="#b08ced"/><stop offset=".45" stop-color="#6240aa"/><stop offset=".75" stop-color="#2c175c"/><stop offset="1" stop-color="#120a2c"/></radialGradient>
     <radialGradient id="gg-sf" cx="34%" cy="30%" r="80%"><stop offset="0" stop-color="#c9fff0"/><stop offset=".22" stop-color="#5fb8a2"/><stop offset=".58" stop-color="#1f4d46"/><stop offset="1" stop-color="#071514"/></radialGradient>
     <radialGradient id="gg-tm" cx="40%" cy="34%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".3" stop-color="#9fc3ff"/><stop offset=".72" stop-color="#3a5bb0"/><stop offset="1" stop-color="#16224a"/></radialGradient>
     <radialGradient id="gg-sh" cx="74%" cy="24%" r="100%"><stop offset=".5" stop-color="#0a0418" stop-opacity="0"/><stop offset="1" stop-color="#0a0418" stop-opacity=".72"/></radialGradient>
     <clipPath id="gc-s2"><circle r="12"/></clipPath>
     <clipPath id="gc-sf"><circle r="11"/></clipPath>
+    <radialGradient id="gg-fl" cx="36%" cy="30%" r="80%"><stop offset="0" stop-color="#f3fbff"/><stop offset=".26" stop-color="#9fd0e6"/><stop offset=".62" stop-color="#2f6f8f"/><stop offset="1" stop-color="#0b2434"/></radialGradient>
+    <radialGradient id="gg-gd" cx="36%" cy="30%" r="80%"><stop offset="0" stop-color="#e2fff8"/><stop offset=".26" stop-color="#6fcdbd"/><stop offset=".62" stop-color="#1c6660"/><stop offset="1" stop-color="#062321"/></radialGradient>
+    <radialGradient id="gg-gl" cx="36%" cy="30%" r="80%"><stop offset="0" stop-color="#f4fff9"/><stop offset=".26" stop-color="#9be6c8"/><stop offset=".62" stop-color="#2f9478"/><stop offset="1" stop-color="#0a3329"/></radialGradient>
   </defs>
   <symbol id="g-s2" viewBox="-20 -20 40 40">
     <g transform="rotate(-14)" fill="none"><path d="M-18 0A18 4.4 0 0 1 18 0" stroke="#2a1850" stroke-opacity=".5" stroke-width="3"/><path d="M-18 0A18 4.4 0 0 1 18 0" stroke="#e9bb5c" stroke-width="1.3"/></g>
@@ -247,7 +353,7 @@ a.m-tk:focus-visible{outline:3px solid var(--tk-focus);outline-offset:-4px}
     <g fill="currentColor"><path d="M0-12.4l3.6 6.4L0-7.6-3.6-6z"/><path d="M-7 .3l3.6 6.4L-7 5.1l-3.6 1.6z"/><path d="M7 .3l3.6 6.4L7 5.1l-3.6 1.6z"/></g>
   </symbol>
   <symbol id="g-cm" viewBox="-20 -20 40 40">
-        <path d="M0-16L13.9-8V8L0 16-13.9 8V-8Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+    <path d="M0-16L13.9-8V8L0 16-13.9 8V-8Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
     <path d="M0-11L9.5-5.5V5.5L0 11-9.5 5.5V-5.5Z" fill="none" stroke="currentColor" stroke-opacity=".5" stroke-dasharray="1.6 2"/>
     <path d="M-3.4-1.4V-3.8a3.4 3.4 0 0 1 6.8 0v2.4" fill="none" stroke="currentColor" stroke-width="1.6"/>
     <rect x="-5" y="-1.4" width="10" height="7.6" rx="1.3" fill="currentColor"/>
@@ -258,13 +364,43 @@ a.m-tk:focus-visible{outline:3px solid var(--tk-focus);outline-offset:-4px}
     <circle cy="-6.6" r="3.1" fill="currentColor"/>
     <g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M-7-11.6a10 10 0 0 1 14 0"/><path d="M-11.6-15.6a16.5 16.5 0 0 1 23.2 0" stroke-opacity=".6"/></g>
   </symbol>
+  <symbol id="g-fl" viewBox="-20 -20 40 40">
+    <circle r="17.4" fill="none" stroke="#6fb6d6" stroke-opacity=".5" stroke-width=".9" stroke-dasharray="1.6 2.6"/>
+    <circle r="11" fill="url(#gg-fl)"/>
+    <circle r="11" fill="url(#gg-sh)"/>
+    <circle r="11.2" fill="none" stroke="#dff3ff" stroke-opacity=".6" stroke-width=".7"/>
+    <g transform="rotate(-28)">
+      <g stroke="#ff9a4d" stroke-width="1.7" stroke-linecap="round"><path d="M-3.4 0h-7"/><path d="M-10.4-8.6h-5" stroke-opacity=".8"/><path d="M-10.4 8.6h-5" stroke-opacity=".8"/></g>
+      <g fill="#fff" stroke="#0b2434" stroke-width=".9" stroke-linejoin="round"><path d="M13 0L-2.4-5.4.4 0-2.4 5.4Z"/><path d="M1.6-8.6L-9.6-12.4-7.6-8.6-9.6-4.8Z"/><path d="M1.6 8.6L-9.6 4.8-7.6 8.6-9.6 12.4Z"/></g>
+    </g>
+  </symbol>
+  <symbol id="g-gd" viewBox="-20 -20 40 40">
+    <g transform="rotate(-18)" fill="none"><path d="M-17 0A17 5 0 0 1 17 0" stroke="#083533" stroke-opacity=".5" stroke-width="2.6"/><path d="M-17 0A17 5 0 0 1 17 0" stroke="#4fb3a4" stroke-width="1" stroke-dasharray="1.6 2.4"/></g>
+    <circle r="11" fill="url(#gg-gd)"/>
+    <circle r="11" fill="url(#gg-sh)"/>
+    <circle r="11.2" fill="none" stroke="#d6fff5" stroke-opacity=".6" stroke-width=".7"/>
+    <g transform="rotate(-18)"><path d="M17 0A17 5 0 0 1-17 0" fill="none" stroke="#083533" stroke-opacity=".5" stroke-width="2.6"/><path d="M17 0A17 5 0 0 1-17 0" fill="none" stroke="#9fe6d6" stroke-width="1" stroke-dasharray="1.6 2.4"/>
+      <g fill="#f2b94c" stroke="#3a2406" stroke-width=".5"><circle cx="-11" cy="3.8" r="1.5"/><circle cy="5" r="1.5"/><circle cx="11" cy="3.8" r="1.5"/></g></g>
+    <path d="M.8-18.6h12.4" stroke="#f2b94c" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M2.2-18.2h9.6v13.6l-4.8-3.4-4.8 3.4Z" fill="#9a3440" stroke="#2a0a10" stroke-width=".9" stroke-linejoin="round"/>
+    <circle cx="7" cy="-12.6" r="2.1" fill="none" stroke="#ffe7b0" stroke-width="1.1"/>
+  </symbol>
+  <symbol id="g-gl" viewBox="-20 -20 40 40">
+    <circle r="16.6" fill="none" stroke="#5fc9a6" stroke-opacity=".75" stroke-width="2.2" stroke-dasharray=".9 3.45"/>
+    <circle r="11" fill="url(#gg-gl)"/>
+    <circle r="11" fill="url(#gg-sh)"/>
+    <circle r="11.2" fill="none" stroke="#e2fff2" stroke-opacity=".6" stroke-width=".7"/>
+    <path d="M-7.2-3.6q3.6-1.9 7.2 0 3.6-1.9 7.2 0v8q-3.6-1.9-7.2 0-3.6-1.9-7.2 0Z" fill="#f6fff9" stroke="#0a3329" stroke-width=".9" stroke-linejoin="round"/>
+    <path d="M0-3.6v8M-5.2-1.2q1.7-.6 3.2-.1M-5.2 1.3q1.7-.6 3.2-.1M2-1.3q1.6-.5 3.2.1M2 1.2q1.6-.5 3.2.1" fill="none" stroke="#0a3329" stroke-width=".8" stroke-linecap="round"/>
+    <path d="M11.4-15.2l1 3 3 1-3 1-1 3-1-3-3-1 3-1Z" fill="#f2b94c" stroke="#3a2406" stroke-width=".5" stroke-linejoin="round"/>
+  </symbol>
 </svg>
 <div class="pg" id="top">
   <header class="m-hud">
     <a class="m-tab" href="#top"><svg aria-hidden="true"><use href="#i-gem"/></svg><span data-i="w.name">FGF Wiki</span></a>
     <span class="m-clk"><small data-i="hm.clock.k">S2 starts about</small><span data-i="hm.clock.v">Nov&nbsp;22&ndash;23</span></span>
     <span class="m-sq"><span class="m-vh" data-i="w.lang">Language: </span><span data-i="w.lang.code">EN</span></span>
-  </header>
+    <button type="button" class="ox-mb" id="mx-jb" aria-haspopup="dialog" aria-expanded="false" aria-controls="mx-sh"><svg aria-hidden="true"><use href="#i-menu"/></svg><span data-i="fx.menu">Menu</span></button>  </header>
   <h1 class="m-vh" data-i="hm.h1">FGF Wiki: the trade map</h1>
 
   <div class="m-map" id="map">
@@ -285,7 +421,6 @@ a.m-tk:focus-visible{outline:3px solid var(--tk-focus);outline-offset:-4px}
         <filter id="c2-dust" filterUnits="userSpaceOnUse" x="-160" y="236" width="712" height="128" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".016 .06" numOctaves="3" seed="4"/><feColorMatrix values="0 0 0 0 .03  0 0 0 0 .02  0 0 0 0 .08  3.4 0 0 0 -1.55"/></filter>
         <filter id="c2-bl" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
         <filter id="c2-gl" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3"/></filter>
-        <filter id="c2-fog" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="11"/></filter>
         <pattern id="c2-grid" width="65" height="70" patternUnits="userSpaceOnUse"><path d="M65 0H0V70" fill="none" stroke="#a9c1ff" stroke-opacity=".09"/></pattern>
         <pattern id="c2-sa" width="97" height="89" patternUnits="userSpaceOnUse"><g fill="#fff"><circle cx="12" cy="9" r=".45" opacity=".7"/><circle cx="55" cy="23" r=".4" opacity=".5"/><circle cx="81" cy="47" r=".5" opacity=".8"/><circle cx="30" cy="61" r=".4" opacity=".55"/><circle cx="68" cy="78" r=".45" opacity=".6"/><circle cx="90" cy="12" r=".35" opacity=".45"/><circle cx="6" cy="40" r=".4" opacity=".5"/></g></pattern>
         <pattern id="c2-sb" width="151" height="137" patternUnits="userSpaceOnUse"><circle cx="22" cy="30" r=".8" fill="#fff" opacity=".8"/><circle cx="97" cy="18" r=".9" fill="#cfe0ff"/><circle cx="130" cy="88" r=".75" fill="#ffe6c0" opacity=".9"/><circle cx="60" cy="110" r=".7" fill="#fff" opacity=".7"/><circle cx="110" cy="128" r=".6" fill="#cfe0ff" opacity=".8"/></pattern>
@@ -299,6 +434,9 @@ a.m-tk:focus-visible{outline:3px solid var(--tk-focus);outline-offset:-4px}
         <radialGradient id="c2-sf" cx="34%" cy="30%" r="80%"><stop offset="0" stop-color="#c9fff0"/><stop offset=".2" stop-color="#5fb8a2"/><stop offset=".55" stop-color="#1f4d46"/><stop offset="1" stop-color="#071514"/></radialGradient>
         <radialGradient id="c2-tm" cx="40%" cy="34%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".3" stop-color="#9fc3ff"/><stop offset=".7" stop-color="#3a5bb0"/><stop offset="1" stop-color="#16224a"/></radialGradient>
         <radialGradient id="c2-mn" cx="70%" cy="30%" r="85%"><stop offset="0" stop-color="#efe6ff"/><stop offset=".4" stop-color="#8b7aa8"/><stop offset="1" stop-color="#1c1430"/></radialGradient>
+        <radialGradient id="c2-pf" cx="36%" cy="30%" r="80%"><stop offset="0" stop-color="#f3fbff"/><stop offset=".26" stop-color="#9fd0e6"/><stop offset=".62" stop-color="#2f6f8f"/><stop offset="1" stop-color="#0b2434"/></radialGradient>
+        <radialGradient id="c2-pg" cx="36%" cy="30%" r="80%"><stop offset="0" stop-color="#e2fff8"/><stop offset=".26" stop-color="#6fcdbd"/><stop offset=".62" stop-color="#1c6660"/><stop offset="1" stop-color="#062321"/></radialGradient>
+        <radialGradient id="c2-py" cx="36%" cy="30%" r="80%"><stop offset="0" stop-color="#f4fff9"/><stop offset=".26" stop-color="#9be6c8"/><stop offset=".62" stop-color="#2f9478"/><stop offset="1" stop-color="#0a3329"/></radialGradient>
         <clipPath id="c2-c2"><circle cx="272" cy="128" r="42"/></clipPath>
         <clipPath id="c2-cf"><circle cx="92" cy="188" r="26"/></clipPath>
       </defs>
@@ -326,9 +464,32 @@ a.m-tk:focus-visible{outline:3px solid var(--tk-focus);outline-offset:-4px}
       <path d="M3.5 140h9M3.5 210h9M3.5 280h9M3.5 350h9M3.5 420h9M3.5 490h9M65 556.5v-9M130 556.5v-9M195 556.5v-9M260 556.5v-9M325 556.5v-9" stroke="#f3cf86" stroke-opacity=".6"/>
       <rect x="3.5" y="3.5" width="383" height="553" fill="none" stroke="#f3cf86" stroke-opacity=".2"/>
       <path d="M3 26V3H26M364 3H387V26M387 534V557H364M26 557H3V534" fill="none" stroke="#f3cf86" stroke-opacity=".75" stroke-width="1.6"/>
-            <g filter="url(#c2-fog)" fill="#03030b" opacity=".8"><ellipse cx="18" cy="300" rx="46" ry="66"/><ellipse cx="372" cy="300" rx="46" ry="64"/></g>
-      <g fill="none" stroke="#aab4dd" stroke-opacity=".6" stroke-dasharray="2 3"><circle cx="34" cy="300" r="11"/><circle cx="358" cy="300" r="11"/><circle cx="34" cy="300" r="21" stroke-opacity=".25"/><circle cx="358" cy="300" r="21" stroke-opacity=".25"/></g>
-      <g font-family="Saira Extra Condensed,Arial Narrow,sans-serif" font-weight="700" font-size="13" fill="#c7cff0" fill-opacity=".75" text-anchor="middle"><text x="34" y="305">?</text><text x="358" y="305">?</text></g>
+                  <circle cx="28" cy="280" r="24" fill="#3fb8a8" opacity=".14" filter="url(#c2-gl)"/>
+      <g transform="translate(28 280)">
+        <path d="M-21 0A21 6 0 0 1 21 0" fill="none" stroke="#9fe6d6" stroke-opacity=".5" stroke-dasharray="1.5 3" transform="rotate(-18)"/>
+        <circle r="13" fill="url(#c2-pg)"/><circle r="13" fill="url(#c2-sh)"/><circle r="13.4" fill="none" stroke="#d6fff5" stroke-opacity=".45"/>
+        <g transform="rotate(-18)"><path d="M21 0A21 6 0 0 1-21 0" fill="none" stroke="#9fe6d6" stroke-opacity=".85" stroke-dasharray="1.5 3"/><g fill="#f2b94c"><circle cx="-14" cy="4.5" r="1.6"/><circle cy="6" r="1.6"/><circle cx="14" cy="4.5" r="1.6"/></g></g>
+        <path d="M-15-22h13" stroke="#f2b94c" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M-13.6-21.6h10.2v15l-5.1-3.6-5.1 3.6Z" fill="#9a3440" stroke="#ffd9a0" stroke-opacity=".55" stroke-width=".6"/>
+        <circle cx="-8.5" cy="-15.4" r="2.3" fill="none" stroke="#ffe7b0" stroke-width="1.1"/>
+      </g>
+            <circle cx="358" cy="248" r="22" fill="#5fe0b4" opacity=".13" filter="url(#c2-gl)"/>
+      <g transform="translate(358 248)">
+        <circle r="18.5" fill="none" stroke="#7fe3c0" stroke-opacity=".7" stroke-width="2.4" stroke-dasharray="1 3.84"/>
+        <circle r="12" fill="url(#c2-py)"/><circle r="12" fill="url(#c2-sh)"/><circle r="12.4" fill="none" stroke="#e2fff2" stroke-opacity=".45"/>
+        <path d="M-7.8-3.9q3.9-2 7.8 0 3.9-2 7.8 0v8.6q-3.9-2-7.8 0-3.9-2-7.8 0Z" fill="#f6fff9" stroke="#0a3329" stroke-width=".8" stroke-linejoin="round"/>
+        <path d="M0-3.9v8.6M-5.6-1.3q1.8-.6 3.4-.1M-5.6 1.4q1.8-.6 3.4-.1M2.2-1.4q1.7-.5 3.4.1M2.2 1.3q1.7-.5 3.4.1" fill="none" stroke="#0a3329" stroke-width=".8" stroke-linecap="round"/>
+        <path d="M12.6-16.4l1 3.1 3.1 1-3.1 1-1 3.1-1-3.1-3.1-1 3.1-1Z" fill="#ffe7b0"/>
+      </g>
+            <circle cx="356" cy="342" r="24" fill="#58b7e0" opacity=".14" filter="url(#c2-gl)"/>
+      <g transform="translate(356 342)">
+        <circle r="20" fill="none" stroke="#8fd0ee" stroke-opacity=".45" stroke-dasharray="1.5 3"/>
+        <circle r="13" fill="url(#c2-pf)"/><circle r="13" fill="url(#c2-sh)"/><circle r="13.4" fill="none" stroke="#dff3ff" stroke-opacity=".45"/>
+        <g transform="rotate(-28)">
+          <g stroke="#ff9a4d" stroke-width="1.8" stroke-linecap="round"><path d="M-4 0h-8"/><path d="M-12-10h-6" stroke-opacity=".8"/><path d="M-12 10h-6" stroke-opacity=".8"/></g>
+          <g fill="#fff"><path d="M15 0L-2.8-6.2.5 0-2.8 6.2Z"/><path d="M2-10L-11-14.4-8.7-10-11-5.6Z"/><path d="M2 10L-11 5.6-8.7 10-11 14.4Z"/></g>
+        </g>
+      </g>
             <circle cx="272" cy="128" r="72" fill="url(#c2-s2h)"/>
       <ellipse cx="272" cy="128" rx="74" ry="22" fill="none" stroke="#d9c6ff" stroke-opacity=".25" stroke-dasharray="2 4" transform="rotate(16 272 128)"/>
       <g transform="rotate(-12 272 128)" fill="none"><path d="M204 128A68 12 0 0 1 340 128" stroke="#f6d391" stroke-opacity=".16" stroke-width="6"/><path d="M204 128A68 12 0 0 1 340 128" stroke="#f6d391" stroke-opacity=".5" stroke-width=".9"/></g>
@@ -370,45 +531,126 @@ a.m-tk:focus-visible{outline:3px solid var(--tk-focus);outline-offset:-4px}
     </svg>
         <svg class="m-ly" viewBox="0 0 390 560" aria-hidden="true" focusable="false">
       <g fill="none" stroke-linecap="round">
-        <g stroke="#f3cf86" stroke-opacity=".08" stroke-width="11"><path d="M196 322Q252 262 272 172"/><path d="M196 322Q128 290 106 212"/><path d="M196 322Q140 392 108 432"/><path d="M196 322Q262 380 288 426"/></g>
-        <g stroke="#f3cf86" stroke-opacity=".24" stroke-width="4.5"><path d="M196 322Q252 262 272 172"/><path d="M196 322Q128 290 106 212"/><path d="M196 322Q140 392 108 432"/><path d="M196 322Q262 380 288 426"/></g>
-        <g class="m-ln" stroke="#ffe0a0" stroke-width="1.6" stroke-dasharray="1.5 6"><path d="M196 322Q252 262 272 172"/><path d="M196 322Q128 290 106 212"/><path d="M196 322Q140 392 108 432"/><path d="M196 322Q262 380 288 426"/></g>
-        <g stroke="#aab4dd" stroke-opacity=".5" stroke-dasharray="1 5"><path d="M184 322Q110 312 46 302"/><path d="M208 322Q280 312 346 302"/></g>
+        <g stroke="#f3cf86" stroke-opacity=".08" stroke-width="11"><path d="M196 322Q252 262 272 172"/><path d="M196 322Q128 290 106 212"/><path d="M196 322Q140 392 108 432"/><path d="M196 322Q262 380 288 426"/><path d="M196 322Q120 286 42 281"/><path d="M196 322Q270 250 344 247"/><path d="M196 322Q286 326 342 340"/></g>
+        <g stroke="#f3cf86" stroke-opacity=".24" stroke-width="4.5"><path d="M196 322Q252 262 272 172"/><path d="M196 322Q128 290 106 212"/><path d="M196 322Q140 392 108 432"/><path d="M196 322Q262 380 288 426"/><path d="M196 322Q120 286 42 281"/><path d="M196 322Q270 250 344 247"/><path d="M196 322Q286 326 342 340"/></g>
+        <g class="m-ln" stroke="#ffe0a0" stroke-width="1.6" stroke-dasharray="1.5 6"><path d="M196 322Q252 262 272 172"/><path d="M196 322Q128 290 106 212"/><path d="M196 322Q140 392 108 432"/><path d="M196 322Q262 380 288 426"/><path d="M196 322Q120 286 42 281"/><path d="M196 322Q270 250 344 247"/><path d="M196 322Q286 326 342 340"/></g>
       </g>
     </svg>
         <svg class="m-ship m-ship1" viewBox="-26 -26 52 52" aria-hidden="true" focusable="false"><ellipse cx="-15" cy="0" rx="9" ry="2.4" fill="#ffcf7a" opacity=".75"/><path d="M12 0L8-3H3V-4.6H-4V-3H-9V3H-4V4.6H3V3H8Z" fill="#fff4dc"/><path d="M-9-1.6h-3M-9 1.6h-3" stroke="#ffe0a0" stroke-width="1.4" stroke-linecap="round"/></svg>
     <svg class="m-ship m-ship2" viewBox="-26 -26 52 52" aria-hidden="true" focusable="false"><g transform="scale(.78)"><ellipse cx="-15" cy="0" rx="9" ry="2.4" fill="#9ff0d8" opacity=".7"/><path d="M12 0L8-3H3V-4.6H-4V-3H-9V3H-4V4.6H3V3H8Z" fill="#e8f4eb"/><path d="M-9-1.6h-3M-9 1.6h-3" stroke="#a8ead2" stroke-width="1.4" stroke-linecap="round"/></g></svg>
-    <span class="m-tw" aria-hidden="true"><i style="left:8%;top:40%"></i><i style="left:45%;top:30%"></i><i style="left:86%;top:46%"></i><i style="left:30%;top:66%"></i></span>
+    <span class="m-tw" aria-hidden="true"><i style="left:8%;top:40%"></i><i style="left:45%;top:30%"></i><i style="left:80%;top:53%"></i><i style="left:30%;top:66%"></i></span>
     <i class="m-pu" style="left:69.7%;top:22.9%;--r:96px" aria-hidden="true"></i>
     <i class="m-pu" style="left:50.3%;top:57.5%;--r:48px" aria-hidden="true"></i>
 
-    <a class="m-lb" href="season2/" style="left:69.7%;top:32.4%"><b data-i="sys.s2.name">Siwenna</b><small data-i="hm.lb.s2">Season 2 &middot; The Usurper</small><em class="m-new" data-i="hm.new">New</em></a>
-    <a class="m-lb" href="../" style="left:23.6%;top:39.6%"><b data-i="sys.sf.name">Shadowfront</b><small data-i="hm.lb.sf">Battle guide</small></a>
-    <a class="m-lb side" href="../roster/" style="left:15.9%;top:19.3%"><b data-i="sys.cm.name">Commander</b><small><svg class="m-lki" aria-hidden="true"><use href="#i-lock"/></svg><span data-i="hm.lb.cm">Roster &amp; log</span><span class="m-vh" data-i="hm.lb.cm.vh">, commanders only</span></small></a>
+    <a class="m-lb" href="season2/" data-wk="s2" style="left:69.7%;top:32.4%"><b data-i="sys.s2.name">Siwenna</b><small data-i="hm.lb.s2">Season 2 &middot; The Usurper</small><em class="m-new" data-i="hm.new">New</em></a>
+    <a class="m-lb er" href="fleets/" data-wk="fl" style="right:calc(8.72% - 20px);top:64.8%"><b data-i="sys.fl.name">Fleets</b><small data-i="hm.lb.fl">Ships &amp; crew</small></a>
+    <a class="m-lb el" href="guilds/" data-wk="gd" style="left:calc(7.18% - 20px);top:53.75%"><b data-i="sys.gd.name">Guilds</b><small data-i="hm.lb.gd">Ports &amp; rallies</small></a>
+    <a class="m-lb er" href="glossary/" data-wk="gl" style="right:calc(8.21% - 20px);top:48.05%"><b data-i="sys.gl.name">Glossary</b><small data-i="hm.lb.gl">58 terms</small></a>
+    <a class="m-lb" href="../" data-wk="sf" data-lang style="left:23.6%;top:39.6%"><b data-i="sys.sf.name">Shadowfront</b><small data-i="hm.lb.sf">Battle guide</small></a>
+    <a class="m-lb side" href="../roster/" data-wk="cm" data-lang style="left:15.9%;top:19.3%"><b data-i="sys.cm.name">Commander</b><small><svg class="m-lki" aria-hidden="true"><use href="#i-lock"/></svg><span data-i="hm.lb.cm">Roster &amp; log</span><span class="m-vh" data-i="hm.lb.cm.vh">, commanders only</span></small></a>
     <span class="m-lb m-tm" style="left:50.3%;top:61.6%"><b data-i="sys.tm.name">Terminus</b><small data-i="hm.lb.tm">Wiki home &middot; you are here</small></span>
-    <a class="m-lb" href="../teams/" style="left:24.6%;top:83.6%"><b data-i="sys.tp.name">Team Plans</b><small data-i="hm.lb.tp">Who goes where</small></a>
-    <a class="m-lb" href="../signups/" style="left:75.9%;top:83%"><b data-i="sys.su.name">Sign-ups</b><small data-i="hm.lb.su">Commanders, on Discord</small></a>
-    <span class="m-lb dim" style="left:12.6%;top:50.6%"><b data-i="hm.guilds">Guilds</b><small data-i="hm.unch.s">Uncharted</small></span>
-    <span class="m-lb dim r" style="right:12.6%;top:50.6%"><b data-i="hm.fleets">Fleets</b><small data-i="hm.unch.s">Uncharted</small></span>
-  </div>
+    <a class="m-lb" href="../teams/" data-wk="tp" data-lang style="left:24.6%;top:83.6%"><b data-i="sys.tp.name">Team Plans</b><small data-i="hm.lb.tp">Who goes where</small></a>
+    <a class="m-lb" href="../signups/" data-wk="su" style="left:75.9%;top:83%"><b data-i="sys.su.name">Sign-ups</b><small data-i="hm.lb.su">Members, on Discord</small></a>  </div>
 
   <main class="m-routes">
     <div data-owner-slot><p class="owner" id="ownerBadge" data-owner="4053721"><span data-i="w.by">Wiki by</span> <b>UID 4053721</b></p></div>
     <h2 class="m-h" data-i="hm.routes">Routes from Terminus</h2>
     <ol class="m-tks">
-      <li data-rv><a class="m-tk" href="season2/"><span class="m-stub"><svg aria-hidden="true"><use href="#g-s2"/></svg></span><span class="m-bd"><b data-i="sys.s2.name">Siwenna</b><small data-i="sys.s2.line">Season 2 &middot; The Usurper⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
-      <li data-rv><a class="m-tk" href="../"><span class="m-stub"><svg aria-hidden="true"><use href="#g-sf"/></svg></span><span class="m-bd"><b data-i="sys.sf.name">Shadowfront</b><small data-i="sys.sf.line">Battle guide &middot; 13 languages⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
-      <li data-rv><a class="m-tk" href="../teams/"><span class="m-stub"><svg aria-hidden="true"><use href="#g-tp"/></svg></span><span class="m-bd"><b data-i="sys.tp.name">Team Plans</b><small data-i="sys.tp.line">Who goes where, with a Plan B</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
-      <li data-rv><a class="m-tk" href="../signups/"><span class="m-stub"><svg aria-hidden="true"><use href="#g-su"/></svg></span><span class="m-bd"><b data-i="sys.su.name">Sign-ups</b><small data-i="sys.su.line">Commanders sign up on Discord</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
-      <li data-rv><a class="m-tk" href="../roster/"><span class="m-stub"><svg aria-hidden="true"><use href="#g-cm"/></svg></span><span class="m-bd"><b data-i="sys.cm.name">Commander</b><small data-i="sys.cm.line">Roster &amp; log &middot; commanders only</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
-      <li data-rv><div class="m-tk off"><span class="m-stub"><svg aria-hidden="true"><use href="#i-ship"/></svg></span><span class="m-bd"><b data-i="hm.fleets">Fleets</b><small data-i="hm.unch">Uncharted &middot; not written yet</small></span><svg class="m-lk" aria-hidden="true"><use href="#i-lock"/></svg></div></li>
-      <li data-rv><div class="m-tk off"><span class="m-stub"><svg aria-hidden="true"><use href="#i-banner"/></svg></span><span class="m-bd"><b data-i="hm.guilds">Guilds</b><small data-i="hm.unch">Uncharted &middot; not written yet</small></span><svg class="m-lk" aria-hidden="true"><use href="#i-lock"/></svg></div></li>
+      <li data-rv><a class="m-tk" href="season2/" data-wk="s2"><span class="m-stub"><svg aria-hidden="true"><use href="#g-s2"/></svg></span><span class="m-bd"><b data-i="sys.s2.name">Siwenna</b><small data-i="sys.s2.line">Season 2 · The Usurper⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li data-rv><a class="m-tk" href="fleets/" data-wk="fl"><span class="m-stub"><svg aria-hidden="true"><use href="#g-fl"/></svg></span><span class="m-bd"><b data-i="sys.fl.name">Fleets</b><small data-i="sys.fl.line">Flagships, Champions, crew</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li data-rv><a class="m-tk" href="guilds/" data-wk="gd"><span class="m-stub"><svg aria-hidden="true"><use href="#g-gd"/></svg></span><span class="m-bd"><b data-i="sys.gd.name">Guilds</b><small data-i="sys.gd.line">Ports, rallies, guild events</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li data-rv><a class="m-tk" href="glossary/" data-wk="gl"><span class="m-stub"><svg aria-hidden="true"><use href="#g-gl"/></svg></span><span class="m-bd"><b data-i="sys.gl.name">Glossary</b><small data-i="sys.gl.line">58 game terms in plain words</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li data-rv><a class="m-tk" href="../" data-wk="sf" data-lang><span class="m-stub"><svg aria-hidden="true"><use href="#g-sf"/></svg></span><span class="m-bd"><b data-i="sys.sf.name">Shadowfront</b><small data-i="sys.sf.line">Battle guide · 13 languages⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li data-rv><a class="m-tk" href="../teams/" data-wk="tp" data-lang><span class="m-stub"><svg aria-hidden="true"><use href="#g-tp"/></svg></span><span class="m-bd"><b data-i="sys.tp.name">Team Plans</b><small data-i="sys.tp.line">Who goes where, with a Plan B</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li data-rv><a class="m-tk" href="../signups/" data-wk="su"><span class="m-stub"><svg aria-hidden="true"><use href="#g-su"/></svg></span><span class="m-bd"><b data-i="sys.su.name">Sign-ups</b><small data-i="sys.su.line">Members sign up on Discord</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li data-rv><a class="m-tk" href="../roster/" data-wk="cm" data-lang><span class="m-stub"><svg aria-hidden="true"><use href="#g-cm"/></svg></span><span class="m-bd"><b data-i="sys.cm.name">Commander</b><small data-i="sys.cm.line">Roster & log · commanders only</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
     </ol>
   </main>
 
   <footer class="m-end"><p id="ownerFoot" data-owner="4053721"><b><span data-i="w.name">FGF Wiki</span> &middot; &copy; 2026 UID 4053721</b><span data-i="w.foot">Unofficial fan guide. Not made by or affiliated with the game's developer or publisher.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</span></p></footer>
 </div>
+<div class="mx-sh" id="mx-sh" role="dialog" aria-modal="true" aria-labelledby="mx-sht" hidden>
+  <div class="mx-bd" data-close></div>
+  <div class="mx-pn">
+    <div class="mx-top"><h2 id="mx-sht" data-i="fx.jumpto">Jump to</h2><button type="button" class="mx-x" data-close><svg aria-hidden="true"><use href="#i-close"/></svg><span class="mx-vh" data-i="fx.close">Close</span></button></div>
+    <ol class="m-tks">
+      <li><div class="m-tk here" aria-current="page"><span class="m-stub"><svg aria-hidden="true"><use href="#g-tm"/></svg></span><span class="m-bd"><em class="mx-here" data-i="fx.here">You are here</em><b data-i="sys.tm.name">Terminus</b><small data-i="sys.tm.line">Wiki home · the map</small></span></div></li>
+      <li><a class="m-tk" href="season2/" data-wk="s2"><span class="m-stub"><svg aria-hidden="true"><use href="#g-s2"/></svg></span><span class="m-bd"><b data-i="sys.s2.name">Siwenna</b><small data-i="sys.s2.line">Season 2 · The Usurper⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="fleets/" data-wk="fl"><span class="m-stub"><svg aria-hidden="true"><use href="#g-fl"/></svg></span><span class="m-bd"><b data-i="sys.fl.name">Fleets</b><small data-i="sys.fl.line">Flagships, Champions, crew</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="guilds/" data-wk="gd"><span class="m-stub"><svg aria-hidden="true"><use href="#g-gd"/></svg></span><span class="m-bd"><b data-i="sys.gd.name">Guilds</b><small data-i="sys.gd.line">Ports, rallies, guild events</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="glossary/" data-wk="gl"><span class="m-stub"><svg aria-hidden="true"><use href="#g-gl"/></svg></span><span class="m-bd"><b data-i="sys.gl.name">Glossary</b><small data-i="sys.gl.line">58 game terms in plain words</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="../" data-wk="sf" data-lang><span class="m-stub"><svg aria-hidden="true"><use href="#g-sf"/></svg></span><span class="m-bd"><b data-i="sys.sf.name">Shadowfront</b><small data-i="sys.sf.line">Battle guide · 13 languages⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="../teams/" data-wk="tp" data-lang><span class="m-stub"><svg aria-hidden="true"><use href="#g-tp"/></svg></span><span class="m-bd"><b data-i="sys.tp.name">Team Plans</b><small data-i="sys.tp.line">Who goes where, with a Plan B</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="../signups/" data-wk="su"><span class="m-stub"><svg aria-hidden="true"><use href="#g-su"/></svg></span><span class="m-bd"><b data-i="sys.su.name">Sign-ups</b><small data-i="sys.su.line">Members sign up on Discord</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="../roster/" data-wk="cm" data-lang><span class="m-stub"><svg aria-hidden="true"><use href="#g-cm"/></svg></span><span class="m-bd"><b data-i="sys.cm.name">Commander</b><small data-i="sys.cm.line">Roster & log · commanders only</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+    </ol>
+  </div>
+</div>
 <div class="wm" id="wm" aria-hidden="true" data-owner="4053721"></div>
+<script data-nofacts>
+(function(){
+var R=document.documentElement,jb=document.getElementById("mx-jb"),sh=document.getElementById("mx-sh"),off=[];
+if(!jb||!sh)return;
+function items(){return [].slice.call(sh.querySelectorAll("a[href],button"));}
+function open(){sh.hidden=false;jb.setAttribute("aria-expanded","true");R.classList.add("mx-lock");
+  off=[].filter.call(document.body.children,function(el){return el!==sh&&!el.hasAttribute("inert")&&!/^(SCRIPT|STYLE|TEMPLATE)$/.test(el.tagName);});
+  off.forEach(function(el){el.setAttribute("inert","");});
+  var x=sh.querySelector(".mx-x");if(x)x.focus();}
+function close(back){if(sh.hidden)return;sh.hidden=true;jb.setAttribute("aria-expanded","false");R.classList.remove("mx-lock");
+  off.forEach(function(el){el.removeAttribute("inert");});off=[];if(back!==false)jb.focus();}
+jb.addEventListener("click",open);
+sh.addEventListener("click",function(e){if(e.target.closest("[data-close]"))close();});
+document.addEventListener("keydown",function(e){if(sh.hidden)return;
+  if(e.key==="Escape"){close();return;}
+  if(e.key==="Tab"){var f=items(),a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}}});
+window.addEventListener("pageshow",function(e){if(e.persisted)close(false);});
+if(/(^|[#&])jump(&|$)/.test(location.hash))open();
+})();
+(function(){
+var R=document.documentElement,WC={"tm":["#05050f","#2c2a6e"],"s2":["#0b0826","#5b3e9e"],"sf":["#061011","#1f5b52"],"tp":["#061011","#1f5b52"],"cm":["#061011","#1f5b52"],"su":["#0e131a","#2c4456"],"fl":["#07161f","#1d5f7a"],"gd":["#0b2428","#2f8f88"],"gl":["#0a2a22","#3fa98a"]},GO=460,fly=null;
+function calm(){return !R.classList.contains("mo")||R.classList.contains("still")||!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);}
+function land(){
+  if(!fly)return;
+  clearTimeout(fly.go);clearTimeout(fly.up);if(fly.d.parentNode)fly.d.parentNode.removeChild(fly.d);fly=null;
+  try{sessionStorage.removeItem("ox-woosh");}catch(e){}
+}
+function woosh(a){
+  var k=a.getAttribute("data-wk"),c=WC[k]||WC.tm,g=a.querySelector('use[href="#g-'+k+'"]'),r=(g?g.parentNode:a).getBoundingClientRect(),
+      x=r.left+r.width/2,y=r.top+r.height/2,d=document.createElement("div"),s='<i class="ox-wb"></i>',i;
+  d.className="ox-warp";d.setAttribute("aria-hidden","true");
+  d.style.cssText="--x:"+x+"px;--y:"+y+"px;--dx:"+(innerWidth/2-x)+"px;--dy:"+(innerHeight*0.42-y)+"px;--wc:"+c[0]+";--wg:"+c[1];
+  for(i=0;i<18;i++)s+='<i class="ox-ws" style="--a:'+(i*20+(i%3)*7)+'deg;animation-delay:'+(i%4)*35+'ms"></i>';
+  s+='<svg class="ox-wp"><use href="#g-'+k+'"/></svg>';
+  d.innerHTML=s;document.body.appendChild(d);
+  try{sessionStorage.setItem("ox-woosh",JSON.stringify({k:k,t:Date.now()}));}catch(e){}
+  fly={d:d,gone:false};
+  fly.go=setTimeout(function(){if(fly){fly.gone=true;location.assign(a.href);}},GO);
+  fly.up=setTimeout(land,10000);
+}
+document.addEventListener("click",function(e){if(fly){e.preventDefault();e.stopPropagation();}},true);
+document.addEventListener("click",function(e){
+  var a=e.target.closest&&e.target.closest("a[data-wk]");
+  if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||(a.target&&a.target!=="_self")||calm())return;
+  e.preventDefault();woosh(a);
+});
+window.addEventListener("pagehide",function(){if(fly&&!fly.gone)land();});
+window.addEventListener("pageshow",function(e){if(!e.persisted)return;land();[].forEach.call(document.querySelectorAll(".ox-warp"),function(w){w.parentNode.removeChild(w);});});
+if(R.classList.contains("ox-in"))setTimeout(function(){R.classList.remove("ox-in");},1200);
+if(R.classList.contains("mo")&&"IntersectionObserver" in window)[].forEach.call(document.querySelectorAll(".ox-rib,.rs-wrap"),function(el){
+  new IntersectionObserver(function(es){es.forEach(function(en){el.classList.toggle("paused",!en.isIntersecting);});}).observe(el);});
+})();
+(function(){
+function stamp(){
+  var l=null;try{l=sessionStorage.getItem("sf-lang");}catch(e){}
+  if(!l||!/^[a-z]{2}$/.test(l))return;
+  [].forEach.call(document.querySelectorAll("a[data-lang]"),function(a){
+    var h=a.getAttribute("href")||"";
+    if(h.indexOf("#")<0||a.getAttribute("data-lang")==="tab"){a.setAttribute("href",h.split("#")[0]+"#lang-"+l);a.setAttribute("data-lang","tab");}
+  });
+}
+stamp();window.addEventListener("pageshow",function(e){if(e.persisted)stamp();});
+})();
+</script>
 <script data-nofacts>
 (function(){
 var R=document.documentElement,MO=R.classList.contains("mo"),map=document.getElementById("map");
@@ -430,8 +672,9 @@ function ensureOwner(){
   if(!b){b=document.createElement("p");b.id="ownerBadge";b.className="owner";var at=document.querySelector("[data-owner-slot]")||document.body;at.insertBefore(b,at.firstChild);}
   if(b.textContent.indexOf(OWNER)<0)b.innerHTML="<span>"+OWN.by+"</span> <b>"+OWNER+"</b>";
   var f=document.getElementById("ownerFoot");
-  if(!f){f=document.createElement("p");f.id="ownerFoot";(document.querySelector("footer")||document.body).appendChild(f);}
-  if(f.textContent.indexOf(OWNER)<0)f.innerHTML="<b>"+OWN.name+" · © 2026 "+OWNER+"</b>"+OWN.foot;
+  if(!f){f=document.createElement("p");f.id="ownerFoot";var ft=document.querySelector("footer")||document.body;
+    if(OWN.gold){f.className="owner-foot";ft.insertBefore(f,ft.firstChild);}else ft.appendChild(f);}
+  if(f.textContent.indexOf(OWNER)<0)f.innerHTML=(OWN.gold?'<b class="ox-fm"><svg aria-hidden="true"><use href="#i-gem"/></svg>':"<b>")+OWN.name+" · © 2026 "+OWNER+"</b>"+OWN.foot;
   if(!document.getElementById("wm")){var w=document.createElement("div");w.id="wm";w.className="wm";w.setAttribute("aria-hidden","true");document.body.appendChild(w);}
 }
 ensureOwner();

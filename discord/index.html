@@ -45,26 +45,31 @@
 
   /* ---------- the guide, kept inside Discord ---------- */
   var frame = document.getElementById('site');
-  var fontCss = null;
+  var fontCss = {};
   function go(url){
     var to = new URL(url, frame.contentWindow.location.href).href;
     if (to.indexOf(SITE) === 0) frame.contentWindow.location.href = '/.proxy/site/' + to.slice(SITE.length);
     else if (to.indexOf(location.origin + '/') === 0) frame.contentWindow.location.href = to;
     else if (/^https?:/.test(to)) openOutside(to);
   }
-  /* Google's font CSS points at fonts.gstatic.com; fetch it through the proxy and point it there too */
+  /* Google's font CSS points at fonts.gstatic.com; fetch each of the page's font sheets through the proxy (the pages ask for
+     different fonts) and point it there too */
   function fonts(doc){
-    var link = doc.querySelector('link[rel="stylesheet"][href^="' + FONTS + '"]');
-    if (!link) return;
-    fontCss = fontCss || fetch('/.proxy/gfonts/' + link.href.slice(FONTS.length))
-      .then(function(r){ return r.ok ? r.text() : ''; })
-      .then(function(css){ return css.split('https://fonts.gstatic.com/').join('/.proxy/gstatic/'); })
-      .catch(function(){ return ''; });
-    fontCss.then(function(css){
-      if (!css) return;
-      var style = doc.createElement('style');
-      style.textContent = css;
-      doc.head.appendChild(style);
+    [].forEach.call(doc.querySelectorAll('link[rel="stylesheet"][href^="' + FONTS + '"]'), function(link){
+      var key = link.href.slice(FONTS.length);
+      if (!fontCss[key]) {
+        fontCss[key] = fetch('/.proxy/gfonts/' + key)
+          .then(function(r){ return r.ok ? r.text() : ''; })
+          .then(function(css){ return css.split('https://fonts.gstatic.com/').join('/.proxy/gstatic/'); })
+          .catch(function(){ return ''; });
+        fontCss[key].then(function(css){ if (!css) delete fontCss[key]; });  /* a failed fetch is tried again on the next page */
+      }
+      fontCss[key].then(function(css){
+        if (!css) return;
+        var style = doc.createElement('style');
+        style.textContent = css;
+        doc.head.appendChild(style);
+      });
     });
   }
   frame.addEventListener('load', function(){

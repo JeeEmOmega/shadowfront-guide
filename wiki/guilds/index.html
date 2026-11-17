@@ -1,0 +1,856 @@
+<!doctype html>
+<!-- FGF Wiki - (c) 2026 UID 4053721. All rights reserved. Original fan wiki; copies carry this owner's fingerprint. -->
+<html lang="en" data-owner="4053721">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b2428">
+<title data-i="gd.page">Guilds &middot; FGF Wiki</title>
+<meta name="description" content="Commerce Guilds in Foundation: Galactic Frontier: what a guild gives, joining, titles and positions, ports and garrisons, rallies, chests and technology, and the guild events with their rules. Unofficial fan wiki.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FGF Wiki">
+<meta property="og:title" content="Guilds · FGF Wiki">
+<meta property="og:description" content="Commerce Guilds in Foundation: Galactic Frontier: what a guild gives, joining, titles and positions, ports and garrisons, rallies, chests and technology, and the guild events with their rules. Unofficial fan wiki.">
+<meta property="og:url" content="https://jeeemomega.github.io/shadowfront-guide/wiki/guilds/">
+<meta name="twitter:card" content="summary">
+<meta name="author" content="UID 4053721">
+<meta name="copyright" content="(c) 2026 UID 4053721">
+<link rel="canonical" href="https://jeeemomega.github.io/shadowfront-guide/wiki/guilds/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23120f38'/%3E%3Cpath d='M16 4l7 9-7 15-7-15z' fill='%23f3cf86'/%3E%3Cpath d='M16 4l7 9H9z' fill='%23fff4dc'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Saira+Extra+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<script>
+(function(d){var s=/still/.test(location.hash)||!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
+d.className+=(s?" still":" mo")+" js";window.addEventListener("error",function(){d.classList.remove("mo");});
+try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.removeItem("ox-woosh");if(!s&&w&&w.k==="gd"&&Date.now()-w.t<12000)d.className+=" ox-in";}catch(e){}})(document.documentElement);
+</script>
+<style>
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--pk-bg)}
+body{margin:0;min-height:100vh;background:var(--pk-bg);color:var(--pk-ink);font:400 15.5px/1.55 "Noto Sans","Segoe UI",system-ui,sans-serif}
+button,input{font:inherit}
+h1,h2,h3,h4,p,ul,ol,dl,dd,figure{margin:0;padding:0}
+ul,ol{list-style:none}
+:focus-visible{outline:2px solid var(--pk-focus);outline-offset:2px}
+.paused *,.paused *::before,.paused *::after{animation-play-state:paused!important}
+.wrap{position:relative;z-index:1;max-width:520px;margin:0 auto;overflow-x:clip;background:var(--pk-page)}
+.hero{position:relative;overflow:hidden}
+.hero .hero-uid{top:10px;left:auto;right:12px;font-family:var(--mt)}
+.pk-main{position:relative;padding:14px 12px 4px}
+.cap{font-size:13.5px;line-height:1.5;color:var(--pk-cap)}
+.cap b{color:var(--pk-cap-b)}
+.ownr{margin:12px 0 16px}
+.ownr .owner{margin-top:0}
+
+.ix{margin:0 0 16px}
+.ix-h{display:flex;align-items:center;gap:10px;margin:0 2px 10px;font:700 14px/1 var(--mt);letter-spacing:.26em;text-transform:uppercase;color:var(--pk-ix-h)}
+.ix-h::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--pk-ix-line),rgba(0,0,0,0))}
+.ix a{-webkit-tap-highlight-color:transparent}
+.ix a:active{filter:brightness(1.15)}
+
+.sec,.evt,.lt{position:relative;scroll-margin-top:8px}
+.sec{margin:0 0 14px}
+.sec-h h2{font:700 22px/1.05 var(--mt);letter-spacing:.1em;text-transform:uppercase}
+.sec-b>:first-child,.evt-b>:first-child{margin-top:0}
+.sec-b p,.evt-b p{margin-top:10px}
+.sub{font:700 18px/1.1 var(--mt);letter-spacing:.1em;text-transform:uppercase;color:var(--pk-key)}
+h3.sub{display:flex;align-items:center;gap:8px;margin-top:18px;padding-top:14px;border-top:1px solid var(--pk-line)}
+h3.sub::before{content:"";flex:none;width:14px;height:3px;background:var(--pk-acc)}
+h4.sub{margin-top:16px;font-size:16.5px}
+ul.dots{margin-top:10px}
+ul.dots>li{position:relative;padding-left:18px;margin-top:7px}
+ul.dots>li::before{content:"";position:absolute;left:2px;top:.62em;width:7px;height:7px;transform:rotate(45deg);background:var(--pk-acc)}
+ul.dots.pending>li::before{left:1px;top:.5em;width:9px;height:9px;border:1.5px dashed var(--pk-gap-line);border-radius:50%;background:none;transform:none}
+ol.steps{counter-reset:st;margin-top:12px}
+ol.steps>li{position:relative;counter-increment:st;min-height:24px;padding-left:34px;margin-top:9px}
+ol.steps>li::before{content:counter(st);position:absolute;left:0;top:0;width:24px;height:24px;display:grid;place-items:center;font:700 15px/1 var(--mt);color:var(--pk-num-ink);background:var(--pk-num);border-radius:2px}
+ol.steps.short>li{margin-top:6px}
+dl.kv{display:grid;gap:8px;margin-top:12px}
+dl.kv>div{padding:9px 12px 10px;background:var(--pk-tile);border-radius:3px}
+dl.kv dt{font:700 17px/1.1 var(--mt);letter-spacing:.08em;text-transform:uppercase;color:var(--pk-key)}
+dl.kv dd{margin-top:3px;font-size:14px;line-height:1.5}
+dl.kv.short>div{display:grid;grid-template-columns:76px minmax(0,1fr);gap:10px;align-items:baseline}
+dl.kv.short dd{margin-top:0}
+ul.ups{display:grid;gap:8px;margin-top:12px}
+ul.ups>li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 10px;align-items:center;padding:9px 12px 10px;background:var(--pk-tile);border-radius:3px}
+ul.ups b{font:700 17px/1.1 var(--mt);letter-spacing:.08em;text-transform:uppercase;color:var(--pk-key)}
+ul.ups .cost{display:flex;align-items:baseline;flex-wrap:wrap;justify-content:flex-end;gap:2px 6px;padding:4px 10px;border-radius:999px;background:var(--pk-chip);color:var(--pk-chip-ink);font-size:12.5px;line-height:1.25}
+ul.ups .cost small{font:700 11.5px/1 var(--mt);letter-spacing:.14em;text-transform:uppercase;opacity:.8}
+ul.ups .cost em{font-style:normal;font-weight:600}
+ul.ups>li>p{grid-column:1/-1;margin:0;font-size:14px;line-height:1.5}
+.tbl{margin-top:12px;border-radius:3px;overflow:hidden;background:var(--pk-tile)}
+.tbl table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.3}
+.tbl thead th{padding:9px 6px 8px;font:700 14px/1.1 var(--mt);letter-spacing:.1em;text-transform:uppercase;text-align:center;color:var(--pk-th-ink);background:var(--pk-th)}
+.tbl thead th:first-child{padding-left:12px;text-align:left}
+.tbl tbody th{padding:9px 6px 9px 12px;text-align:left;font-weight:600}
+.tbl td{padding:9px 6px;text-align:center;font-variant-numeric:tabular-nums}
+.tbl tbody tr+tr{border-top:1px solid var(--pk-line)}
+.tbl td span{display:block;font-weight:700}
+.tbl .bar{display:block;width:calc(var(--v) * 4%);min-width:4px;max-width:100%;height:4px;margin:4px auto 0;border-radius:2px;background:var(--pk-acc)}
+p.gap,p.s1{display:flex;align-items:baseline;flex-wrap:wrap;gap:5px 9px;margin-top:12px;padding:8px 10px;border:1px dashed var(--pk-gap-line);border-radius:3px;font-size:13.5px;line-height:1.45}
+p.gap>b,p.s1>b{flex:none;padding:4px 7px 3px;border-radius:2px;font:700 12.5px/1 var(--mt);letter-spacing:.14em;text-transform:uppercase;background:var(--pk-gap);color:var(--pk-gap-ink)}
+p.gap>span,p.s1>span{flex:1 1 190px;min-width:0}
+p.s1{border-style:solid;border-color:var(--pk-s1-line)}
+p.s1>b{background:var(--pk-s1);color:var(--pk-s1-ink)}
+p.note{font-size:13px;line-height:1.45;color:var(--pk-mute)}
+.ex{margin-top:12px;padding:9px 12px 10px;border-left:3px solid var(--pk-acc);border-radius:0 3px 3px 0;background:var(--pk-tile2)}
+.ex b{display:block;font:700 13px/1 var(--mt);letter-spacing:.16em;text-transform:uppercase;color:var(--pk-mute)}
+.ex p{margin-top:4px;font-size:14.5px}
+.ex p b{display:inline;font:inherit;font-weight:700;letter-spacing:0;text-transform:none;color:inherit}
+ul.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+ul.chips li{padding:6px 10px 5px;border-radius:2px;font:700 15px/1 var(--mt);letter-spacing:.1em;text-transform:uppercase;background:var(--pk-chip);color:var(--pk-chip-ink)}
+p.sees{display:grid;gap:8px;margin-top:14px}
+a.see{display:grid;grid-template-columns:40px minmax(0,1fr) 18px;align-items:center;gap:10px;min-height:52px;padding:6px 12px 6px 8px;border-radius:4px;text-decoration:none;background:var(--pk-see);color:var(--pk-see-ink);-webkit-tap-highlight-color:transparent}
+a.see>svg:first-child{width:40px;height:40px}
+a.see .see-t small{display:block;font:700 12px/1 var(--mt);letter-spacing:.2em;text-transform:uppercase;color:var(--pk-see-k)}
+a.see .see-t b{display:block;margin-top:3px;font:700 19px/1.05 var(--mt);letter-spacing:.08em;text-transform:uppercase}
+a.see .chev{width:18px;height:18px;color:var(--pk-see-k)}
+a.see:active{filter:brightness(1.14)}
+a.see:focus-visible{outline:2px solid var(--pk-focus);outline-offset:2px}
+
+.end{padding:20px 16px calc(84px + env(safe-area-inset-bottom,0px));background:var(--pk-end,transparent);text-align:center;font-size:12.5px;line-height:1.5;color:var(--pk-foot)}
+.end b{display:block;margin-bottom:4px;font:700 16px/1.2 var(--mt);letter-spacing:.14em;text-transform:uppercase;color:var(--fx-lane)}
+.dock{position:fixed;left:50%;bottom:0;transform:translateX(-50%);z-index:20;width:100%;max-width:520px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;align-items:center;
+  padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));background:var(--pk-dock);border-top:1px solid var(--pk-dock-line);box-shadow:0 -8px 20px rgba(0,0,0,.4)}
+.js .dock{grid-template-columns:52px repeat(4,minmax(0,1fr))}
+.dock a{display:grid;place-items:center;height:46px;padding:0 2px;font:700 16px/1 var(--mt);letter-spacing:.06em;text-transform:uppercase;text-align:center;color:var(--pk-dock-ink);text-decoration:none;-webkit-tap-highlight-color:transparent}
+.dock a.on{color:var(--pk-dock-on-ink);background:var(--pk-dock-on)}
+.dock a:focus-visible{outline:2px solid var(--fx-focus);outline-offset:-3px}
+.dock .ox-mb{width:52px;min-width:0;height:46px;padding:0}
+@media print{.dock{display:none}.end{padding-bottom:22px}}
+:root{--pk-bg:#0b2428;--pk-page:#e9e6db;--pk-ink:#2a2f31;--pk-focus:#7a2530;--pk-cap:#4a5558;--pk-cap-b:#2a2f31;--pk-end:#0b2428;
+  --pk-ix-h:#5a1d26;--pk-ix-line:rgba(90,29,38,.4);
+  --pk-key:#5a1d26;--pk-acc:#1f7a80;--pk-acc-ink:#5a1d26;--pk-line:rgba(42,47,49,.14);--pk-tile:#ece8dc;--pk-tile2:#f1eee3;--pk-mute:#556063;
+  --pk-num:#5a1d26;--pk-num-ink:#fff;--pk-chip:#3c2a78;--pk-chip-ink:#fff;--pk-th:#5a1d26;--pk-th-ink:#fff;
+  --pk-gap:#556063;--pk-gap-ink:#fff;--pk-gap-line:#98a09f;--pk-s1:#1b5f66;--pk-s1-ink:#eafff8;--pk-s1-line:rgba(27,95,102,.45);
+  --pk-see:linear-gradient(180deg,#1d4b50,#0f2c30);--pk-see-ink:#fff4dc;--pk-see-k:#f3cf86;--pk-foot:#9fbab6;
+  --pk-dock:linear-gradient(180deg,#232e36,#161e24);--pk-dock-line:rgba(243,207,134,.35);--pk-dock-ink:#b9c4c9;
+  --pk-dock-on:linear-gradient(180deg,#f3f0e6,#dedacc);--pk-dock-on-ink:#1b242a;
+  --ow-line:rgba(231,194,122,.6);--ow-bg:#5a1d26;--ow-ink:#f3e3c0;--ow-acc:#ffd9a0}
+
+.gd-hero{color:#fff;background:#0b2c37}
+.gd-sky{display:block;width:100%;height:calc(min(100vw,520px) * .5385);min-height:190px}
+.gd-ships{position:absolute;left:50%;top:6%;width:30.8%;overflow:visible;will-change:transform}
+.mo .gd-ships{animation:gd-fly 16s linear infinite}
+@keyframes gd-fly{0%{transform:translate(-46%,70%);opacity:0}14%{opacity:1}86%{opacity:1}100%{transform:translate(50%,-46%);opacity:0}}
+.gd-ban{position:absolute;right:20px;top:0;width:72px;height:calc(min(100vw,520px) * .5385 + 40px);min-height:230px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:10px;padding-bottom:34px;color:#fff4dc;
+  background:linear-gradient(90deg,#5a1d26,#8a2e3a 50%,#5a1d26);clip-path:polygon(0 0,100% 0,100% 100%,50% calc(100% - 18px),0 100%)}
+.gd-ban::before,.gd-ban::after{content:"";position:absolute;top:0;bottom:22px;width:1px;background:rgba(231,194,122,.55)}
+.gd-ban::before{left:6px}
+.gd-ban::after{right:6px}
+.gd-em{width:50px;height:50px}
+.gd-chv{width:28px;height:22px}
+.gd-hero .hero-uid{left:12px;right:auto}
+.gd-bar{position:relative;display:flex;align-items:center;gap:12px;min-height:88px;padding:11px 104px 13px 14px;border-top:1px solid rgba(231,194,122,.55);background:linear-gradient(180deg,#5c1f27,#3f1219)}
+.gd-hex{flex:none;display:grid;place-items:center;width:54px;height:60px;color:#fff4dc;background:#2a0c11;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.gd-hex svg{width:34px;height:34px}
+.gd-bar .hero-tx{min-width:0}
+.gd-bar .kick{font:700 12.5px/1 var(--mt);letter-spacing:.26em;text-transform:uppercase;color:#e7c27a}
+.gd-bar h1{margin-top:4px;font:700 46px/.95 var(--mt);letter-spacing:.06em;text-transform:uppercase;color:#fff}
+.gd-bar .sub{display:inline-block;margin-top:7px;padding-top:6px;border-top:3px solid #c99a3f;font-size:13px;line-height:1.3;color:#f3e3e0}
+
+.gd .ix ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.gd .ix a{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:52px;padding:8px 10px 8px 12px;border:1px solid #cfc9bb;border-radius:3px;background:linear-gradient(180deg,#fff,#f2efe7);box-shadow:0 2px 0 #cbc5b6;color:#2a2f31;text-decoration:none;font:700 17px/1.05 var(--mt);letter-spacing:.08em;text-transform:uppercase}
+.gd .ix a svg{flex:none;order:2;width:30px;height:30px;color:#8b9794}
+.gd .ix li.ev a{border-color:#3c2a78;background:linear-gradient(120deg,#33246b,#6a3fa6);box-shadow:0 2px 0 #2a1c58;color:#fff}
+.gd .ix li.pend a{border-style:dashed;border-color:#98a09f;background:none;box-shadow:none;color:#4a5558}
+
+.gd .sec{border:1px solid #d3cdbf;border-radius:4px;background:#f7f5ee;box-shadow:0 2px 0 #cbc5b6}
+.gd .sec-h{padding:14px 14px 0 0}
+.gd .sec-h h2{display:inline-block;max-width:100%;padding:8px 28px 7px 14px;color:#fff;background:linear-gradient(180deg,#6a242d,#4a161d);clip-path:polygon(0 0,100% 0,calc(100% - 13px) 50%,100% 100%,0 100%)}
+.gd .sec-b{padding:12px 14px 16px}
+.gd .sec.pend{border-style:dashed;border-color:#98a09f;background:none;box-shadow:none}
+.gd .sec.pend .sec-h h2{background:#556063}
+.gd p.keep{padding:9px 12px 10px;border-left:3px solid #1f7a80;border-radius:0 3px 3px 0;background:#e1eee8}
+.gd ol.steps.names{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 10px}
+.gd ol.steps.names>li{margin-top:0;font-weight:600;line-height:1.3;padding-top:2px}
+
+.gd .evt{margin:0 10px 12px;border:1px solid #cfc9bb;border-radius:4px;overflow:hidden;background:#fbfaf6}
+.gd .evt-h{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:9px;min-height:80px;padding:0 86px 13px 0;color:#fff;background:linear-gradient(120deg,#33246b,#5d3a9c 62%,#8553b6)}
+.gd .evt-tag{padding:6px 20px 5px 12px;font:700 13px/1 var(--mt);letter-spacing:.14em;text-transform:uppercase;color:#bff5e0;background:#1b1440;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%)}
+.gd .evt-h h3{padding-left:12px;font:700 27px/1 var(--mt);letter-spacing:.08em;text-transform:uppercase}
+.gd .evt-art{position:absolute;right:12px;top:50%;width:64px;height:44px;margin-top:-22px;opacity:.5}
+.gd .evt-b{padding:13px 12px 14px}
+.gd .evt ol.steps>li::before{background:#4a2f8a}
+.gd .evt h4.sub{color:#33246b}
+
+ol.rt{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:14px}
+ol.rt::before{content:"";position:absolute;left:12.5%;right:12.5%;top:13px;height:2px;background:repeating-linear-gradient(90deg,#6a3fa6 0 5px,rgba(0,0,0,0) 5px 10px)}
+ol.rt>li{position:relative;display:flex;flex-direction:column;align-items:center;gap:5px;padding:0 2px;text-align:center}
+ol.rt b{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;font:700 14px/1 var(--mt);color:#fff;background:#4a2f8a;box-shadow:0 0 0 3px #fbfaf6}
+ol.rt li.rest b{background:#a5741c}
+ol.rt span{font:700 14px/1.1 var(--mt);letter-spacing:.03em;text-transform:uppercase}
+ol.rt small{font-size:11.5px;line-height:1.2;color:#6b4f12}
+@media (max-width:379.98px){
+  ol.rt{grid-template-columns:minmax(0,1fr);gap:8px}
+  ol.rt::before{left:13px;right:auto;top:14px;bottom:14px;width:2px;height:auto;background:repeating-linear-gradient(180deg,#6a3fa6 0 5px,rgba(0,0,0,0) 5px 10px)}
+  ol.rt>li{flex-direction:row;align-items:center;gap:10px;padding:0;text-align:left}
+  ol.rt b{flex:none}
+}
+ul.bands{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px}
+ul.bands li{padding:9px 8px 8px;border-left:3px solid #6a3fa6;border-radius:0 3px 3px 0;text-align:center;font:700 19px/1 var(--mt);letter-spacing:.06em;background:var(--pk-tile)}
+ul.aw{display:grid;gap:6px;margin-top:10px}
+ul.aw>li{display:grid;grid-template-columns:34px minmax(0,1fr);align-items:center;gap:1px 10px;padding:8px 12px 9px 10px;border-radius:3px;background:var(--pk-tile)}
+ul.aw svg{grid-row:1/3;width:34px;height:34px}
+ul.aw b{font:700 18px/1.1 var(--mt);letter-spacing:.08em;text-transform:uppercase;color:var(--pk-key)}
+ul.aw span{grid-column:2;font-size:13.5px;line-height:1.4}
+ul.aw>li.hid{border:1px dashed var(--pk-gap-line);background:none}
+ul.aw>li.hid svg{opacity:.35}
+ul.aw .nsy{justify-self:start;padding:4px 7px 3px;border-radius:2px;font:700 12.5px/1 var(--mt);letter-spacing:.14em;text-transform:uppercase;background:var(--pk-gap);color:var(--pk-gap-ink)}
+@font-face{font-family:"FGF Title Fallback";font-weight:600 900;size-adjust:64%;src:local("Arial Bold"),local("Arial-BoldMT"),local("Helvetica Bold"),local("Helvetica-Bold"),local("Roboto Bold"),local("Roboto-Bold"),local("DejaVu Sans Bold"),local("DejaVuSans-Bold")}
+@font-face{font-family:"FGF Title Fallback";font-weight:100 599;size-adjust:64%;src:local("Arial"),local("ArialMT"),local("Helvetica"),local("Roboto"),local("Roboto-Regular"),local("DejaVu Sans"),local("DejaVuSans")}
+:root{--mt:"Saira Extra Condensed","Avenir Next Condensed","Roboto Condensed","Bahnschrift Condensed","Arial Narrow",sans-serif-condensed,"FGF Title Fallback",sans-serif;
+  --mb:"Noto Sans","Segoe UI",system-ui,sans-serif;
+  --fx-bar1:rgba(10,10,30,.97);--fx-bar2:rgba(10,10,30,.92);--fx-hair:rgba(243,207,134,.45);--fx-ink:#c9cff2;--fx-at:#fff4dc;
+  --fx-lane:#f3cf86;--fx-glow:rgba(243,207,134,.5);--fx-acc:#f3cf86;--fx-focus:#ffe2a6;--fx-maxw:520px;
+  --fx-tab1:rgba(24,26,64,.93);--fx-tab2:rgba(10,10,30,.9);--fx-tab-ink:#fff4dc;--fx-tab-arrow:#ffe2a6;
+  --fx-btn1:#f9f1de;--fx-btn2:#e3d1aa;--fx-btn-ink:#2b2119;--fx-btn-line:rgba(243,207,134,.6);
+  --fx-pn1:#1e1948;--fx-pn2:#0d0b26;--fx-shade:rgba(5,4,16,.7);
+  --tk1:#f8f0dd;--tk2:#e8d9b8;--tk-st1:#ecdcb6;--tk-st2:#dcc699;--tk-ink:#2b2119;--tk-sub:#5e4c3b;--tk-perf:rgba(90,70,50,.35);
+  --tk-go1:#33224d;--tk-go2:#22163a;--tk-go-ink:#f6e7c8;--tk-focus:#5a3fb0;
+  --tk-here1:#efe2ff;--tk-here2:#d9c6f3;--tk-here-st1:#e0cdf7;--tk-here-st2:#c9b0ec;--tk-here-ink:#4b2c80;
+  --rs-p1:#15123a;--rs-p2:#0b0a24;--rs-grid:rgba(169,193,255,.07);--rs-edge:rgba(243,207,134,.42);--rs-ink:#fff4dc;--rs-sub:#c6c7e4;
+  --rs-fade:#0d0b2c;--rs-pad:12px;--rs-tint:rgba(110,130,230,.2);--rs-tint2:rgba(243,160,110,.1)}
+
+.m-tab{display:inline-flex;align-items:center;gap:9px;height:44px;padding:0 26px 0 14px;background:linear-gradient(180deg,var(--fx-tab1),var(--fx-tab2));clip-path:polygon(0 0,100% 0,calc(100% - 16px) 100%,0 100%);color:var(--fx-tab-ink);text-decoration:none;font:700 21px/1 var(--mt);letter-spacing:.1em;text-transform:uppercase;box-shadow:inset 0 1px 0 rgba(255,236,200,.3),inset 0 -1px 0 rgba(0,0,0,.4)}
+.m-tab svg{flex:none;width:18px;height:18px}
+.m-tab svg.bk{width:31px;height:17px;color:var(--fx-tab-arrow)}
+.m-tab:focus-visible{outline:2px solid var(--fx-focus);outline-offset:-4px}
+.m-sq{flex:none;display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid rgba(255,236,200,.5);border-radius:4px;background:rgba(14,14,40,.62);color:#fff4dc;font:700 16px/1 var(--mt);letter-spacing:.1em}
+.m-h{display:flex;align-items:center;gap:10px;margin:0 2px 12px;text-align:left;text-indent:0;font:700 15px/1 var(--mt);letter-spacing:.26em;text-transform:uppercase;color:var(--fx-acc)}
+.m-h::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--fx-hair),rgba(0,0,0,0))}
+.m-vh,.mx-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.m-tks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.m-tk{position:relative;display:grid;grid-template-columns:58px 1fr auto;align-items:center;min-height:66px;border-radius:7px;background:linear-gradient(180deg,var(--tk1),var(--tk2));color:var(--tk-ink);text-decoration:none;
+  -webkit-mask:radial-gradient(circle 7px at 58px 0,transparent 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 7px at 58px 100%,transparent 98%,#000) bottom/100% 51% no-repeat;
+  mask:radial-gradient(circle 7px at 58px 0,transparent 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 7px at 58px 100%,transparent 98%,#000) bottom/100% 51% no-repeat}
+a.m-tk:active{filter:brightness(.94)}
+a.m-tk:focus-visible{outline:3px solid var(--tk-focus);outline-offset:-4px}
+.m-stub{align-self:stretch;display:grid;place-items:center;border-right:2px dashed var(--tk-perf);background:linear-gradient(180deg,var(--tk-st1),var(--tk-st2));border-radius:7px 0 0 7px;color:var(--tk-ink)}
+.m-stub svg{width:36px;height:36px}
+.m-bd{min-width:0;padding:9px 6px 9px 14px}
+.m-bd b{display:block;font:700 21px/1 var(--mt);letter-spacing:.08em;text-transform:uppercase;color:inherit}
+.m-bd small{display:block;margin-top:3px;font:400 12.5px/1.3 var(--mb);color:var(--tk-sub)}
+.m-go{display:flex;align-items:center;gap:2px;height:36px;margin-right:12px;padding:0 6px 0 14px;background:linear-gradient(180deg,var(--tk-go1),var(--tk-go2));color:var(--tk-go-ink);font:700 15px/1 var(--mt);letter-spacing:.12em;text-transform:uppercase;clip-path:polygon(9px 0,100% 0,100% 100%,0 100%)}
+.m-go svg{width:16px;height:16px}
+.m-tk.off{background:linear-gradient(180deg,#c6bdad,#aca292);color:#2e2822}
+.m-tk.off .m-stub{background:linear-gradient(180deg,#bcb2a1,#a59a89);color:#3a322a}
+.m-tk.off small{color:#3a322a}
+.m-tk .m-lk{width:18px;height:18px;margin-right:16px;color:#3a322a}
+.m-tk.here{background:linear-gradient(180deg,var(--tk-here1),var(--tk-here2))}
+.m-tk.here .m-stub{background:linear-gradient(180deg,var(--tk-here-st1),var(--tk-here-st2))}
+.mx-here{display:block;margin-bottom:5px;font:700 12px/1 var(--mt);font-style:normal;letter-spacing:.2em;text-transform:uppercase;color:var(--tk-here-ink)}
+
+.rs-wrap{position:relative;z-index:1;padding:36px var(--rs-pad) 12px;background:linear-gradient(180deg,rgba(0,0,0,0),var(--rs-fade) 34px)}
+.rs{position:relative;max-width:496px;margin:0 auto;padding:0 0 4px;color:var(--rs-ink);border:1px solid var(--rs-edge);border-radius:3px;box-shadow:0 12px 30px rgba(0,0,0,.45);
+  background:radial-gradient(1.2px 1.2px at 62px 38px,rgba(255,250,240,.75),rgba(0,0,0,0) 70%) 0 0/250px 190px,radial-gradient(1px 1px at 180px 120px,rgba(220,230,255,.7),rgba(0,0,0,0) 70%) 0 0/250px 190px,
+    radial-gradient(1.5px 1.5px at 214px 22px,rgba(255,240,215,.8),rgba(0,0,0,0) 70%) 0 0/250px 190px,radial-gradient(1px 1px at 118px 164px,rgba(255,250,240,.6),rgba(0,0,0,0) 70%) 0 0/250px 190px,
+    linear-gradient(90deg,var(--rs-grid) 1px,rgba(0,0,0,0) 1px) 0 0/26px 26px,linear-gradient(180deg,var(--rs-grid) 1px,rgba(0,0,0,0) 1px) 0 0/26px 26px,
+    radial-gradient(110% 46% at 0% 0%,var(--rs-tint),rgba(0,0,0,0) 72%) 0 0/100% 100% no-repeat,radial-gradient(90% 40% at 100% 100%,var(--rs-tint2),rgba(0,0,0,0) 70%) 0 0/100% 100% no-repeat,
+    linear-gradient(180deg,var(--rs-p1),var(--rs-p2))}
+.rs::before{content:"";position:absolute;inset:-1px;pointer-events:none;
+  background:linear-gradient(var(--fx-lane),var(--fx-lane)) 0 0/18px 2px no-repeat,linear-gradient(var(--fx-lane),var(--fx-lane)) 0 0/2px 18px no-repeat,
+    linear-gradient(var(--fx-lane),var(--fx-lane)) 100% 0/18px 2px no-repeat,linear-gradient(var(--fx-lane),var(--fx-lane)) 100% 0/2px 18px no-repeat,
+    linear-gradient(var(--fx-lane),var(--fx-lane)) 0 100%/18px 2px no-repeat,linear-gradient(var(--fx-lane),var(--fx-lane)) 0 100%/2px 18px no-repeat,
+    linear-gradient(var(--fx-lane),var(--fx-lane)) 100% 100%/18px 2px no-repeat,linear-gradient(var(--fx-lane),var(--fx-lane)) 100% 100%/2px 18px no-repeat}
+.rs-hd{display:flex;align-items:baseline;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;padding:16px 14px 12px 18px;border-bottom:1px solid var(--rs-edge)}
+.rs-hd h2{margin:0;text-align:left;text-indent:0;font:700 17px/1 var(--mt);letter-spacing:.26em;text-transform:uppercase;color:var(--fx-acc)}
+.rs-hd span{font:600 13px/1 var(--mt);letter-spacing:.16em;text-transform:uppercase;color:var(--rs-sub)}
+.rs-ln{position:relative;list-style:none;margin:0;padding:6px 0 0}
+.rs-ln::before,.rs-ln::after{content:"";position:absolute;top:0;bottom:0;width:9px;pointer-events:none;opacity:.5;
+  background:repeating-linear-gradient(180deg,var(--fx-lane) 0 1px,rgba(0,0,0,0) 1px 13px) 0 0/5px 100% no-repeat,repeating-linear-gradient(180deg,var(--fx-lane) 0 1px,rgba(0,0,0,0) 1px 65px) 0 0/9px 100% no-repeat}
+.rs-ln::before{left:0}
+.rs-ln::after{right:0;transform:scaleX(-1)}
+.rs-ln li{position:relative}
+.rs-ln li::before{content:"";position:absolute;left:41px;top:0;bottom:0;width:2px;background:repeating-linear-gradient(180deg,var(--fx-lane) 0 4px,rgba(0,0,0,0) 4px 10px);box-shadow:0 0 7px var(--fx-glow)}
+.rs-ln li:first-child::before{top:50%}
+.rs-ln li:last-child::before{bottom:50%}
+.rs-ln li::after{content:"";position:absolute;left:36px;top:-6px;width:12px;height:100%;pointer-events:none;opacity:0;
+  background:radial-gradient(circle,#fffaf0 0 1.6px,var(--fx-lane) 2.6px,rgba(0,0,0,0) 6px) 0 0/12px 12px no-repeat}
+.rs-ln li:first-child::after{top:calc(50% - 6px);height:50%}
+.rs-ln li:last-child::after{height:50%}
+.mo .rs-ln li::after{animation:rs-run 2.4s linear infinite}
+@keyframes rs-run{0%{opacity:0;transform:translateY(0)}14%,86%{opacity:1}100%{opacity:0;transform:translateY(100%)}}
+.rs-here,.rs-st{position:relative;display:grid;grid-template-columns:84px 1fr auto;align-items:center;min-height:74px;padding:9px 16px 9px 0}
+.rs-st{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.rs-st:active{background:rgba(255,255,255,.06)}
+.rs-st:focus-visible{outline:2px solid var(--fx-focus);outline-offset:-3px}
+.rs-pl{position:relative;z-index:1;justify-self:center;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:radial-gradient(circle,var(--rs-p2) 60%,rgba(0,0,0,0) 63%);color:var(--rs-ink)}
+.rs-pl svg{width:42px;height:42px}
+.rs-here .rs-pl{width:62px;height:62px}
+.rs-here .rs-pl svg{width:56px;height:56px}
+.rs-pu{position:absolute;inset:-4px;border-radius:50%;border:1.5px solid var(--fx-lane);opacity:0;pointer-events:none}
+.mo .rs-pu{animation:m-ping 3.4s ease-out infinite}
+.still .rs-pu{opacity:.5;transform:scale(.92)}
+@keyframes m-ping{0%{transform:scale(.45);opacity:.9}100%{transform:scale(1.5);opacity:0}}
+.rs-tx{min-width:0}
+.rs-tx b{display:block;font:700 22px/1 var(--mt);letter-spacing:.08em;text-transform:uppercase;color:var(--rs-ink)}
+.rs-tx small{display:block;margin-top:4px;font:400 12.5px/1.35 var(--mb);color:var(--rs-sub)}
+.rs-nx,.rs-yh{display:block;margin-bottom:6px;font:700 12px/1 var(--mt);font-style:normal;letter-spacing:.2em;text-transform:uppercase;color:var(--fx-acc)}
+.rs-yh{color:var(--fx-lane)}
+.rs-go{display:grid;place-items:center;width:40px;height:40px;margin-left:8px;border:1px solid var(--rs-edge);border-radius:3px;background:rgba(0,0,0,.18);color:var(--fx-lane)}
+.rs-go svg{width:18px;height:18px}
+.rs-home .rs-pl{box-shadow:0 0 0 2px var(--rs-p2),0 0 0 3.5px var(--fx-lane)}
+.m-tab,.m-tk,.rs-st,.mx-jb,.mx-x{-webkit-tap-highlight-color:transparent}
+:root{--fx-bar1:rgba(18,50,54,.97);--fx-bar2:rgba(9,28,31,.95);--fx-hair:rgba(243,207,134,.42);--fx-ink:#bfd6d2;--fx-tab1:rgba(34,70,74,.97);--fx-tab2:rgba(16,40,43,.95);--fx-pn1:#1b4448;--fx-pn2:#0a2023;--fx-shade:rgba(3,12,13,.72);--rs-p1:#143a3e;--rs-p2:#0a2023;--rs-grid:rgba(170,230,220,.07);--rs-edge:rgba(243,207,134,.4);--rs-sub:#acc9c4;--rs-fade:#0b2428;--rs-tint:rgba(150,44,56,.34);--rs-tint2:rgba(243,190,110,.12);--ox-base:#0b2428;--ox-glow:#2f8f88}
+html.still{scroll-behavior:auto!important}
+.still *,.still *::before,.still *::after{animation:none!important;transition:none!important}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+.ox-rib{position:relative;z-index:2;padding:calc(7px + env(safe-area-inset-top,0px)) 6px 6px;color:var(--rs-ink);border-bottom:1px solid var(--rs-edge);
+  background:radial-gradient(1.2px 1.2px at 62px 18px,rgba(255,250,240,.75),rgba(0,0,0,0) 70%) 0 0/230px 110px,radial-gradient(1px 1px at 170px 80px,rgba(220,230,255,.7),rgba(0,0,0,0) 70%) 0 0/230px 110px,
+    radial-gradient(1.4px 1.4px at 204px 40px,rgba(255,240,215,.8),rgba(0,0,0,0) 70%) 0 0/230px 110px,
+    linear-gradient(90deg,var(--rs-grid) 1px,rgba(0,0,0,0) 1px) 0 0/26px 26px,linear-gradient(180deg,var(--rs-grid) 1px,rgba(0,0,0,0) 1px) 0 0/26px 26px,
+    radial-gradient(70% 120% at 0% 0%,var(--rs-tint),rgba(0,0,0,0) 72%) 0 0/100% 100% no-repeat,radial-gradient(60% 120% at 100% 100%,var(--rs-tint2),rgba(0,0,0,0) 70%) 0 0/100% 100% no-repeat,
+    linear-gradient(180deg,var(--rs-p1),var(--rs-p2))}
+.ox-rib-in{max-width:var(--fx-maxw);margin:0 auto}
+.ox-rib-hd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 6px 3px;font:700 11.5px/1 var(--mt);letter-spacing:.2em;text-transform:uppercase;color:var(--fx-lane)}
+.ox-rib-hd span{display:flex;align-items:center;gap:6px}
+.ox-rib-hd svg{width:12px;height:12px}
+.ox-rib-hd small{font:600 10px/1 var(--mt);letter-spacing:.16em;color:var(--rs-sub)}
+.ox-rib ol{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(var(--ox-n,6),minmax(0,1fr))}
+.ox-rib ol::before{content:"";position:absolute;left:calc(50% / var(--ox-n,6));right:calc(50% / var(--ox-n,6));top:24px;height:2px;background:repeating-linear-gradient(90deg,var(--fx-lane) 0 4px,rgba(0,0,0,0) 4px 10px);box-shadow:0 0 7px var(--fx-glow)}
+.ox-rib-in{container:oxrib/inline-size}
+.ox-rib-sc{--ml:0px;--mr:26px;margin-top:-16px;padding-top:16px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;overscroll-behavior-x:contain;
+  -webkit-mask:linear-gradient(90deg,rgba(0,0,0,0),#000 var(--ml),#000 calc(100% - var(--mr)),rgba(0,0,0,0));mask:linear-gradient(90deg,rgba(0,0,0,0),#000 var(--ml),#000 calc(100% - var(--mr)),rgba(0,0,0,0))}
+.ox-rib-sc::-webkit-scrollbar{display:none}
+.ox-rib-sc.ox-mid{--ml:26px}
+.ox-rib-sc.ox-end{--ml:26px;--mr:0px}
+.ox-rib-sc ol{width:calc(var(--ox-n,6) * 100% / 5.5);min-width:100%}
+@container oxrib (min-width:756px){
+  .ox-rib-sc{margin-top:0;padding-top:0;overflow:visible;-webkit-mask:none;mask:none}
+  .ox-rib-sc ol{width:auto}
+}
+@media print{.ox-rib-sc{margin:0;padding:0;overflow:visible;-webkit-mask:none;mask:none}.ox-rib-sc ol{width:auto}}
+.ox-rib li{position:relative;min-width:0;margin:0;padding:0}
+.ox-rib li::before{content:none}
+.ox-rib a,.ox-rib .here{display:flex;flex-direction:column;align-items:center;gap:3px;min-height:72px;padding:0 1px 4px;color:var(--rs-sub);text-decoration:none;-webkit-tap-highlight-color:transparent}
+.ox-rib a:focus-visible{outline:2px solid var(--fx-focus);outline-offset:-2px}
+.ox-rib a:active{background:rgba(255,255,255,.06)}
+.ox-st{position:relative;flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:radial-gradient(circle,var(--rs-p2) 58%,rgba(0,0,0,0) 62%)}
+.ox-st svg{width:38px;height:38px}
+.ox-rib small{display:block;max-width:100%;font:700 clamp(9.5px,2.8vw,11.5px)/1.1 var(--mt);letter-spacing:.06em;text-transform:uppercase;text-align:center;
+  -webkit-hyphens:auto;hyphens:auto}
+@media (max-width:399.98px){.ox-rib small{letter-spacing:0}}
+.mx-sh .m-bd b{-webkit-hyphens:auto;hyphens:auto}
+@media (max-width:379.98px){.mx-sh .m-bd b{font-size:19px;letter-spacing:.04em}}
+:lang(ko) .ox-rib small,:lang(ko) .m-bd b,:lang(ko) .m-bd small,:lang(ko) .rs-tx b,:lang(ko) .rs-tx small{word-break:keep-all}
+.ox-rib .here small{color:var(--fx-lane)}
+.ox-rib .here .ox-st{box-shadow:0 0 0 2px var(--rs-p2),0 0 0 3.5px var(--fx-lane),0 0 14px var(--fx-glow)}
+.ox-rib .here .rs-pu{inset:-6px}
+.ox-rib.paused *,.ox-rib.paused *::before,.ox-rib.paused *::after{animation-play-state:paused!important}
+
+.ox-mb{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:50px;height:44px;margin:0;padding:0 5px;border:1px solid var(--fx-btn-line);border-radius:3px;cursor:pointer;color:var(--fx-lane);
+  background:radial-gradient(circle at 50% 28%,rgba(255,226,166,.18),rgba(0,0,0,0) 62%),linear-gradient(180deg,var(--fx-tab1),var(--fx-tab2));font:inherit;-webkit-tap-highlight-color:transparent}
+.ox-mb svg{flex:none;width:20px;height:14px}
+.ox-mb span{font:700 9.5px/1 var(--mt);letter-spacing:.14em;text-transform:uppercase;color:var(--fx-at);white-space:nowrap}
+.ox-mb:focus-visible{outline:2px solid var(--fx-focus);outline-offset:2px}
+.ox-mb:active{filter:brightness(1.15)}
+html:not(.js) .ox-mb{display:none}
+.ox-name{flex:1;min-width:0;display:flex;align-items:center;gap:8px;margin:0;font:700 17px/1.35 var(--mt);letter-spacing:.14em;text-transform:uppercase;color:var(--fx-at);white-space:nowrap}
+.ox-name svg{flex:none;width:24px;height:24px}
+.ox-name span{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:379.98px){.ox-name{letter-spacing:.09em}}
+
+.mx-sh{position:fixed;z-index:45;inset:0}
+.mx-sh[hidden]{display:none}
+.mx-bd{position:absolute;inset:0;background:var(--fx-shade)}
+.mx-pn{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:520px;max-height:88vh;max-height:88dvh;overflow:auto;padding:14px 12px calc(18px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,var(--fx-pn1),var(--fx-pn2));border-top:1px solid var(--fx-hair);border-radius:12px 12px 0 0;box-shadow:0 -12px 30px rgba(0,0,0,.6);text-align:left}
+.mo .mx-pn{animation:mx-up .32s cubic-bezier(.2,.8,.2,1)}
+@keyframes mx-up{from{transform:translate(-50%,40px);opacity:.4}}
+.mx-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px}
+.mx-top h2{margin:0;text-align:left;text-indent:0;font:700 22px/1 var(--mt);letter-spacing:.14em;text-transform:uppercase;color:var(--fx-at)}
+.mx-x{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid var(--fx-btn-line);border-radius:4px;background:transparent;color:var(--fx-at);cursor:pointer}
+.mx-x svg{width:20px;height:20px}
+.mx-x:focus-visible{outline:2px solid var(--fx-focus);outline-offset:2px}
+.mx-sh .m-tks{margin:0;padding:0}
+.mx-sh .m-tks li{margin:0;padding:0}
+.mx-sh .m-tks li::before{content:none}
+.rs-wrap.paused *,.rs-wrap.paused *::before,.rs-wrap.paused *::after{animation-play-state:paused!important}
+html.mx-lock,html.mx-lock body{overflow:hidden}
+
+.ox-fm{display:block;margin:0 0 4px;font:700 16px/1.2 var(--mt);letter-spacing:.14em;text-transform:uppercase;color:var(--fx-lane)}
+.ox-fm svg{width:12px;height:12px;margin:0 6px -1px 0}
+
+.ox-warp{position:fixed;inset:0;z-index:80;pointer-events:auto;overflow:hidden}
+.ox-wb{position:absolute;inset:0;opacity:0;background:radial-gradient(circle at 50% 42%,var(--wg) 0,var(--wc) 64%);animation:ox-wb .46s cubic-bezier(.5,0,.75,0) forwards}
+.ox-ws{position:absolute;left:50%;top:42%;width:62vmax;height:2px;margin-top:-1px;transform-origin:0 50%;opacity:0;
+  background:linear-gradient(90deg,rgba(255,244,220,0),rgba(255,236,200,.9) 70%,rgba(255,244,220,0));animation:ox-ws .46s cubic-bezier(.55,0,.8,.2) forwards}
+.ox-wp{position:absolute;left:var(--x);top:var(--y);width:48px;height:48px;margin:-24px 0 0 -24px;will-change:transform,opacity;animation:ox-wp .46s cubic-bezier(.6,0,.85,.25) forwards}
+@keyframes ox-wb{to{opacity:1}}
+@keyframes ox-ws{0%{opacity:0;transform:rotate(var(--a)) translateX(2vmax) scaleX(.04)}30%{opacity:1}100%{opacity:.15;transform:rotate(var(--a)) translateX(42vmax) scaleX(1)}}
+@keyframes ox-wp{0%{transform:translate(0,0) scale(1)}55%{opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(16);opacity:0}}
+html.ox-in::after{content:"";position:fixed;inset:0;z-index:80;pointer-events:none;background:radial-gradient(circle at 50% 42%,var(--ox-glow) 0,var(--ox-base) 64%);animation:ox-in .55s cubic-bezier(.15,.6,.25,1) forwards}
+@keyframes ox-in{from{opacity:1}to{opacity:0;transform:scale(1.5)}}
+html.ox-in .ox-rib .here .ox-st{animation:ox-land .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes ox-land{from{transform:scale(2.4);opacity:.35}}
+.still.ox-in::after,html:not(.mo).ox-in::after{display:none}
+@media (prefers-reduced-motion:reduce){html.ox-in::after,.ox-warp{display:none}}
+@media print{.ox-mb,.mx-sh,.ox-warp,html.ox-in::after{display:none!important}}
+
+:root{--owner:"UID 4053721"}
+.owner{display:flex;align-items:center;justify-content:center;gap:7px;width:max-content;max-width:100%;margin:16px auto 0;padding:6px 13px;border:1px solid var(--ow-line,rgba(243,207,134,.45));border-radius:999px;background:var(--ow-bg,rgba(12,10,32,.6));font:600 12px/1 "Saira Extra Condensed","Avenir Next Condensed","Roboto Condensed","Bahnschrift Condensed","Arial Narrow",sans-serif-condensed,"FGF Title Fallback",sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--ow-ink,#ddd6f0)}
+.owner b{font-weight:700;letter-spacing:.1em;color:var(--ow-acc,#f3cf86)}
+.hero-uid{position:absolute;z-index:8;top:calc(64px + env(safe-area-inset-top,0px));left:14px;font:600 10px/1 var(--t,sans-serif);letter-spacing:.16em;color:rgba(255,236,200,.5);pointer-events:none}
+.wm{position:fixed;inset:0;z-index:40;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='250'%3E%3Ctext x='210' y='130' text-anchor='middle' transform='rotate(-24 210 125)' font-family='Arial,sans-serif' font-size='16' font-weight='700' letter-spacing='3' fill='%23f3e3c0' fill-opacity='0.075'%3EUID 4053721 %C2%B7 FGF WIKI%3C/text%3E%3C/svg%3E");background-size:420px 250px}
+@media print{.wm{display:block}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-gem" viewBox="0 0 20 20"><path d="M10 1l4 6-4 12-4-12z" fill="#ffd9a0"/><path d="M10 1l4 6h-8z" fill="#fff4dc"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 20 14"><path d="M1.2 1.4h17.6M1.2 7h17.6M1.2 12.6h11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="17.4" cy="12.6" r="1.6" fill="currentColor"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-back" viewBox="0 0 36 20"><path d="M1 10L14.5 2.2 11.6 10 14.5 17.8Z" fill="currentColor"/><path d="M13.6 7.4L35 4.2 31.2 9.1 15 9.4Z" fill="currentColor" opacity=".85"/><path d="M13.6 12.6L35 15.8 31.2 10.9 15 10.6Z" fill="currentColor" opacity=".85"/></symbol>
+  <symbol id="i-blades" viewBox="0 0 24 24" fill="currentColor"><path d="M3 2.4L4.7 2.3 15.3 12.9 13.1 15.1 2.5 4.5Z"/><path d="M21 2.4L19.3 2.3 8.7 12.9 10.9 15.1 21.5 4.5Z"/><path d="M12.4 14.4l1.6-1.6 4.4 4.4-1.6 1.6zM9.9 12.8l1.6 1.6-4.4 4.4-1.6-1.6z"/><path d="M17.2 18.8l1.5-1.5 2.7 2.7-1.5 1.5zM6.8 18.8L5.3 17.3 2.6 20l1.5 1.5z"/></symbol>
+  <symbol id="i-squad" viewBox="0 0 24 24"><path d="M12 5L5 17H19Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/><g fill="currentColor"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/></g></symbol>
+  <symbol id="i-signup" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12l2 2 4-4.5M9 17.5h7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-ship" viewBox="0 0 24 24" fill="currentColor"><path d="M2 12C6 9.2 13 8.6 22 12 13 15.4 6 14.8 2 12Z"/><path d="M8.6 10.3L11.2 6h3l-1.5 4.2zM8.6 13.7L11.2 18h3l-1.5-4.2z"/></symbol>
+  <symbol id="i-banner" viewBox="0 0 24 24"><path d="M5.5 2v20" stroke="currentColor" stroke-width="1.8"/><path d="M6.5 3.5h13l-3 4.5 3 4.5h-13z" fill="currentColor"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><path d="M7.5 10.5V8a4.5 4.5 0 0 1 9 0v2.5" fill="none" stroke="currentColor" stroke-width="2"/><rect x="5" y="10.5" width="14" height="10.5" rx="2" fill="currentColor"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.3" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15.4 15.4L21 21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M5.5 5.5l13 13M18.5 5.5l-13 13" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-planet" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.2" fill="currentColor"/><ellipse cx="12" cy="12" rx="11" ry="3.4" fill="none" stroke="currentColor" stroke-width="1.5" transform="rotate(-18 12 12)"/></symbol>
+  <symbol id="i-star4" viewBox="-12 -12 24 24"><path d="M0-11L2.6-2.6 11 0 2.6 2.6 0 11-2.6 2.6-11 0-2.6-2.6Z" fill="currentColor"/></symbol>
+</svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="gg-s2" cx="66%" cy="30%" r="78%"><stop offset="0" stop-color="#f1e4ff"/><stop offset=".18" stop-color="#b08ced"/><stop offset=".45" stop-color="#6240aa"/><stop offset=".75" stop-color="#2c175c"/><stop offset="1" stop-color="#120a2c"/></radialGradient>
+    <radialGradient id="gg-sf" cx="34%" cy="30%" r="80%"><stop offset="0" stop-color="#c9fff0"/><stop offset=".22" stop-color="#5fb8a2"/><stop offset=".58" stop-color="#1f4d46"/><stop offset="1" stop-color="#071514"/></radialGradient>
+    <radialGradient id="gg-tm" cx="40%" cy="34%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".3" stop-color="#9fc3ff"/><stop offset=".72" stop-color="#3a5bb0"/><stop offset="1" stop-color="#16224a"/></radialGradient>
+    <radialGradient id="gg-sh" cx="74%" cy="24%" r="100%"><stop offset=".5" stop-color="#0a0418" stop-opacity="0"/><stop offset="1" stop-color="#0a0418" stop-opacity=".72"/></radialGradient>
+    <clipPath id="gc-s2"><circle r="12"/></clipPath>
+    <clipPath id="gc-sf"><circle r="11"/></clipPath>
+    <radialGradient id="gg-fl" cx="36%" cy="30%" r="80%"><stop offset="0" stop-color="#f3fbff"/><stop offset=".26" stop-color="#9fd0e6"/><stop offset=".62" stop-color="#2f6f8f"/><stop offset="1" stop-color="#0b2434"/></radialGradient>
+    <radialGradient id="gg-gd" cx="36%" cy="30%" r="80%"><stop offset="0" stop-color="#e2fff8"/><stop offset=".26" stop-color="#6fcdbd"/><stop offset=".62" stop-color="#1c6660"/><stop offset="1" stop-color="#062321"/></radialGradient>
+    <radialGradient id="gg-gl" cx="36%" cy="30%" r="80%"><stop offset="0" stop-color="#f4fff9"/><stop offset=".26" stop-color="#9be6c8"/><stop offset=".62" stop-color="#2f9478"/><stop offset="1" stop-color="#0a3329"/></radialGradient>
+  </defs>
+  <symbol id="g-s2" viewBox="-20 -20 40 40">
+    <g transform="rotate(-14)" fill="none"><path d="M-18 0A18 4.4 0 0 1 18 0" stroke="#2a1850" stroke-opacity=".5" stroke-width="3"/><path d="M-18 0A18 4.4 0 0 1 18 0" stroke="#e9bb5c" stroke-width="1.3"/></g>
+    <circle r="12" fill="url(#gg-s2)"/>
+    <g clip-path="url(#gc-s2)" fill="none" stroke="#ffd98f" stroke-width="1" stroke-linecap="round"><path d="M-12-3c4-2 7 2 11 0s7-3 11-1"/><path d="M-11 5c4-2 7 2 11 0s6-2 10-1"/><path d="M-3-12l2 6-2 4 3 4-1 6"/></g>
+    <circle r="12" fill="url(#gg-sh)"/>
+    <circle r="12.2" fill="none" stroke="#e6d6ff" stroke-opacity=".6" stroke-width=".7"/>
+    <g transform="rotate(-14)" fill="none"><path d="M18 0A18 4.4 0 0 1-18 0" stroke="#2a1850" stroke-opacity=".5" stroke-width="3"/><path d="M18 0A18 4.4 0 0 1-18 0" stroke="#ffe3a3" stroke-width="1.3"/></g>
+  </symbol>
+  <symbol id="g-sf" viewBox="-20 -20 40 40">
+    <path d="M6.9-16.6 16.6-6.9 16.6 6.9 6.9 16.6-6.9 16.6-16.6 6.9-16.6-6.9-6.9-16.6Z" fill="none" stroke="#3f9e86" stroke-width="1.1" stroke-dasharray="1.6 2.6"/>
+    <g fill="#3f9e86"><circle cx="6.9" cy="-16.6" r="1.5"/><circle cx="16.6" cy="-6.9" r="1.5"/><circle cx="16.6" cy="6.9" r="1.5"/><circle cx="-6.9" cy="16.6" r="1.5"/><circle cx="-16.6" cy="6.9" r="1.5"/><circle cx="-16.6" cy="-6.9" r="1.5"/><circle cx="-6.9" cy="-16.6" r="1.5"/></g>
+    <circle cx="6.9" cy="16.6" r="1.8" fill="#f2a641"/>
+    <circle r="11" fill="url(#gg-sf)"/>
+    <g clip-path="url(#gc-sf)" fill="none" stroke="#a8ead2" stroke-opacity=".35"><path d="M-11-2c5-2 15-2 22 1"/><path d="M-11 5c6 3 15 3 22-1"/></g>
+    <ellipse cx="3.6" cy="3" rx="3.4" ry="2" fill="#ffc46b"/>
+    <circle r="11" fill="url(#gg-sh)"/>
+    <circle r="11.2" fill="none" stroke="#c9fff0" stroke-opacity=".55" stroke-width=".7"/>
+  </symbol>
+  <symbol id="g-tm" viewBox="-20 -20 40 40">
+    <circle r="17" fill="#9fc3ff" fill-opacity=".16"/>
+    <g transform="rotate(-16)" fill="none"><path d="M-16 0A16 5.4 0 0 1 16 0" stroke="#1b2a55" stroke-opacity=".5" stroke-width="3.4"/><path d="M-16 0A16 5.4 0 0 1 16 0" stroke="#7d98d6" stroke-width="2"/><path d="M-16 0H16M0-5.4V5.4" stroke="#7d98d6" stroke-width=".9"/></g>
+    <path d="M0-6V-14.4" stroke="#7d98d6" stroke-width="1.1"/><circle cy="-15.4" r="1.7" fill="#f2b94c"/>
+    <circle r="6.4" fill="url(#gg-tm)"/>
+    <g transform="rotate(-16)" fill="none"><path d="M16 0A16 5.4 0 0 1-16 0" stroke="#1b2a55" stroke-opacity=".55" stroke-width="3.4"/><path d="M16 0A16 5.4 0 0 1-16 0" stroke="#b9cdff" stroke-width="2"/></g>
+    <g transform="rotate(-16)" fill="#f2b94c"><circle cy="5.4" r="1.1"/><circle cx="-11" cy="3.9" r=".9"/><circle cx="11" cy="3.9" r=".9"/></g>
+  </symbol>
+  <symbol id="g-tp" viewBox="-20 -20 40 40">
+    <circle r="16" fill="none" stroke="currentColor" stroke-opacity=".5" stroke-width="1.4"/>
+    <path d="M0-16A16 16 0 0 1 16 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M0-7.5L7 5H-7Z" fill="none" stroke="currentColor" stroke-opacity=".6" stroke-dasharray="1.6 2"/>
+    <g fill="currentColor"><path d="M0-12.4l3.6 6.4L0-7.6-3.6-6z"/><path d="M-7 .3l3.6 6.4L-7 5.1l-3.6 1.6z"/><path d="M7 .3l3.6 6.4L7 5.1l-3.6 1.6z"/></g>
+  </symbol>
+  <symbol id="g-cm" viewBox="-20 -20 40 40">
+    <path d="M0-16L13.9-8V8L0 16-13.9 8V-8Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+    <path d="M0-11L9.5-5.5V5.5L0 11-9.5 5.5V-5.5Z" fill="none" stroke="currentColor" stroke-opacity=".5" stroke-dasharray="1.6 2"/>
+    <path d="M-3.4-1.4V-3.8a3.4 3.4 0 0 1 6.8 0v2.4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <rect x="-5" y="-1.4" width="10" height="7.6" rx="1.3" fill="currentColor"/>
+  </symbol>
+  <symbol id="g-su" viewBox="-20 -20 40 40">
+    <path d="M-7 15L0-4 7 15Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+    <path d="M-4.4 8.6H4.4" stroke="currentColor" stroke-width="1.3"/>
+    <circle cy="-6.6" r="3.1" fill="currentColor"/>
+    <g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M-7-11.6a10 10 0 0 1 14 0"/><path d="M-11.6-15.6a16.5 16.5 0 0 1 23.2 0" stroke-opacity=".6"/></g>
+  </symbol>
+  <symbol id="g-fl" viewBox="-20 -20 40 40">
+    <circle r="17.4" fill="none" stroke="#6fb6d6" stroke-opacity=".5" stroke-width=".9" stroke-dasharray="1.6 2.6"/>
+    <circle r="11" fill="url(#gg-fl)"/>
+    <circle r="11" fill="url(#gg-sh)"/>
+    <circle r="11.2" fill="none" stroke="#dff3ff" stroke-opacity=".6" stroke-width=".7"/>
+    <g transform="rotate(-28)">
+      <g stroke="#ff9a4d" stroke-width="1.7" stroke-linecap="round"><path d="M-3.4 0h-7"/><path d="M-10.4-8.6h-5" stroke-opacity=".8"/><path d="M-10.4 8.6h-5" stroke-opacity=".8"/></g>
+      <g fill="#fff" stroke="#0b2434" stroke-width=".9" stroke-linejoin="round"><path d="M13 0L-2.4-5.4.4 0-2.4 5.4Z"/><path d="M1.6-8.6L-9.6-12.4-7.6-8.6-9.6-4.8Z"/><path d="M1.6 8.6L-9.6 4.8-7.6 8.6-9.6 12.4Z"/></g>
+    </g>
+  </symbol>
+  <symbol id="g-gd" viewBox="-20 -20 40 40">
+    <g transform="rotate(-18)" fill="none"><path d="M-17 0A17 5 0 0 1 17 0" stroke="#083533" stroke-opacity=".5" stroke-width="2.6"/><path d="M-17 0A17 5 0 0 1 17 0" stroke="#4fb3a4" stroke-width="1" stroke-dasharray="1.6 2.4"/></g>
+    <circle r="11" fill="url(#gg-gd)"/>
+    <circle r="11" fill="url(#gg-sh)"/>
+    <circle r="11.2" fill="none" stroke="#d6fff5" stroke-opacity=".6" stroke-width=".7"/>
+    <g transform="rotate(-18)"><path d="M17 0A17 5 0 0 1-17 0" fill="none" stroke="#083533" stroke-opacity=".5" stroke-width="2.6"/><path d="M17 0A17 5 0 0 1-17 0" fill="none" stroke="#9fe6d6" stroke-width="1" stroke-dasharray="1.6 2.4"/>
+      <g fill="#f2b94c" stroke="#3a2406" stroke-width=".5"><circle cx="-11" cy="3.8" r="1.5"/><circle cy="5" r="1.5"/><circle cx="11" cy="3.8" r="1.5"/></g></g>
+    <path d="M.8-18.6h12.4" stroke="#f2b94c" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M2.2-18.2h9.6v13.6l-4.8-3.4-4.8 3.4Z" fill="#9a3440" stroke="#2a0a10" stroke-width=".9" stroke-linejoin="round"/>
+    <circle cx="7" cy="-12.6" r="2.1" fill="none" stroke="#ffe7b0" stroke-width="1.1"/>
+  </symbol>
+  <symbol id="g-gl" viewBox="-20 -20 40 40">
+    <circle r="16.6" fill="none" stroke="#5fc9a6" stroke-opacity=".75" stroke-width="2.2" stroke-dasharray=".9 3.45"/>
+    <circle r="11" fill="url(#gg-gl)"/>
+    <circle r="11" fill="url(#gg-sh)"/>
+    <circle r="11.2" fill="none" stroke="#e2fff2" stroke-opacity=".6" stroke-width=".7"/>
+    <path d="M-7.2-3.6q3.6-1.9 7.2 0 3.6-1.9 7.2 0v8q-3.6-1.9-7.2 0-3.6-1.9-7.2 0Z" fill="#f6fff9" stroke="#0a3329" stroke-width=".9" stroke-linejoin="round"/>
+    <path d="M0-3.6v8M-5.2-1.2q1.7-.6 3.2-.1M-5.2 1.3q1.7-.6 3.2-.1M2-1.3q1.6-.5 3.2.1M2 1.2q1.6-.5 3.2.1" fill="none" stroke="#0a3329" stroke-width=".8" stroke-linecap="round"/>
+    <path d="M11.4-15.2l1 3 3 1-3 1-1 3-1-3-3-1 3-1Z" fill="#f2b94c" stroke="#3a2406" stroke-width=".5" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="gd-emblem" viewBox="-30 -30 60 60">
+    <circle r="24" fill="none" stroke="currentColor" stroke-width="3.4"/>
+    <path d="M0-19l5.2 13.8L19 0 5.2 5.2 0 19-5.2 5.2-19 0-5.2-5.2Z" fill="currentColor"/>
+    <circle r="3.2" fill="#5c1f27"/>
+  </symbol>
+  <symbol id="gd-i-gives" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5L15 5l11 5.5v10L15 26 4 20.5ZM4 10.5L15 16l11-5.5M15 16v10"/></symbol>
+  <symbol id="gd-i-join" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="4.6"/><path d="M3.5 25c1-6 4.4-8.6 8.5-8.6s7.5 2.6 8.5 8.6M23 8v8M19 12h8"/></symbol>
+  <symbol id="gd-i-seats" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22V10l6 5 4-8 4 8 6-5v12ZM5 25.5h20"/></symbol>
+  <symbol id="gd-i-ports" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="6.4" r="2.6"/><path d="M15 9v16.5M9.6 13.4h10.8M5 17.6c1 5 4.8 8 10 8s9-3 10-8M5 17.6l-1.6 3M25 17.6l1.6 3"/></symbol>
+  <symbol id="gd-i-rally" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="15" r="3.4"/><path d="M4 4l7 7M11 6.6V11H6.6M26 4l-7 7M19 6.6V11h4.4M15 27v-8M12 22l3-3 3 3"/></symbol>
+  <symbol id="gd-i-chests" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 13.5V24h21V13.5M4.5 13.5c0-4 2.6-6.5 6-6.5h9c3.4 0 6 2.5 6 6.5ZM13 13.5v4h4v-4"/></symbol>
+  <symbol id="gd-i-events" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 27V4M7 5.5h17l-4 5.5 4 5.5H7"/></symbol>
+  <symbol id="gd-i-gaps" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="15" r="10.5" stroke-dasharray="2.4 3.4"/><path d="M11.6 12a3.6 3.6 0 1 1 5 3.3c-1.1.5-1.6 1.2-1.6 2.3"/><path d="M15 21.6v.2" stroke-width="2.4"/></symbol>
+  <symbol id="gd-star" viewBox="0 0 34 34">
+    <path d="M11 20l-3.4 11 5.4-2.6 2 5.6 2-8.6ZM23 20l3.4 11-5.4-2.6-2 5.6-2-8.6Z" fill="#8c2f3a"/>
+    <circle cx="17" cy="14" r="12.4" fill="#f2c860" stroke="#9a6a14" stroke-width="1.2"/>
+    <path d="M17 5.4l2.6 5.5 6 .8-4.4 4.2 1.1 6L17 19l-5.3 2.9 1.1-6-4.4-4.2 6-.8Z" fill="#fff8e0" stroke="#9a6a14" stroke-width="1" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="gd-e-dtr" viewBox="0 0 64 44" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 26h40l14-8-14-8H18l-6 6H4ZM20 26l-4 8h22l6-8M24 16h14M50 34h8M46 40h6"/></symbol>
+  <symbol id="gd-e-arms" viewBox="0 0 64 44" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="22" r="15"/><circle cx="32" cy="22" r="7"/><path d="M32 2v9M32 33v9M12 22h9M43 22h9"/></symbol>
+  <symbol id="gd-e-star" viewBox="0 0 64 44" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 4l5.4 11.4 12.6 1.6-9.2 8.8 2.3 12.4L32 32.2l-11.1 6 2.3-12.4-9.2-8.8 12.6-1.6ZM6 12l3 3M58 12l-3 3M8 34l4-2M56 34l-4-2"/></symbol>
+  <symbol id="gd-e-trial" viewBox="0 0 64 44" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 40h12V30h12V20h12V10h14M46 4l10 6-10 6"/></symbol>
+</svg>
+<div class="wrap gd" id="top">
+<nav class="ox-rib" aria-labelledby="ox-rib-n"><div class="ox-rib-in">
+  <p class="ox-rib-hd"><span id="ox-rib-n"><svg aria-hidden="true"><use href="#i-gem"/></svg>FGF Wiki</span><small data-owner="4053721">UID 4053721</small></p>
+  <div class="ox-rib-sc"><ol style="--ox-n:9">
+    <li><a href="../" data-wk="tm"><span class="ox-st"><svg aria-hidden="true"><use href="#g-tm"/></svg></span><small data-i="rb.tm">Map</small></a></li>
+    <li><a href="../season2/" data-wk="s2"><span class="ox-st"><svg aria-hidden="true"><use href="#g-s2"/></svg></span><small data-i="rb.s2">Season 2</small></a></li>
+    <li><a href="../fleets/" data-wk="fl"><span class="ox-st"><svg aria-hidden="true"><use href="#g-fl"/></svg></span><small data-i="rb.fl">Fleets</small></a></li>
+    <li><span class="here" aria-current="page"><span class="ox-st"><svg aria-hidden="true"><use href="#g-gd"/></svg><i class="rs-pu" aria-hidden="true"></i></span><small data-i="rb.gd">Guilds</small></span></li>
+    <li><a href="../glossary/" data-wk="gl"><span class="ox-st"><svg aria-hidden="true"><use href="#g-gl"/></svg></span><small data-i="rb.gl">Glossary</small></a></li>
+    <li><a href="../../" data-wk="sf" data-lang><span class="ox-st"><svg aria-hidden="true"><use href="#g-sf"/></svg></span><small data-i="rb.sf">Guide</small></a></li>
+    <li><a href="../../teams/" data-wk="tp" data-lang><span class="ox-st"><svg aria-hidden="true"><use href="#g-tp"/></svg></span><small data-i="rb.tp">Teams</small></a></li>
+    <li><a href="../../signups/" data-wk="su"><span class="ox-st"><svg aria-hidden="true"><use href="#g-su"/></svg></span><small data-i="rb.su">Sign-ups</small></a></li>
+    <li><a href="../../roster/" data-wk="cm" data-lang><span class="ox-st"><svg aria-hidden="true"><use href="#g-cm"/></svg></span><small data-i="rb.cm">Commander</small></a></li>
+  </ol></div><script data-nofacts>(function(s){if(!s)return;var h=s.querySelector(".here"),l=h&&h.parentNode;function e(){var m=s.scrollWidth-s.clientWidth,x=s.scrollLeft;s.classList.toggle("ox-mid",x>2&&x<m-2);s.classList.toggle("ox-end",m>2&&x>=m-2);}if(l&&s.scrollWidth>s.clientWidth)s.scrollLeft=l.offsetLeft-(s.clientWidth-l.offsetWidth)/2;s.addEventListener("scroll",e,{passive:true});window.addEventListener("resize",e);e();})(document.currentScript.previousElementSibling);</script>
+</div></nav>
+  <header class="hero gd-hero">
+        <svg class="gd-sky" viewBox="0 0 390 210" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="gh-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b2c37"/><stop offset=".46" stop-color="#1b6470"/><stop offset=".84" stop-color="#72c1b8"/><stop offset="1" stop-color="#c4e8da"/></linearGradient>
+        <radialGradient id="gh-sun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff7e0" stop-opacity=".85"/><stop offset="1" stop-color="#fff7e0" stop-opacity="0"/></radialGradient>
+        <linearGradient id="gh-tw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#103f4a"/><stop offset="1" stop-color="#0a2a33"/></linearGradient>
+        <linearGradient id="gh-far" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f808a"/><stop offset="1" stop-color="#3f9aa0"/></linearGradient>
+        <pattern id="gh-st" width="91" height="67" patternUnits="userSpaceOnUse"><g fill="#fff"><circle cx="10" cy="9" r=".5" opacity=".8"/><circle cx="50" cy="28" r=".45" opacity=".55"/><circle cx="78" cy="50" r=".5" opacity=".7"/><circle cx="30" cy="58" r=".4" opacity=".5"/></g></pattern>
+      </defs>
+      <rect width="390" height="210" fill="url(#gh-sky)"/>
+      <rect width="390" height="96" fill="url(#gh-st)"/>
+      <circle cx="46" cy="250" r="170" fill="#d9f3ea" opacity=".16"/>
+      <circle cx="150" cy="150" r="96" fill="url(#gh-sun)"/>
+            <g fill="url(#gh-far)" opacity=".75"><path d="M18 210v-52l4-8 4 8v52ZM60 210v-40h10v40ZM262 210v-58l5-10 5 10v58ZM300 210v-34h14v34ZM336 210v-48l4-8 4 8v48Z"/></g>
+      <g fill="url(#gh-tw)">
+        <path d="M145 210V84l5-26 5 26v126Z"/>
+        <ellipse cx="150" cy="104" rx="30" ry="5.4"/><ellipse cx="150" cy="134" rx="50" ry="7.4"/><ellipse cx="150" cy="168" rx="76" ry="9.6"/>
+        <path d="M84 210v-62l5-12 5 12v62ZM206 210v-76l5-14 5 14v76ZM34 210v-26h24v-10h16v36ZM228 210v-30h20v12h28v18Z"/>
+      </g>
+      <g fill="#ffe7b0"><rect x="128" y="103" width="3" height="2"/><rect x="140" y="104.4" width="3" height="2"/><rect x="158" y="104.4" width="3" height="2"/><rect x="170" y="103" width="3" height="2"/>
+        <rect x="108" y="133" width="3" height="2"/><rect x="124" y="135" width="3" height="2"/><rect x="142" y="136" width="3" height="2"/><rect x="160" y="136" width="3" height="2"/><rect x="176" y="135" width="3" height="2"/><rect x="190" y="133" width="3" height="2"/>
+        <rect x="84" y="166" width="3" height="2"/><rect x="104" y="169" width="3" height="2"/><rect x="126" y="171" width="3" height="2"/><rect x="148" y="172" width="3" height="2"/><rect x="170" y="171" width="3" height="2"/><rect x="192" y="169" width="3" height="2"/><rect x="212" y="166" width="3" height="2"/>
+        <rect x="88" y="152" width="2" height="3"/><rect x="210" y="140" width="2" height="3"/><rect x="42" y="190" width="2" height="3"/><rect x="50" y="190" width="2" height="3"/><rect x="236" y="186" width="2" height="3"/><rect x="258" y="196" width="2" height="3"/></g>
+      <circle cx="150" cy="58" r="2.4" fill="#fff7e0"/>
+    </svg>
+    <svg class="gd-ships" viewBox="0 0 120 70" aria-hidden="true" focusable="false">
+      <g stroke="#eafff8" stroke-linecap="round" fill="none"><path d="M10 60l46-24" stroke-opacity=".5" stroke-width="1.2"/><path d="M30 66l48-25" stroke-opacity=".35" stroke-width="1"/><path d="M64 40l40-21" stroke-opacity=".5" stroke-width="1.2"/></g>
+      <g fill="#fff"><path d="M62 33l-8 1.4 2.6 3.4Z"/><path d="M84 38l-8 1.4 2.6 3.4Z"/><path d="M110 16l-8 1.4 2.6 3.4Z"/></g>
+    </svg>
+    <div class="gd-ban" aria-hidden="true"><svg class="gd-em"><use href="#gd-emblem"/></svg><svg class="gd-chv" viewBox="0 0 28 22"><path d="M2 2l12 8 12-8M2 12l12 8 12-8" fill="none" stroke="#e7c27a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <span class="hero-uid" aria-hidden="true" data-owner="4053721">UID 4053721</span>
+    <div class="gd-bar">
+      <span class="gd-hex" aria-hidden="true"><svg><use href="#gd-emblem"/></svg></span>
+      <div class="hero-tx">
+        <p class="kick" data-i="gd.kick">Commerce Guilds</p>
+        <h1 data-i="gd.title">Guilds</h1>
+        <p class="sub" data-i="gd.sub">Ports, rallies and guild events</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="pk-main">
+    <p class="cap" data-i="gd.cap"><b>What this is:</b> how Commerce Guilds work, from the game's own rule screens. Read in Season 1. Numbers are exact.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+    <div class="ownr" data-owner-slot><p class="owner" id="ownerBadge" data-owner="4053721"><span data-i="w.by">Wiki by</span> <b>UID 4053721</b></p></div>
+    <nav class="ix" aria-labelledby="ix-h"><h2 class="ix-h" id="ix-h" data-i="pk.ix">On this page</h2><ol><li><a href="#gives"><svg aria-hidden="true"><use href="#gd-i-gives"/></svg><span data-i="gd.ix.gives">What you get</span></a></li><li><a href="#join"><svg aria-hidden="true"><use href="#gd-i-join"/></svg><span data-i="gd.ix.join">Joining</span></a></li><li><a href="#seats"><svg aria-hidden="true"><use href="#gd-i-seats"/></svg><span data-i="gd.ix.seats">Titles</span></a></li><li><a href="#ports"><svg aria-hidden="true"><use href="#gd-i-ports"/></svg><span data-i="gd.ix.ports">Ports</span></a></li><li><a href="#rally"><svg aria-hidden="true"><use href="#gd-i-rally"/></svg><span data-i="gd.ix.rally">Rallies</span></a></li><li><a href="#chests"><svg aria-hidden="true"><use href="#gd-i-chests"/></svg><span data-i="gd.ix.chests">Chests & tech</span></a></li><li><a href="#events"><svg aria-hidden="true"><use href="#gd-i-events"/></svg><span data-i="gd.ix.events">Events</span></a></li><li class="ev"><a href="#dtr"><span data-i="gd.ix.dtr">Defend the Trade Route</span></a></li><li class="ev"><a href="#arms"><span data-i="gd.ix.arms">Arms Race</span></a></li><li class="ev"><a href="#star"><span data-i="gd.ix.star">Star of the Guild</span></a></li><li class="ev"><a href="#trial"><span data-i="gd.ix.trial">Battle Trial</span></a></li><li class="pend"><a href="#gaps"><svg aria-hidden="true"><use href="#gd-i-gaps"/></svg><span data-i="gd.ix.gaps">Not shown yet</span></a></li></ol></nav>
+
+      <section class="sec" id="gives" data-tab="0" aria-labelledby="h-gives">
+        <div class="sec-h"><h2 id="h-gives" data-i="gd.gives.h">What a guild gives</h2></div>
+        <div class="sec-b">
+          <p class="lede" data-i="gd.gives.lede">A <b>Commerce Guild</b> is a group of traders. Joining one brings resources, buffs and new features.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+          <dl class="kv"><div data-fact="perk"><dt data-i="gd.gv.0.k">Team battles</dt><dd data-i="gd.gv.0.v">Joining unlocks <b>Rallies</b>: attacks you make together.</dd></div><div data-fact="perk"><dt data-i="gd.gv.1.k">Ports</dt><dd data-i="gd.gv.1.v">A guild can declare war on Ports. Holding one pays every member steady resource dividends and attribute bonuses.</dd></div><div data-fact="perk"><dt data-i="gd.gv.2.k">Mutual help</dt><dd data-i="gd.gv.2.v">Members help each other to cut construction and research times.</dd></div><div data-fact="perk"><dt data-i="gd.gv.3.k">Guild events</dt><dd data-i="gd.gv.3.v">Joining opens the guild's own events. The game's entry is cut off at this point; the events themselves are further down this page.</dd></div></dl>
+          <p data-i="gd.gives.tabs">The guild page has three tabs: Overview, Members and Feature.</p>
+          <p class="keep" data-i="gd.gives.s2"><b>Season 2 keeps your guild.</b> Guilds are not disbanded, and guild level, unlocked technologies and research in progress all carry over.</p>
+          <p class="sees"><a class="see" href="../season2/#carry" data-wk="s2"><svg aria-hidden="true"><use href="#g-s2"/></svg><span class="see-t"><small data-i="rb.s2">Season 2</small><b data-i="s2.carry.h">What carries over</b></span><svg class="chev" aria-hidden="true"><use href="#i-chev"/></svg></a></p>
+        </div>
+      </section>
+      <section class="sec" id="join" data-tab="0" aria-labelledby="h-join">
+        <div class="sec-h"><h2 id="h-join" data-i="gd.join.h">Joining</h2></div>
+        <div class="sec-b">
+          <p class="lede" data-i="gd.join.lede">You can found a guild or join one that another trader made.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+          <ul class="dots"><li data-i="gd.join.li.0">Not in a guild? Tap the <b>Commerce Guild</b> icon in the bottom navigation bar to create one or join one.</li><li data-i="gd.join.li.1">Browse the guild list and tap <b>Join</b>. Filters and a language search help you find a fit.</li><li data-i="gd.join.li.2">Some guilds ask for approval; the Chairman sets that. Tap <b>Apply</b> to send a request. The button turns into <b>Withdraw</b>, which cancels it.</li><li data-i="gd.join.li.3">Arms Race rewards need <b>48 hours</b> of membership first.</li><li data-i="gd.join.li.4">Switching guilds does not clear the <b>5&#8209;day cooldown</b> from Defend the Trade Route.</li></ul>
+          <p data-i="gd.join.rec">Guilds can advertise too: the Recruitment screen has a Publish Recruitment button and a recommended player of the day.</p>
+        </div>
+      </section>
+      <section class="sec" id="seats" data-tab="0" aria-labelledby="h-seats">
+        <div class="sec-h"><h2 id="h-seats" data-i="gd.seats.h">Titles and positions</h2></div>
+        <div class="sec-b">
+          <p class="lede" data-i="gd.seats.lede">Three kinds of title sit above ordinary membership. Guilds fight for two of them, Trader Prince and Overlord; traders apply for the positions.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+          <p class="s1"><b data-i="pk.s1">Season 1</b><span data-i="gd.seats.s1">The game's Encyclopedia describes these for Season 1, in Korell. Season 2's own rule screens decide the Trader Prince at the highest-level star system's Star Space Station, and name a Star Overlord for the core region.</span></p>
+          <p class="sees"><a class="see" href="../season2/#weeks" data-wk="s2"><svg aria-hidden="true"><use href="#g-s2"/></svg><span class="see-t"><small data-i="rb.s2">Season 2</small><b data-i="s2.weeks.h">Week by week</b></span><svg class="chev" aria-hidden="true"><use href="#i-chev"/></svg></a></p>
+          <h3 class="sub" data-i="gd.prince.h">Trader Prince</h3>
+          <ul class="dots"><li data-i="gd.prince.li.0">Guilds compete for the title through ownership of the <b>Ascendancy Fortress</b>.</li><li data-i="gd.prince.li.1">The winning guild's Chairman can name any guild member Trader Prince. With no appointment, the Chairman takes the title.</li><li data-i="gd.prince.li.2">The Prince assigns trader positions, issues rewards and holds other privileges.</li></ul>
+          <h3 class="sub" data-i="gd.pos.h">The six positions</h3>
+          <p data-i="gd.pos.lede">The Trader Prince oversees six positions:</p>
+          <ol class="steps names"><li data-fact="position" data-i="gd.pos.0">Acting Prince</li><li data-fact="position" data-i="gd.pos.1">Strategic Counselor</li><li data-fact="position" data-i="gd.pos.2">Military Counselor</li><li data-fact="position" data-i="gd.pos.3">Construction Counselor</li><li data-fact="position" data-i="gd.pos.4">Research Counselor</li><li data-fact="position" data-i="gd.pos.5">Counselor of Internal&hellip;</li></ol>
+          <p class="gap"><b data-i="pk.nsy">Not shown yet</b><span data-i="gd.pos.cut">The sixth title is cut off in the capture.</span></p>
+          <ul class="dots"><li data-i="gd.pos.li.0">Each position gives bonuses in its own field.</li><li data-i="gd.pos.li.1">The <b>Acting Prince</b> can also approve or appoint the other positions, but not the Trader Prince or the Acting Prince.</li><li data-i="gd.pos.li.2">Any trader with an Energy Core of <b>Lvl 16</b> or higher can apply. The Trader Prince or the Acting Prince confirms each appointment.</li></ul>
+          <h3 class="sub" data-i="gd.over.h">Overlord</h3>
+          <ul class="dots"><li data-i="gd.over.li.0">Korell has <b>6 Overlord seats</b>: one for each of its 4 Border Regions and 2 Core Regions.</li><li data-i="gd.over.li.1">A guild that holds a <b>Lvl 4 Star Port</b> in a Border Region, or a <b>Lvl 7 Star Port</b> in a Core Region, can have its Chairman name any member Overlord of that region.</li><li data-i="gd.over.li.2">A trader can hold only one Overlord title at a time.</li><li data-i="gd.over.li.3">Overlords get more Fleet Attack and a special emblem.</li><li data-i="gd.over.li.4"><b>Stellar Treasure.</b> Traders whose Home Port is in the Overlord's region charge it by finishing Trader Commissions. When it is full the Overlord unlocks it, and everyone who helped is rewarded.</li></ul>
+          <p class="gap"><b data-i="pk.nsy">Not shown yet</b><span data-i="gd.over.gap">What members of the Overlord's guild receive from the Stellar Treasure.</span></p>
+        </div>
+      </section>
+      <section class="sec" id="ports" data-tab="1" aria-labelledby="h-ports">
+        <div class="sec-h"><h2 id="h-ports" data-i="gd.ports.h">Ports and garrisons</h2></div>
+        <div class="sec-b">
+          <p class="lede" data-i="gd.ports.lede">Ports are how a guild holds territory. A Port manages a planet: capture it and you control the planet.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+          <dl class="kv"><div><dt data-i="gd.pt.0.k">Declaring war</dt><dd data-i="gd.pt.0.v">A guild can declare war on any Port except the neutral Ports of the starting star system. Win, and the guild occupies it.</dd></div><div><dt data-i="gd.pt.1.k">Star Ports</dt><dd data-i="gd.pt.1.v">A star's Star Port governs its whole star system. Win the war and the guild holds a monopoly: steady resource dividends and benefits for every member, and the system joins the guild's controlled regions.</dd></div><div><dt data-i="gd.pt.2.k">Planet Ports</dt><dd data-i="gd.pt.2.v">A monopolized Planet Port pays steady resource dividends to every member.</dd></div></dl>
+          <h3 class="sub" data-i="gd.home.h">Home Port</h3>
+          <ul class="dots"><li data-i="gd.home.li.0">Each trader settles in <b>one</b> Planet Port and sets it as Home Port. The game names neutral Ports in the starting star system and Ports your guild occupies; its entry is cut off after that.</li><li data-i="gd.home.li.1">A Home Port gives buffs that grow with its level: a Construction Speed Bonus, and its level sets your Trade Shipping Level.</li><li data-i="gd.home.li.2">The <b>Home Port</b> button, bottom right of the map, jumps to it.</li><li data-i="gd.home.li.3">To bring a fleet home, tap the Home Port, then <b>Recall</b>. Teleport attempts come back every 15 minutes.</li></ul>
+          <h3 class="sub" data-i="gd.gar.h">Garrison</h3>
+          <ul class="dots"><li data-i="gd.gar.li.0">Station fleets in your guild's Port to defend it against other guilds.</li><li data-i="gd.gar.li.1">The first fleet in becomes <b>garrison leader</b> and gives battle buffs. The leader can hand the role on. Guild admins can change the leader or remove fleets.</li><li data-i="gd.gar.li.2">Garrisoned fleets get <b>Port Guard</b>: Fleet DEF +5%.</li><li data-i="gd.gar.li.3">If one garrisoned fleet enters War Frenzy in combat, every fleet garrisoned at that Port gets it. It does not vanish at once when a fleet leaves.</li></ul>
+          <p class="sees"><a class="see" href="../fleets/#pvp" data-wk="fl"><svg aria-hidden="true"><use href="#g-fl"/></svg><span class="see-t"><small data-i="rb.fl">Fleets</small><b data-i="fl.ix.pvp">Trader fights</b></span><svg class="chev" aria-hidden="true"><use href="#i-chev"/></svg></a></p>
+        </div>
+      </section>
+      <section class="sec" id="rally" data-tab="2" aria-labelledby="h-rally">
+        <div class="sec-h"><h2 id="h-rally" data-i="gd.rally.h">Rallies</h2></div>
+        <div class="sec-b">
+          <p class="lede" data-i="gd.rally.lede">A <b>rally</b> is a joint attack led by one guild member on a special target, such as a Tribute Vessel or a Port.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+          <ul class="dots"><li data-i="gd.rally.li.0">A rally fleet adds up every participant's attributes. Only the <b>initiator's</b> buffs and Champion abilities apply.</li><li data-i="gd.rally.li.1">The War screen's Rally tab lists open rallies, each with a Join button.</li></ul>
+          <h3 class="sub" data-i="gd.auto.h">Auto-join</h3>
+          <ul class="dots"><li data-i="gd.auto.li.0">Switch it on in the settings on the Rally page.</li><li data-i="gd.auto.li.1">Your fleets then return to the Home Port and wait to join rallies that guild members start.</li><li data-i="gd.auto.li.2">Targets that allow auto-join: Tribute Vessels, Ports and Deliverer Arks.</li><li data-i="gd.auto.li.3">Fleets in auto-join are repaired automatically. The game's entry is cut off after that.</li></ul>
+          <p class="sees"><a class="see" href="../fleets/#damage" data-wk="fl"><svg aria-hidden="true"><use href="#g-fl"/></svg><span class="see-t"><small data-i="rb.fl">Fleets</small><b data-i="fl.ix.damage">Damage</b></span><svg class="chev" aria-hidden="true"><use href="#i-chev"/></svg></a><a class="see" href="../season2/#hunt" data-wk="s2"><svg aria-hidden="true"><use href="#g-s2"/></svg><span class="see-t"><small data-i="rb.s2">Season 2</small><b data-i="s2.hunt.h">Hunt points</b></span><svg class="chev" aria-hidden="true"><use href="#i-chev"/></svg></a></p>
+        </div>
+      </section>
+      <section class="sec" id="chests" data-tab="2" aria-labelledby="h-chests">
+        <div class="sec-h"><h2 id="h-chests" data-i="gd.chests.h">Chests, technology and Legacy</h2></div>
+        <div class="sec-b">
+          <p class="lede" data-i="gd.chests.lede">What the guild earns together comes back to its members.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+          <h3 class="sub" data-i="gd.ch.h">Chests</h3>
+          <ul class="dots"><li data-i="gd.ch.li.0">Winning a rallied battle grants <b>Loot Chests</b>: defeating a Tribute Vessel, or any NPC enemy that needs a rally, gives them.</li><li data-i="gd.ch.li.1"><b>Common, Rare and Epic Guild Chests</b> fill up from chest points. The Rare bar reads out of 300, the Epic bar out of 900.</li><li data-i="gd.ch.li.2">A pack that includes Guild Chests also gives one to each member of your guild. The game's line is cut off after that.</li></ul>
+          <h3 class="sub" data-i="gd.tech.h">Technology</h3>
+          <ul class="dots"><li data-i="gd.tech.li.0">Commerce Guild Technology has two tabs: <b>Fast Development</b> and <b>Space Combat</b>.</li><li data-i="gd.tech.li.1">Unlocked guild technologies and research in progress carry into Season 2.</li></ul>
+          <h3 class="sub" data-i="gd.leg.h">Guild Legacy</h3>
+          <ul class="dots"><li data-i="gd.leg.li.0">Guild Legacy takes donations: the screen shows Level 0 going to Level 1, and donation attempts run on a cooldown.</li></ul>
+          <p class="gap"><b data-i="pk.nsy">Not shown yet</b><span data-i="gd.leg.gap">What Guild Legacy gives: its description is cut off.</span></p>
+        </div>
+      </section>
+      <section class="sec has-evt" id="events" data-tab="3" aria-labelledby="h-events">
+        <div class="sec-h"><h2 id="h-events" data-i="gd.events.h">Guild events</h2></div>
+        <div class="sec-b">
+          <p class="lede" data-i="gd.events.lede">The guild's event list holds <b>Arms Race</b>, <b>Defend the Trade Route</b> and <b>Star of the Guild</b>, with more promised. <b>Battle Trial</b> sits in the main event bar and calls on the guild in its Elite stages.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+        </div>
+        <article class="evt" id="dtr" aria-labelledby="h-dtr">
+          <div class="evt-h"><span class="evt-tag" data-i="gd.dtr.tag">Escort</span><h3 id="h-dtr" data-i="gd.dtr.h">Defend the Trade Route</h3><svg class="evt-art" aria-hidden="true"><use href="#gd-e-dtr"/></svg></div>
+          <div class="evt-b">
+          <p data-i="gd.dtr.lede">The Ascendancy is after the guild's <b>Cargo Dreadnought</b>. Beat its forces and escort the ship to its destination. The more enemy fleets you destroy, the better the rewards.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+          <ol aria-label="The dreadnought&#x27;s route" class="rt" data-ia="gd.rt.label"><li data-fact="stop"><b>01</b><span data-i="gd.rt.0">Starting Point</span></li><li class="rest" data-fact="stop"><b>02</b><span data-i="gd.rt.1">Waypoint A</span><small data-i="gd.rt.rest">3&#8209;minute rest</small></li><li class="rest" data-fact="stop"><b>03</b><span data-i="gd.rt.2">Waypoint B</span><small data-i="gd.rt.rest">3&#8209;minute rest</small></li><li data-fact="stop"><b>04</b><span data-i="gd.rt.3">Destination</span></li></ol>
+          <ol class="steps"><li data-fact="dtr" data-i="gd.dtr.0"><b>Preparation.</b> A 3&#8209;minute prep time. Traders gather in the Prep Area on the event map.</li><li data-fact="dtr" data-i="gd.dtr.1"><b>Escort.</b> The dreadnought sets off with at least 1 trader Flagship as escort. Enemies attack all the way. Rally to defend the ship, or go out and hunt the threats.</li><li data-fact="dtr" data-i="gd.dtr.2"><b>Waypoints.</b> At each of the first two waypoints the ship rests for 3 minutes. Enemies may set an ambush for the next leg.</li></ol>
+          <h4 class="sub" data-i="gd.dtr.off.h">If you cannot be there</h4>
+          <ul class="dots"><li data-i="gd.dtr.off.0">Set one Flagship to <b>Auto-Process</b>. While you are offline, the game joins for you and escorts with that Flagship.</li><li data-i="gd.dtr.off.1">Delegated traders get the same rewards as those who play.</li><li data-i="gd.dtr.off.2">After a delegation that worked you can still join by hand, but the game will not take over again.</li><li data-i="gd.dtr.off.3">The same rules page puts participation and reward eligibility on a <b>5&#8209;day cooldown</b>, which stays even if you switch guilds. What starts it is cut off in the capture.</li><li data-i="gd.dtr.off.4">At the start of a new round, members can appoint a Flagship to the guild's Escort Fleet in advance.</li></ul>
+          <p class="gap"><b data-i="pk.nsy">Not shown yet</b><span data-i="gd.dtr.gap">One of the six rules pages; what starts the cooldown, and how that rule ends.</span></p>
+          </div>
+        </article>
+        <article class="evt" id="arms" aria-labelledby="h-arms">
+          <div class="evt-h"><span class="evt-tag" data-i="gd.arms.tag">Damage race</span><h3 id="h-arms" data-i="gd.arms.h">Arms Race</h3><svg class="evt-art" aria-hidden="true"><use href="#gd-e-arms"/></svg></div>
+          <div class="evt-b">
+          <p data-i="gd.arms.lede">Near the Commerce Guild Hub, the guild fights enemies set up by the Galactic Trade Consortium. Guild admins start it by hand or by reservation.</p>
+          <ul class="chips"><li data-i="gd.arms.f.0">Stages A and B</li><li data-i="gd.arms.f.1">30 minutes</li><li data-i="gd.arms.f.2">5 waves</li></ul>
+          <ol class="steps"><li data-fact="arms" data-i="gd.arms.0"><b>Morale first.</b> Guild members defeat Tribute Vessels to raise the Morale Level. Each level reached brings a defense reduction and rewards. Morale Level 3 needs 50 Tribute Vessels.</li><li data-fact="arms" data-i="gd.arms.1"><b>Stage A</b> locks in the current Morale Level and applies its bonuses.</li><li data-fact="arms" data-i="gd.arms.2"><b>Stage B</b> can be started within 24 hours after Stage A ends. It inherits Stage A's benefits and difficulty.</li><li data-fact="arms" data-i="gd.arms.3">The event lasts 30 minutes and has 5 waves of <b>Drill Cruisers</b>. Beat every wave to unlock higher difficulties.</li><li data-fact="arms" data-i="gd.arms.4">If the Highest Damage Rewards are already reached after Stage A, the Chairman can skip the wait and hand out rewards at once. Stage B then cannot be started.</li><li data-fact="arms" data-i="gd.arms.5">Morale bonuses must be earned again after each event.</li></ol>
+          <h4 class="sub" data-i="gd.arms.rw.h">Rewards</h4>
+          <ul class="dots"><li data-i="gd.arms.rw.0">You need 48 hours in the guild to be eligible.</li><li data-i="gd.arms.rw.1">Damage from Stage A and Stage B is added up. Rewards come by mail after the round.</li><li data-i="gd.arms.rw.2">There are two reward tabs, Commerce Guild Rewards and Individual Rewards. The higher the top player's damage, the better the rewards for the whole guild.</li></ul>
+          <p data-i="gd.arms.bands">Level 1 bands for your personal best in a round:</p>
+          <ul class="bands"><li data-fact="band" data-i="gd.band.0">750K&ndash;1B</li><li data-fact="band" data-i="gd.band.1">550K&ndash;750K</li><li data-fact="band" data-i="gd.band.2">200K&ndash;550K</li><li data-fact="band" data-i="gd.band.3">1&ndash;200K</li></ul>
+          <p class="gap"><b data-i="pk.nsy">Not shown yet</b><span data-i="gd.arms.gap">Morale Levels 1 and 2, and the item counts for each band.</span></p>
+          </div>
+        </article>
+        <article class="evt" id="star" aria-labelledby="h-star">
+          <div class="evt-h"><span class="evt-tag" data-i="gd.star.tag">Weekly awards</span><h3 id="h-star" data-i="gd.star.h">Star of the Guild</h3><svg class="evt-art" aria-hidden="true"><use href="#gd-e-star"/></svg></div>
+          <div class="evt-b">
+          <p data-i="gd.star.lede">Weekly awards for the members of the server's strongest guilds.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</p>
+          <ol class="steps"><li data-fact="star" data-i="gd.star.0">Every Monday at 00:00 UTC, the <b>top 10 Commerce Guilds in Power</b> qualify. They unlock the event that Sunday, even if the ranking changes later.</li><li data-fact="star" data-i="gd.star.1">Awards go out based on the week's guild activity.</li><li data-fact="star" data-i="gd.star.2">The Chairman picks the <b>Honorable Trader</b>. The system decides every other award by its rule.</li><li data-fact="star" data-i="gd.star.3">Each award is announced after a 1&#8209;hour wait. Then every guild member gets one free like to give, which can earn chests.</li><li data-fact="star" data-i="gd.star.4">A Star of the Guild earns contribution points for the guild, by performance and server ranking. More points unlock bigger dividends. Leave the guild before the event starts and your Contribution Points are cleared. Once it begins, the week's results are locked.</li></ol>
+          <p data-i="gd.star.holds">When the last reward is revealed, Bonus Cargo Holds appear around the Commerce Guild Hub. Their number and quality depend on a total that is cut off in the capture.</p>
+          <p data-i="gd.star.when">There is one edition every Sunday: Edition 18 fell on Nov 8, 2026.</p>
+          <h4 class="sub" data-i="gd.aw.h">The awards</h4>
+          <ul class="aw"><li data-fact="award"><svg aria-hidden="true"><use href="#gd-star"/></svg><b data-i="gd.aw.0.k">Star of Triumph</b><span data-i="gd.aw.0.v">Most Dominion Warzone points in the week</span></li><li data-fact="award"><svg aria-hidden="true"><use href="#gd-star"/></svg><b data-i="gd.aw.1.k">Star of Defense</b><span data-i="gd.aw.1.v">Highest damage in Defend the Trade Route that week</span></li><li class="hid" data-fact="award" data-pending="1"><svg aria-hidden="true"><use href="#gd-star"/></svg><b data-i="gd.aw.2.k">Star of Competition</b><span class="nsy" data-i="pk.nsy">Not shown yet</span></li><li data-fact="award"><svg aria-hidden="true"><use href="#gd-star"/></svg><b data-i="gd.aw.3.k">Star of Sponsorship</b><span data-i="gd.aw.3.v">Most Commerce Guild gifts contributed in the week</span></li><li data-fact="award"><svg aria-hidden="true"><use href="#gd-star"/></svg><b data-i="gd.aw.4.k">Star of Endeavor</b><span data-i="gd.aw.4.v">Most Action Points used in the week</span></li><li data-fact="award"><svg aria-hidden="true"><use href="#gd-star"/></svg><b data-i="gd.aw.5.k">Star of Devotion</b><span data-i="gd.aw.5.v">Most Commerce Guild Donations in the week</span></li><li class="hid" data-fact="award" data-pending="1"><svg aria-hidden="true"><use href="#gd-star"/></svg><b data-i="gd.aw.6.k">Star of Rallying</b><span class="nsy" data-i="pk.nsy">Not shown yet</span></li><li data-fact="award"><svg aria-hidden="true"><use href="#gd-star"/></svg><b data-i="gd.aw.7.k">Honorable Trader</b><span data-i="gd.aw.7.v">Chosen by the Chairman</span></li></ul>
+          <p data-i="gd.aw.note">Each award lists three members, ranked 1 to 3.</p>
+          <p class="gap"><b data-i="pk.nsy">Not shown yet</b><span data-i="gd.star.gap">Whether more awards follow Star of Rallying.</span></p>
+          </div>
+        </article>
+        <article class="evt" id="trial" aria-labelledby="h-trial">
+          <div class="evt-h"><span class="evt-tag" data-i="gd.trial.tag">28 levels</span><h3 id="h-trial" data-i="gd.trial.h">Battle Trial</h3><svg class="evt-art" aria-hidden="true"><use href="#gd-e-trial"/></svg></div>
+          <div class="evt-b">
+          <p data-i="gd.trial.lede">A contest between the Captain and Javier over who brings down the most Ascendancy Judicators. You climb <b>28 levels</b>.</p>
+          <ol class="steps"><li data-fact="trial" data-i="gd.trial.0">Pick one difficulty for each event. You cannot change it during the event.</li><li data-fact="trial" data-i="gd.trial.1">Clear all 28 levels of your difficulty and higher difficulties unlock in the next Trial Event.</li><li data-fact="trial" data-i="gd.trial.2">In <b>Elite</b> challenges you can start a rally and call guild members in to help.</li></ol>
+          </div>
+        </article>
+      </section>
+      <section class="sec pend" id="gaps" data-tab="3" aria-labelledby="h-gaps">
+        <div class="sec-h"><h2 id="h-gaps" data-i="gd.gaps.h">Not shown yet</h2></div>
+        <div class="sec-b">
+          <ul class="dots pending"><li data-i="gd.gaps.0">What wins Star of Competition and Star of Rallying</li><li data-i="gd.gaps.1">Whether more awards follow Star of Rallying</li><li data-i="gd.gaps.2">One of Defend the Trade Route's six rules pages</li><li data-i="gd.gaps.3">Arms Race Morale Levels 1 and 2</li><li data-i="gd.gaps.4">Arms Race item counts for each band</li><li data-i="gd.gaps.5">A duel-style guild event with daily themes: its name and rules</li><li data-i="gd.gaps.6">The sixth counselor's full title</li><li data-i="gd.gaps.7">What the Overlord's guild gets from the Stellar Treasure</li><li data-i="gd.gaps.8">What Guild Legacy gives</li><li data-i="gd.gaps.9">The rest of the Home Port settlement rules</li><li data-i="gd.gaps.10">What starts Defend the Trade Route's 5&#8209;day cooldown</li><li data-i="gd.gaps.11">How the auto-join repair rule ends</li><li data-i="gd.gaps.12">How the Guild Chest pack line ends</li><li data-i="gd.gaps.13">What the Bonus Cargo Holds depend on</li></ul>
+        </div>
+      </section>
+  </main>
+
+<div class="rs-wrap">
+  <section class="rs" aria-labelledby="rs-h">
+    <div class="rs-hd"><h2 id="rs-h" data-i="fx.onward">Onward route</h2></div>
+    <ol class="rs-ln">
+      <li><div class="rs-here" aria-current="page"><span class="rs-pl"><svg aria-hidden="true"><use href="#g-gd"/></svg><i class="rs-pu" aria-hidden="true"></i></span><span class="rs-tx"><em class="rs-yh" data-i="fx.here">You are here</em><b data-i="sys.gd.name">Guilds</b><small data-i="sys.gd.line">Ports, rallies, guild events</small></span></div></li>
+      <li><a class="rs-st" href="../glossary/" data-wk="gl"><span class="rs-pl"><svg aria-hidden="true"><use href="#g-gl"/></svg></span><span class="rs-tx"><em class="rs-nx" data-i="fx.next">Next jump</em><b data-i="sys.gl.name">Glossary</b><small data-i="sys.gl.line">58 game terms in plain words</small></span><span class="rs-go"><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="rs-st" href="../../" data-wk="sf" data-lang><span class="rs-pl"><svg aria-hidden="true"><use href="#g-sf"/></svg></span><span class="rs-tx"><b data-i="sys.sf.name">Shadowfront</b><small data-i="sys.sf.line">Battle guide · 13 languages⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</small></span><span class="rs-go"><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="rs-st" href="../../teams/" data-wk="tp" data-lang><span class="rs-pl"><svg aria-hidden="true"><use href="#g-tp"/></svg></span><span class="rs-tx"><b data-i="sys.tp.name">Team Plans</b><small data-i="sys.tp.line">Who goes where, with a Plan B</small></span><span class="rs-go"><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="rs-st" href="../../signups/" data-wk="su"><span class="rs-pl"><svg aria-hidden="true"><use href="#g-su"/></svg></span><span class="rs-tx"><b data-i="sys.su.name">Sign-ups</b><small data-i="sys.su.line">Members sign up on Discord</small></span><span class="rs-go"><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="rs-st" href="../../roster/" data-wk="cm" data-lang><span class="rs-pl"><svg aria-hidden="true"><use href="#g-cm"/></svg></span><span class="rs-tx"><b data-i="sys.cm.name">Commander</b><small data-i="sys.cm.line">Roster & log · commanders only</small></span><span class="rs-go"><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="rs-st" href="../season2/" data-wk="s2"><span class="rs-pl"><svg aria-hidden="true"><use href="#g-s2"/></svg></span><span class="rs-tx"><b data-i="sys.s2.name">Siwenna</b><small data-i="sys.s2.line">Season 2 · The Usurper⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</small></span><span class="rs-go"><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="rs-st" href="../fleets/" data-wk="fl"><span class="rs-pl"><svg aria-hidden="true"><use href="#g-fl"/></svg></span><span class="rs-tx"><b data-i="sys.fl.name">Fleets</b><small data-i="sys.fl.line">Flagships, Champions, crew</small></span><span class="rs-go"><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li class="rs-home"><a class="rs-st" href="../" data-wk="tm"><span class="rs-pl"><svg aria-hidden="true"><use href="#g-tm"/></svg></span><span class="rs-tx"><b data-i="sys.tm.name">Terminus</b><small data-i="fx.home">Wiki home · back to the map</small></span><span class="rs-go"><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+    </ol>
+  </section>
+</div>
+  <footer class="end"><p id="ownerFoot" data-owner="4053721"><b><span data-i="w.name">FGF Wiki</span> &middot; &copy; 2026 UID 4053721</b><span data-i="w.foot">Unofficial fan guide. Not made by or affiliated with the game's developer or publisher.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</span></p></footer>
+</div>
+
+<nav aria-label="Guilds sections" class="dock" data-ia="gd.dock">
+  <button type="button" class="ox-mb" id="mx-jb" aria-haspopup="dialog" aria-expanded="false" aria-controls="mx-sh"><svg aria-hidden="true"><use href="#i-menu"/></svg><span data-i="fx.menu">Menu</span></button><a class="on" aria-current="location" href="#gives" data-i="gd.dock.0">Guild</a><a href="#ports" data-i="gd.dock.1">Ports</a><a href="#rally" data-i="gd.dock.2">Rallies</a><a href="#events" data-i="gd.dock.3">Events</a>
+</nav>
+<div class="mx-sh" id="mx-sh" role="dialog" aria-modal="true" aria-labelledby="mx-sht" hidden>
+  <div class="mx-bd" data-close></div>
+  <div class="mx-pn">
+    <div class="mx-top"><h2 id="mx-sht" data-i="fx.jumpto">Jump to</h2><button type="button" class="mx-x" data-close><svg aria-hidden="true"><use href="#i-close"/></svg><span class="mx-vh" data-i="fx.close">Close</span></button></div>
+    <ol class="m-tks">
+      <li><div class="m-tk here" aria-current="page"><span class="m-stub"><svg aria-hidden="true"><use href="#g-gd"/></svg></span><span class="m-bd"><em class="mx-here" data-i="fx.here">You are here</em><b data-i="sys.gd.name">Guilds</b><small data-i="sys.gd.line">Ports, rallies, guild events</small></span></div></li>
+      <li><a class="m-tk" href="../glossary/" data-wk="gl"><span class="m-stub"><svg aria-hidden="true"><use href="#g-gl"/></svg></span><span class="m-bd"><b data-i="sys.gl.name">Glossary</b><small data-i="sys.gl.line">58 game terms in plain words</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="../../" data-wk="sf" data-lang><span class="m-stub"><svg aria-hidden="true"><use href="#g-sf"/></svg></span><span class="m-bd"><b data-i="sys.sf.name">Shadowfront</b><small data-i="sys.sf.line">Battle guide · 13 languages⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="../../teams/" data-wk="tp" data-lang><span class="m-stub"><svg aria-hidden="true"><use href="#g-tp"/></svg></span><span class="m-bd"><b data-i="sys.tp.name">Team Plans</b><small data-i="sys.tp.line">Who goes where, with a Plan B</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="../../signups/" data-wk="su"><span class="m-stub"><svg aria-hidden="true"><use href="#g-su"/></svg></span><span class="m-bd"><b data-i="sys.su.name">Sign-ups</b><small data-i="sys.su.line">Members sign up on Discord</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="../../roster/" data-wk="cm" data-lang><span class="m-stub"><svg aria-hidden="true"><use href="#g-cm"/></svg></span><span class="m-bd"><b data-i="sys.cm.name">Commander</b><small data-i="sys.cm.line">Roster & log · commanders only</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="../season2/" data-wk="s2"><span class="m-stub"><svg aria-hidden="true"><use href="#g-s2"/></svg></span><span class="m-bd"><b data-i="sys.s2.name">Siwenna</b><small data-i="sys.s2.line">Season 2 · The Usurper⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="../fleets/" data-wk="fl"><span class="m-stub"><svg aria-hidden="true"><use href="#g-fl"/></svg></span><span class="m-bd"><b data-i="sys.fl.name">Fleets</b><small data-i="sys.fl.line">Flagships, Champions, crew</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+      <li><a class="m-tk" href="../" data-wk="tm"><span class="m-stub"><svg aria-hidden="true"><use href="#g-tm"/></svg></span><span class="m-bd"><b data-i="sys.tm.name">Terminus</b><small data-i="sys.tm.line">Wiki home · the map</small></span><span class="m-go"><span data-i="fx.jump">Jump</span><svg aria-hidden="true"><use href="#i-chev"/></svg></span></a></li>
+    </ol>
+  </div>
+</div>
+<div class="wm" id="wm" aria-hidden="true" data-owner="4053721"></div>
+<script data-nofacts>
+(function(){
+var R=document.documentElement,jb=document.getElementById("mx-jb"),sh=document.getElementById("mx-sh"),off=[];
+if(!jb||!sh)return;
+function items(){return [].slice.call(sh.querySelectorAll("a[href],button"));}
+function open(){sh.hidden=false;jb.setAttribute("aria-expanded","true");R.classList.add("mx-lock");
+  off=[].filter.call(document.body.children,function(el){return el!==sh&&!el.hasAttribute("inert")&&!/^(SCRIPT|STYLE|TEMPLATE)$/.test(el.tagName);});
+  off.forEach(function(el){el.setAttribute("inert","");});
+  var x=sh.querySelector(".mx-x");if(x)x.focus();}
+function close(back){if(sh.hidden)return;sh.hidden=true;jb.setAttribute("aria-expanded","false");R.classList.remove("mx-lock");
+  off.forEach(function(el){el.removeAttribute("inert");});off=[];if(back!==false)jb.focus();}
+jb.addEventListener("click",open);
+sh.addEventListener("click",function(e){if(e.target.closest("[data-close]"))close();});
+document.addEventListener("keydown",function(e){if(sh.hidden)return;
+  if(e.key==="Escape"){close();return;}
+  if(e.key==="Tab"){var f=items(),a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}}});
+window.addEventListener("pageshow",function(e){if(e.persisted)close(false);});
+if(/(^|[#&])jump(&|$)/.test(location.hash))open();
+})();
+(function(){
+var R=document.documentElement,WC={"tm":["#05050f","#2c2a6e"],"s2":["#0b0826","#5b3e9e"],"sf":["#061011","#1f5b52"],"tp":["#061011","#1f5b52"],"cm":["#061011","#1f5b52"],"su":["#0e131a","#2c4456"],"fl":["#07161f","#1d5f7a"],"gd":["#0b2428","#2f8f88"],"gl":["#0a2a22","#3fa98a"]},GO=460,fly=null;
+function calm(){return !R.classList.contains("mo")||R.classList.contains("still")||!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);}
+function land(){
+  if(!fly)return;
+  clearTimeout(fly.go);clearTimeout(fly.up);if(fly.d.parentNode)fly.d.parentNode.removeChild(fly.d);fly=null;
+  try{sessionStorage.removeItem("ox-woosh");}catch(e){}
+}
+function woosh(a){
+  var k=a.getAttribute("data-wk"),c=WC[k]||WC.tm,g=a.querySelector('use[href="#g-'+k+'"]'),r=(g?g.parentNode:a).getBoundingClientRect(),
+      x=r.left+r.width/2,y=r.top+r.height/2,d=document.createElement("div"),s='<i class="ox-wb"></i>',i;
+  d.className="ox-warp";d.setAttribute("aria-hidden","true");
+  d.style.cssText="--x:"+x+"px;--y:"+y+"px;--dx:"+(innerWidth/2-x)+"px;--dy:"+(innerHeight*0.42-y)+"px;--wc:"+c[0]+";--wg:"+c[1];
+  for(i=0;i<18;i++)s+='<i class="ox-ws" style="--a:'+(i*20+(i%3)*7)+'deg;animation-delay:'+(i%4)*35+'ms"></i>';
+  s+='<svg class="ox-wp"><use href="#g-'+k+'"/></svg>';
+  d.innerHTML=s;document.body.appendChild(d);
+  try{sessionStorage.setItem("ox-woosh",JSON.stringify({k:k,t:Date.now()}));}catch(e){}
+  fly={d:d,gone:false};
+  fly.go=setTimeout(function(){if(fly){fly.gone=true;location.assign(a.href);}},GO);
+  fly.up=setTimeout(land,10000);
+}
+document.addEventListener("click",function(e){if(fly){e.preventDefault();e.stopPropagation();}},true);
+document.addEventListener("click",function(e){
+  var a=e.target.closest&&e.target.closest("a[data-wk]");
+  if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||(a.target&&a.target!=="_self")||calm())return;
+  e.preventDefault();woosh(a);
+});
+window.addEventListener("pagehide",function(){if(fly&&!fly.gone)land();});
+window.addEventListener("pageshow",function(e){if(!e.persisted)return;land();[].forEach.call(document.querySelectorAll(".ox-warp"),function(w){w.parentNode.removeChild(w);});});
+if(R.classList.contains("ox-in"))setTimeout(function(){R.classList.remove("ox-in");},1200);
+if(R.classList.contains("mo")&&"IntersectionObserver" in window)[].forEach.call(document.querySelectorAll(".ox-rib,.rs-wrap"),function(el){
+  new IntersectionObserver(function(es){es.forEach(function(en){el.classList.toggle("paused",!en.isIntersecting);});}).observe(el);});
+})();
+(function(){
+function stamp(){
+  var l=null;try{l=sessionStorage.getItem("sf-lang");}catch(e){}
+  if(!l||!/^[a-z]{2}$/.test(l))return;
+  [].forEach.call(document.querySelectorAll("a[data-lang]"),function(a){
+    var h=a.getAttribute("href")||"";
+    if(h.indexOf("#")<0||a.getAttribute("data-lang")==="tab"){a.setAttribute("href",h.split("#")[0]+"#lang-"+l);a.setAttribute("data-lang","tab");}
+  });
+}
+stamp();window.addEventListener("pageshow",function(e){if(e.persisted)stamp();});
+})();
+</script>
+<script data-nofacts>
+(function(){
+var R=document.documentElement,MO=R.classList.contains("mo"),hero=document.querySelector(".hero");
+var tabs=[].slice.call(document.querySelectorAll(".dock a")),secs=[].slice.call(document.querySelectorAll("[data-tab]")),tick=0;
+function sync(){tick=0;var mid=window.innerHeight/2,k=0;
+  secs.forEach(function(s){if(s.offsetParent!==null&&s.getBoundingClientRect().top<=mid)k=+s.getAttribute("data-tab");});
+  tabs.forEach(function(a,i){a.classList.toggle("on",i===k);if(i===k)a.setAttribute("aria-current","location");else a.removeAttribute("aria-current");});}
+window.addEventListener("scroll",function(){if(!tick)tick=requestAnimationFrame(sync);},{passive:true});
+window.addEventListener("resize",sync);
+window.pkSync=sync;
+if(MO&&hero&&"IntersectionObserver" in window)new IntersectionObserver(function(es){es.forEach(function(e){hero.classList.toggle("paused",!e.isIntersecting);});}).observe(hero);
+var qy=/y=(\d+)/.exec(location.hash);if(qy){R.style.scrollBehavior="auto";window.scrollTo(0,+qy[1]);}
+document.addEventListener("touchstart",function(){},{passive:true});
+sync();
+})();
+(function(){
+var OWN={"by": "Wiki by", "name": "FGF Wiki", "foot": "Unofficial fan guide. Not made by or affiliated with the game's developer or publisher.⁠‌‌‌‌​‌‌‌​‌‌​‌​‌‌​‌‌​​‌⁠"},OWNER="UID "+[52,48,53,51,55,50,49].map(function(c){return String.fromCharCode(c);}).join("");
+function ensureOwner(){
+  var b=document.getElementById("ownerBadge");
+  if(!b){b=document.createElement("p");b.id="ownerBadge";b.className="owner";var at=document.querySelector("[data-owner-slot]")||document.body;at.insertBefore(b,at.firstChild);}
+  if(b.textContent.indexOf(OWNER)<0)b.innerHTML="<span>"+OWN.by+"</span> <b>"+OWNER+"</b>";
+  var f=document.getElementById("ownerFoot");
+  if(!f){f=document.createElement("p");f.id="ownerFoot";var ft=document.querySelector("footer")||document.body;
+    if(OWN.gold){f.className="owner-foot";ft.insertBefore(f,ft.firstChild);}else ft.appendChild(f);}
+  if(f.textContent.indexOf(OWNER)<0)f.innerHTML=(OWN.gold?'<b class="ox-fm"><svg aria-hidden="true"><use href="#i-gem"/></svg>':"<b>")+OWN.name+" · © 2026 "+OWNER+"</b>"+OWN.foot;
+  if(!document.getElementById("wm")){var w=document.createElement("div");w.id="wm";w.className="wm";w.setAttribute("aria-hidden","true");document.body.appendChild(w);}
+}
+ensureOwner();
+window.addEventListener("load",ensureOwner);
+try{console.info("%c"+OWN.name+" © 2026 "+OWNER,"color:#f3cf86;font-weight:700");}catch(e){}
+})();
+</script>
+</body>
+</html>
