@@ -131,6 +131,13 @@ h3{font:700 1.18rem/1.15 var(--font-title);letter-spacing:.05em;text-transform:u
 /* ---------- maps ---------- */
 .map{background:#0a1d1c;border:1px solid var(--edge);border-radius:3px;padding:6px;overflow-x:auto}
 .map svg{display:block;width:100%;height:auto;max-width:520px;margin:0 auto}
+/* motion (owner 2026-11-19): the minimap's fleets fly the arrows and fight on a canvas laid over the map; still map under
+   reduced motion or without IntersectionObserver */
+.map.gm{position:relative}
+.map .gmcv,.map .gmlab{position:absolute;pointer-events:none;max-width:none}
+.map.gm svg g.still{display:none}
+.map.gm svg .gmhid{visibility:hidden}
+@media print{.map.gm svg g.still{display:inline}.map.gm svg .gmhid{visibility:visible}.map .gmcv,.map .gmlab{display:none}}
 svg text{font-family:var(--font-title)}
 .vd{font-weight:600}
 .bn{font-size:12px;font-weight:700;fill:#fff}
@@ -1280,6 +1287,119 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
     for(var i=0;i<n;i++){ var a=r()*6.283, d=spread*Math.sqrt(r()); out += '<circle cx="'+f(x+Math.cos(a)*d)+'" cy="'+f(y+Math.sin(a)*d)+'" r="2.5" style="fill:'+DOT[g]+';stroke:'+COL[g]+';stroke-width:.8"/>'; }
     return out;
   }
+  /* ---------- motion (owner 2026-11-19, "animate them ... blow everyone away"): with motion on, each map's fleet dots are not
+     drawn into the SVG; D() collects them and a canvas over the map flies them along their arrows from the outpost (or from
+     where they stand), lets them mill at their post, and trades fire wherever our dots and the rivals' meet. The far-Central
+     probe goes out and comes back, the Awakening timers count down, and it loops every 12 s while the map is on screen.
+     Reduced motion, or no IntersectionObserver: the still map, exactly as before. */
+  var GMO = !!window.IntersectionObserver && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var GC = null, GMAPS = {}, GP = 12;
+  function D(x, y, n, g, spread, seed, path, o){
+    o = o || {};
+    /* the still dots stay in the SVG, hidden while the canvas runs: print, and a phone with no canvas, show them */
+    if(GC){ GC.push({x:x, y:y, n:n, g:g, spread:spread, seed:seed, path:path || null, o:o}); return o.only ? '' : '<g class="still">' + dots(x, y, n, g, spread, seed) + '</g>'; }
+    return o.only ? '' : dots(x, y, n, g, spread, seed);
+  }
+  function cssv(name, fb){ try{ return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fb; }catch(e){ return fb; } }
+  function ease(p){ return p < .5 ? 2*p*p : 1 - Math.pow(-2*p + 2, 2)/2; }
+  function gmMount(id, groups, wake){
+    var svg = document.getElementById(id), host = svg && svg.parentNode; if(!host) return;
+    if(GMAPS[id]){ GMAPS[id].stop(); delete GMAPS[id]; }
+    var lab = host.querySelector('svg.gmlab'); if(lab) host.removeChild(lab);
+    var cv = host.querySelector('canvas.gmcv'); if(!cv){ cv = document.createElement('canvas'); cv.className = 'gmcv'; cv.setAttribute('aria-hidden', 'true'); }
+    var ctx = cv.getContext('2d');
+    /* no 2D canvas (a phone past its canvas memory can refuse one): the still dots in the SVG show, as with reduced motion */
+    if(!ctx){ host.classList.remove('gm'); if(cv.parentNode) cv.parentNode.removeChild(cv); return; }
+    host.classList.add('gm'); if(!cv.parentNode) host.appendChild(cv);
+    /* the Vault digits and the numbered badges sit above the dots, as in the still map */
+    lab = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); lab.setAttribute('viewBox', svg.getAttribute('viewBox'));
+    lab.setAttribute('class', 'gmlab'); lab.setAttribute('aria-hidden', 'true');
+    [].slice.call(svg.querySelectorAll('text.vd, text.bn')).forEach(function(n){
+      var b = n.classList.contains('bn') ? n.previousElementSibling : null;
+      if(b && b.nodeName === 'circle'){ lab.appendChild(b.cloneNode(true)); b.classList.add('gmhid'); }
+      lab.appendChild(n.cloneNode(true)); n.classList.add('gmhid');  /* hidden by class, so print can show the originals again */
+    });
+    host.appendChild(lab);
+    var FILL = {us:'#cfe8ff', red:'#ffc2c8', purple:'#ecc9ff', yellow:'#ffe6ad'};
+    var EDGE = {us:cssv('--us', '#2b7fd5'), red:cssv('--red', '#e0405a'), purple:cssv('--purple', '#a855f7'), yellow:cssv('--yellow', '#e7b452')};
+    var M = {id:id, svg:svg, host:host, cv:cv, ctx:ctx, gr:[], t:0, on:false, raf:0, last:0, beams:[], wake:wake, tl:-1};
+    groups.forEach(function(g){
+      var r = rng(g.seed + 1000), ds = [];
+      for(var i = 0; i < g.n; i++){ var a = r()*6.283, d = g.spread*Math.sqrt(r()); ds.push({ox:Math.cos(a)*d, oy:Math.sin(a)*d, ph:r()*6.283, w:.5 + r()*.9, lag:i*.1, jit:(r() - .5)*9}); }
+      M.gr.push({g:g.g, x:g.x, y:g.y, path:g.path, o:g.o, ds:ds});
+    });
+    function size(){
+      var r = svg.getBoundingClientRect(), hr = host.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
+      M.k = r.width/360; M.dpr = dpr;
+      cv.style.left = (r.left - hr.left - host.clientLeft + host.scrollLeft) + 'px'; cv.style.top = (r.top - hr.top - host.clientTop) + 'px';
+      cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
+      lab.style.left = cv.style.left; lab.style.top = cv.style.top; lab.style.width = cv.style.width; lab.style.height = cv.style.height;
+      /* reallocate only on a real change: phones fire a resize each time the address bar shows or hides */
+      var w = Math.max(1, Math.round(r.width*dpr)), h = Math.max(1, Math.round(r.height*dpr));
+      if(cv.width !== w) cv.width = w;
+      if(cv.height !== h) cv.height = h;
+    }
+    function pos(gr, d, T){
+      var mx = gr.x + d.ox + Math.cos(T*d.w + d.ph)*2.2, my = gr.y + d.oy + Math.sin(T*d.w*1.3 + d.ph)*2.2, o = gr.o;
+      if(o.gone != null && T > o.gone) return null;
+      if(!gr.path) return [mx, my, 1];
+      var u = T - (o.d || 0) - d.lag, p, q, k, a, b, nx, ny, nl;
+      if(u < 0) return null;
+      if(o.trip){  /* out to 60% of the arrow, a look, then back to our Central */
+        var e = u < 2.2 ? ease(u/2.2)*.6 : u < 3.6 ? .6 : u < 5.8 ? .6*(1 - ease((u - 3.6)/2.2)) : 0;
+        if(e <= 0 && u >= 5.8) return null;
+        a = gr.path.at(Math.max(.02, e)); return [a[0] + d.ox*.4, a[1] + d.oy*.4, 1];
+      }
+      p = Math.min(1, u/2.4); q = ease(p);
+      a = gr.path.at(Math.min(.98, q)); b = gr.path.at(Math.min(.99, q + .01)); nx = -(b[1] - a[1]); ny = b[0] - a[0]; nl = Math.hypot(nx, ny) || 1;
+      k = Math.max(0, (q - .8)/.2);
+      var px = a[0] + nx/nl*d.jit*Math.sin(Math.PI*q), py = a[1] + ny/nl*d.jit*Math.sin(Math.PI*q);
+      return [px*(1 - k) + mx*k, py*(1 - k) + my*k, Math.min(1, u*3)];
+    }
+    function frame(now){
+      if(!M.on){ M.raf = 0; return; }
+      var dt = M.last ? Math.min(.05, (now - M.last)/1000) : .016; M.last = now; M.t += dt;
+      var T = M.t % GP, fade = T > GP - .8 ? (GP - T)/.8 : 1, ctx = M.ctx, kk = M.k*M.dpr, us = [], foe = [];
+      ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height); ctx.setTransform(kk, 0, 0, kk, 0, 0);
+      M.gr.forEach(function(gr){
+        gr.ds.forEach(function(d){
+          var p = pos(gr, d, T); if(!p) return;
+          var al = p[2]*(gr.path ? fade : 1);
+          ctx.globalAlpha = al; ctx.fillStyle = FILL[gr.g]; ctx.strokeStyle = EDGE[gr.g]; ctx.lineWidth = .8;
+          ctx.beginPath(); ctx.arc(p[0], p[1], 2.5, 0, 6.283); ctx.fill(); ctx.stroke();
+          if(gr.o.fight && al > .6) (gr.g === 'us' ? us : foe).push(p);
+        });
+      });
+      /* fire where our dots and theirs meet */
+      if(us.length && foe.length && Math.random() < dt*9){
+        var a = us[Math.floor(Math.random()*us.length)], best = null, bd = 30;
+        foe.forEach(function(f){ var dd = Math.hypot(f[0] - a[0], f[1] - a[1]); if(dd < bd){ bd = dd; best = f; } });
+        if(best) M.beams.push({a:a, b:best, t:.18, c:Math.random() < .65 ? '#9fd0ff' : '#ff9aa5'});
+      }
+      ctx.lineWidth = 1.2;
+      M.beams = M.beams.filter(function(bm){
+        bm.t -= dt; if(bm.t <= 0) return false;
+        ctx.globalAlpha = bm.t/.18; ctx.strokeStyle = bm.c; ctx.beginPath(); ctx.moveTo(bm.a[0], bm.a[1]); ctx.lineTo(bm.b[0], bm.b[1]); ctx.stroke();
+        ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(bm.b[0], bm.b[1], 1.6, 0, 6.283); ctx.fill(); return true;
+      });
+      ctx.globalAlpha = 1;
+      if(M.wake){  /* the orange Awakening timers count down */
+        var left = 157 - Math.floor(M.t) % 158;
+        if(left !== M.tl){ M.tl = left; var txt = ('0' + Math.floor(left/60)).slice(-2) + ':' + ('0' + left % 60).slice(-2); svg.querySelectorAll('text.wt').forEach(function(n){ n.textContent = txt; }); }
+      }
+      M.raf = requestAnimationFrame(frame);
+    }
+    M.run = function(on){ M.on = on; if(on && !M.raf){ M.last = 0; M.raf = requestAnimationFrame(frame); } };
+    M.stop = function(){ M.on = false; if(M.raf) cancelAnimationFrame(M.raf); M.raf = 0; if(M.io) M.io.disconnect(); };
+    M.size = size;
+    size();
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);  /* the canvas is reused: no frame of the last corner left on it */
+    M.io = new IntersectionObserver(function(es){ M.vis = es[es.length - 1].isIntersecting; M.run(M.vis && !document.hidden); }, {threshold:0});
+    M.io.observe(host);
+    GMAPS[id] = M;
+  }
+  window.addEventListener('resize', function(){ for(var k in GMAPS) GMAPS[k].size(); });
+  document.addEventListener('visibilitychange', function(){ for(var k in GMAPS) GMAPS[k].run(!!GMAPS[k].vis && !document.hidden); });
   function vault(id, owner){
     var p = N[id], r = rad(id);
     var st = owner ? 'fill:'+COL[owner]+';fill-opacity:.3;stroke:'+COL[owner]+';stroke-opacity:.9;stroke-width:1.4'
@@ -1333,13 +1453,14 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
     var s = '<use href="#radar"/>';
     VAULTS.forEach(function(id){ s += vault(id, null); });
     ['NW','NE','SE','SW'].forEach(function(o){ s += house(o, X.col[o]); });
-    var c = toward(X.central, X.c, 7), rc = toward(X.central, X.rival, 8);
-    s += dots(c[0], c[1], 9, 'us', 12, 3) + dots(rc[0], rc[1], 4, 'red', 9, 7);
-    X.home.forEach(function(h, i){ s += dots(N[h][0], N[h][1], 3 - i, 'us', 7, 11+i); });
-    var sd = toward(X.side[0], X.c, 16); s += dots(sd[0], sd[1], 2, 'us', 5, 19);
-    s += digits(function(){ return null; });
+    var c = toward(X.central, X.c, 7), rc = toward(X.central, X.rival, 8), sd = toward(X.side[0], X.c, 16);
     var r1 = arrow(X.c, X.central, {w:3.2}), r2a = arrow(X.c, X.home[0], {bend:8}), r2b = arrow(X.c, X.home[1], {bend:8});
     var r3 = arrow(X.c, X.side[0], {bend:58});
+    /* with motion each team flies its arrow from the outpost: the Vanguard first, then Proximity, then Infiltration */
+    s += D(c[0], c[1], 9, 'us', 12, 3, r1, {d:0, fight:1}) + D(rc[0], rc[1], 4, 'red', 9, 7, null, {fight:1});
+    X.home.forEach(function(h, i){ s += D(N[h][0], N[h][1], 3 - i, 'us', 7, 11+i, i ? r2b : r2a, {d:.35 + i*.15}); });
+    s += D(sd[0], sd[1], 2, 'us', 5, 19, r3, {d:.8});
+    s += digits(function(){ return null; });
     s += r2a.svg + r2b.svg + r3.svg + r1.svg;
     s += badge(r1.at(.72), 1) + badge(r2a.at(.6), 2) + badge(r2b.at(.6), 2) + badge(r3.at(.62), 3);
     return s;
@@ -1348,14 +1469,16 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
     var s = '<use href="#radar"/>';
     VAULTS.forEach(function(id){ s += vault(id, ownerOf(X, id, 'press')); });
     ['NW','NE','SE','SW'].forEach(function(o){ s += house(o, X.col[o]); });
-    var c = toward(X.central, X.c, 6), rc = toward(X.central, X.rival, 9);
-    s += dots(c[0], c[1], 9, 'us', 12, 5) + dots(rc[0], rc[1], 2, 'red', 6, 9);
-    s += dots(N[X.side[0]][0], N[X.side[0]][1], 3, 'red', 8, 13);
-    var sg = toward(X.side[0], X.near, 6); s += dots(sg[0], sg[1], 2, 'us', 5, 17);
-    X.home.forEach(function(h, i){ s += dots(N[h][0], N[h][1], 2, 'us', 6, 23+i); });
-    s += digits(function(id){ return ownerOf(X, id, 'press'); });
+    var c = toward(X.central, X.c, 6), rc = toward(X.central, X.rival, 9), sg = toward(X.side[0], X.near, 6), dv = toward(X.side[0], X.central, 13);
     var div = arrow(X.central, X.side[0], {red:true, dash:true, w:2.2, bend:-14});
     var r3 = arrow(X.near, X.side[0], {w:3});
+    s += D(c[0], c[1], 9, 'us', 12, 5, null, {fight:1}) + D(rc[0], rc[1], 2, 'red', 6, 9, null, {fight:1});
+    s += D(N[X.side[0]][0], N[X.side[0]][1], 3, 'red', 8, 13, null, {fight:1});
+    /* with motion: our infiltrators fly in, then three rival ships peel off our Central down the red arrow to defend */
+    s += D(sg[0], sg[1], 2, 'us', 5, 17, r3, {d:0, fight:1});
+    s += D(dv[0], dv[1], 3, 'red', 7, 29, div, {d:2.2, fight:1, only:1});
+    X.home.forEach(function(h, i){ s += D(N[h][0], N[h][1], 2, 'us', 6, 23+i); });
+    s += digits(function(id){ return ownerOf(X, id, 'press'); });
     s += div.svg + r3.svg + badge(r3.mid, 3);
     s += badge(toward(X.central, X.c, 30), 1);
     var hb = [(N[X.home[0]][0]+N[X.home[1]][0])/2, (N[X.home[0]][1]+N[X.home[1]][1])/2];
@@ -1366,17 +1489,22 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
     var s = '<use href="#radar"/>';
     VAULTS.forEach(function(id){ s += vault(id, id===X.side[0] ? null : ownerOf(X, id, 'wake')); });
     ['NW','NE','SE','SW'].forEach(function(o){ s += house(o, X.col[o]); });
-    s += dots(N[X.central][0], N[X.central][1], 8, 'us', 13, 31);
-    s += dots(N[X.far][0], N[X.far][1], 7, 'purple', 12, 37);
-    s += dots(N[X.side[0]][0], N[X.side[0]][1], 2, 'us', 6, 41);
-    s += dots(N[X.side[1]][0], N[X.side[1]][1], 2, 'red', 7, 43);
-    X.home.forEach(function(h, i){ s += dots(N[h][0], N[h][1], 2, 'us', 6, 47+i); });
-    s += digits(function(id){ return id===X.side[0] ? null : ownerOf(X, id, 'wake'); });
-    [X.branch, X.side[1], X.far].forEach(function(id){ s += wake(id); });
-    s += repair(X.branch, 19, -12) + repair(X.side[1], -19, -12) + repair(X.far, 0, -30);
     var r1 = arrow(X.central, X.far, {dash:true, w:2.8});
     var r2 = arrow(X.branchFrom, X.branch, {w:2.8});
     var r3 = arrow(X.side[0], X.side[1], {w:2.8});
+    /* with motion: part of the Vanguard probes toward the marked far Central and comes back (a wall: keep ours), Proximity
+       branches one segment, Infiltration moves on to the next marked Lesser and fights there */
+    s += D(N[X.central][0], N[X.central][1], 8, 'us', 13, 31);
+    s += D(N[X.central][0], N[X.central][1], 4, 'us', 9, 53, r1, {d:.4, trip:1, only:1});
+    s += D(N[X.far][0], N[X.far][1], 7, 'purple', 12, 37, null, {fight:1});
+    s += D(N[X.side[0]][0], N[X.side[0]][1], 2, 'us', 6, 41, null, {gone:1});
+    s += D(N[X.side[1]][0], N[X.side[1]][1], 2, 'us', 6, 59, r3, {d:.9, fight:1, only:1});
+    s += D(N[X.side[1]][0], N[X.side[1]][1], 2, 'red', 7, 43, null, {fight:1});
+    s += D(N[X.branch][0], N[X.branch][1], 2, 'us', 6, 61, r2, {d:.6, only:1});
+    X.home.forEach(function(h, i){ s += D(N[h][0], N[h][1], 2, 'us', 6, 47+i); });
+    s += digits(function(id){ return id===X.side[0] ? null : ownerOf(X, id, 'wake'); });
+    [X.branch, X.side[1], X.far].forEach(function(id){ s += wake(id); });
+    s += repair(X.branch, 19, -12) + repair(X.side[1], -19, -12) + repair(X.far, 0, -30);
     s += r1.svg + r2.svg + r3.svg + badge(r1.mid, 1) + badge(r2.mid, 2) + badge(r3.mid, 3);
     return s;
   }
@@ -1407,10 +1535,12 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
   function setCorner(c, save){
     if(!PLAN[c]) return;
     corner = c; X = ctx(c); W = words(X);
-    document.getElementById('mapRoles').innerHTML = drawRoles(X);
-    document.getElementById('mapPressure').innerHTML = drawPressure(X);
-    document.getElementById('mapWake').innerHTML = drawWake(X);
+    var gr = [];
+    [['mapRoles', drawRoles], ['mapPressure', drawPressure], ['mapWake', drawWake]].forEach(function(m){
+      GC = GMO ? [] : null; document.getElementById(m[0]).innerHTML = m[1](X); gr.push(GC); GC = null;
+    });
     fillWords();
+    if(GMO){ gmMount('mapRoles', gr[0]); gmMount('mapPressure', gr[1]); gmMount('mapWake', gr[2], true); }
     document.querySelectorAll('#cornerPick button').forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-c')===c ? 'true' : 'false'); });
     renderPocket();
     if(save){ try{ localStorage.setItem('sf-corner', c); }catch(e){} }

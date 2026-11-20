@@ -84,8 +84,35 @@ h1{margin:0;font:700 clamp(2.6rem,12vw,4rem)/.95 var(--font-title);letter-spacin
 .rule{position:relative;height:12px;margin:10px 0 16px;background:linear-gradient(90deg,transparent,var(--rule) 12%,var(--rule) 88%,transparent) left 4px/100% 1px no-repeat}
 .rule::after{content:"";position:absolute;left:50%;top:1px;width:34%;height:4px;transform:translateX(-50%);border:1px solid var(--rule);border-bottom:0;clip-path:polygon(4% 0,96% 0,100% 100%,0 100%)}
 .lede{color:var(--ink-2);margin:0 0 14px;text-align:center}
-.map{background:#0a1d1c;border:1px solid var(--edge);border-radius:3px;padding:4px}
+.map{background:#0a1d1c;border:1px solid var(--edge);border-radius:3px;padding:4px;position:relative}
 .map svg{display:block;width:100%;height:auto;max-width:600px;margin:0 auto}
+/* Deploy (owner 2026-11-19, "animating them, really blow everyone away"): the fleets fly in from where they come from, group
+   by group, then the names fade in. Plays once when the map comes into view, again on a new team or corner, or on Replay.
+   Transform and opacity only, one shot, nothing loops; reduced motion shows the still map. */
+.map.pre svg .mv,.map.pre svg .lb,.map.pre svg .dot{opacity:0}
+.map.go svg .mv{animation:vgFly 1.35s cubic-bezier(.16,.8,.24,1) var(--d,0s) both}
+.map.go svg .lb{animation:vgFade .55s ease-out calc(var(--d,0s) + 1.05s) both}
+.map.go svg .dot{animation:vgFade .22s ease-out var(--d,0s) both}
+.map svg .pulse{opacity:0;transform-box:fill-box;transform-origin:center}
+.map.go svg .pulse{animation:vgPulse 1.3s ease-out calc(var(--d,0s) + var(--pd,1.15s)) 2 both}
+@keyframes vgFly{0%{transform:translate(var(--dx),var(--dy));opacity:0}14%{opacity:1}100%{transform:none;opacity:1}}
+@keyframes vgFade{from{opacity:0}to{opacity:1}}
+@keyframes vgPulse{0%{transform:scale(.55);opacity:.95}100%{transform:scale(2.3);opacity:0}}
+.mvbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0 0}
+.mvbar .replay{margin-left:auto;flex:none}
+.map .simcv,.map .simlab{position:absolute;pointer-events:none;max-width:none}
+.simcap{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;min-width:0;font-size:.9rem;color:var(--ink-2)}
+.simcap .code{font:700 1.05rem/1 var(--font-title);letter-spacing:.06em;color:#fff;padding:5px 8px;border:1px solid #fff;border-radius:3px}
+.simcap b{color:var(--ink)}
+.simcap .hint{color:var(--ink-3);font-size:.86rem}
+.simcap .all{min-height:44px;padding:0 12px;border:1px solid var(--tab-line);border-radius:22px;background:transparent;color:var(--ink);font:600 .86rem/1 var(--font-body);cursor:pointer}
+.slot[data-code]{cursor:pointer;min-height:44px}
+.slot[data-code]:hover{border-color:var(--c)}
+.slot.focus{border-color:#fff;box-shadow:inset 0 0 0 1px #fff,0 0 0 2px rgba(255,255,255,.18)}
+.replay{display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 16px;border:1px solid var(--tab-line);border-radius:22px;
+  background:var(--tab);color:var(--ink);font:600 .9rem/1 var(--font-body);cursor:pointer}
+.replay svg{width:16px;height:16px}
+@media (prefers-reduced-motion:reduce){.map svg .mv,.map svg .lb,.map svg .dot{animation:none!important;opacity:1!important}.map svg .pulse{display:none}.mvbar{display:none}}
 svg text{font-family:var(--font-title)}
 .key{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin:10px 0 0;font-size:.88rem;color:var(--ink-2)}
 .key span{display:inline-flex;align-items:center;gap:7px}
@@ -591,18 +618,35 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
   function f(n){ return Math.round(n*10)/10; }
   function Mp(p){ var m = mir(); return {x:270 + m.x*(p.x-270), y:300 + m.y*(p.y-300)}; }
   function polar(c, R, deg, r){ var a = deg*Math.PI/180; return {x:c.x + r*R*Math.cos(a), y:c.y + r*R*Math.sin(a)}; }
+  /* Deploy: while set, every ship drawn flies in from `from` (NE layout, mirrored like the rest) starting `d` seconds in, and
+     every label drawn fades in once its group has landed. mv(null) ends it, so edge labels and arrows stay put. */
+  var MV = null;
+  /* code and beh name the slot and the job of the ships drawn next, for the battle sim below */
+  function mv(from, d, code, beh){ MV = from ? {from:from, d:d, code:code || '', beh:beh || ''} : null; }
   function ship(p, deg, color, mode, sc){
     var m = mir(), q = Mp(p), a = deg*Math.PI/180, d = Math.atan2(m.y*Math.sin(a), m.x*Math.cos(a))*180/Math.PI;
+    /* with motion, the battle sim draws every ship on its canvas: here each one only records where it belongs and what it does */
+    if(SIMQ && MV){
+      var code = MV.code === 'P' ? 'P' + (Math.floor(SIMQ.np++ / 3) + 1) : MV.code;
+      SIMQ.ours.push({x:q.x, y:q.y, homeAng:(d-180)*Math.PI/180, color:color, mode:mode, sc:sc || 1.1, code:code, beh:MV.beh, d:MV.d});
+      return '';
+    }
     var st = mode === 'parked' ? 'fill="#0b2f2a" stroke="'+color+'" stroke-width="2.6"' : 'fill="'+color+'" stroke="#06201c" stroke-width="1.2"';
-    return '<path d="'+SHIP+'" transform="translate('+f(q.x)+' '+f(q.y)+') rotate('+f(d-90)+') scale('+(sc||1.1)+')" '+st+'/>';
+    var path = '<path d="'+SHIP+'" transform="translate('+f(q.x)+' '+f(q.y)+') rotate('+f(d-90)+') scale('+(sc||1.1)+')" '+st+'/>';
+    if(!MV) return path;
+    var o = Mp(MV.from);
+    return '<g class="mv" style="--dx:'+f(o.x-q.x)+'px;--dy:'+f(o.y-q.y)+'px;--d:'+MV.d+'s">'+path+'</g>';
   }
   function label(p, txt, color, size, anchor, max, raw){
     if(hiText && txt === hiText){ color = '#ffffff'; size = (size || 18) + 3; }
     var q = raw ? p : Mp(p), an = anchor || 'middle';
     if(!raw && mir().x < 0){ an = an === 'start' ? 'end' : an === 'end' ? 'start' : an; }
     return '<text x="'+f(q.x)+'" y="'+f(q.y)+'" text-anchor="'+an+'" font-size="'+(size||18)+'" font-weight="700" letter-spacing="1" fill="'+color+'"'
+      +(MV ? ' class="lb" style="--d:'+MV.d+'s"' : '')
       +(max ? ' data-max="'+max+'"' : '')+' paint-order="stroke" stroke="#06201c" stroke-width="4" stroke-linejoin="round">'+esc(txt)+'</text>';
   }
+  /* a ring that pulses twice where a group lands (the Commander's calls, Infiltrator 2 spotting defenders) */
+  function pulse(p, r, color){ if(SIMQ) return ''; var q = Mp(p); return '<circle class="pulse" style="--d:'+(MV ? MV.d : 0)+'s" cx="'+f(q.x)+'" cy="'+f(q.y)+'" r="'+r+'" fill="none" stroke="'+color+'" stroke-width="3"/>'; }
   function edge(x, y, txt, color, size, anchor, max){
     var m = mir(), q = {x: m.x < 0 ? 540 - x : x, y: m.y < 0 ? 600 - y + 6 : y}, an = anchor;
     if(m.x < 0){ an = an === 'start' ? 'end' : an === 'end' ? 'start' : an; }
@@ -650,7 +694,14 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
     s += '<text x="'+f(wl.x)+'" y="'+f(wl.y)+'" text-anchor="middle" font-size="18" font-weight="700" letter-spacing="1" fill="#ff9aa5" data-max="180" transform="rotate(-90 '+f(wl.x)+' '+f(wl.y)+')" paint-order="stroke" stroke="#06201c" stroke-width="4">'+esc(fill(t('m.west')))+'</text>';
     s += compass(30, 36);
     /* R1's name runs left from its ships and R2's runs right: centred side by side, two long names ran into each other */
-    [['R1',6,-104,'end',30],['R2',7,-79,'start',-23],['R3',8,-54,'middle',0],['R4',9,-29,'middle',0]].forEach(function(r){
+    var IN = {x:548, y:14};  /* Deploy: everyone flies in from our spawn corner */
+    if(SIMQ){  /* the battle sim's ground: rivals come from their corner and from the west, Hunters each own a zone */
+      SIMQ.c = Mp(C); SIMQ.R = R; SIMQ.lim = R*.6; SIMQ.entry = Mp(IN); SIMQ.max = 16;
+      SIMQ.foes = [{from:Mp({x:566, y:596}), to:Mp(P(40,.5)), sp:62, w:3}, {from:Mp({x:-26, y:300}), to:Mp(P(184,.55)), sp:62, w:2}, {from:Mp({x:-26, y:92}), to:Mp(P(-148,.6)), sp:55, w:1}];
+      SIMQ.zones = {H1:Mp(P(88,.6)), H2:Mp(P(188,.58))};
+    }
+    [['R1',6,-104,'end',30],['R2',7,-79,'start',-23],['R3',8,-54,'middle',0],['R4',9,-29,'middle',0]].forEach(function(r, i){
+      mv(IN, f(.75 + i*.1), r[0], 'rim');
       var a = r[2], lp = P(a,1.14);
       s += ship(P(a-6.5,.9), a-6.5, RIM, 'parked', .95) + ship(P(a+6.5,.9), a+6.5, RIM, 'parked', .95) + ship(P(a,.72), a, RIM, 'active', 1.1);
       s += label({x:lp.x + r[4], y:lp.y}, tag(r[0], r[1]), NAME.r, 23, r[3], 150);
@@ -658,15 +709,22 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
     /* the Pack: six players, 18 ships moving as one */
     var tc = {x:360, y:322}, tq = Mp(tc);
     s += '<circle cx="'+f(tq.x)+'" cy="'+f(tq.y)+'" r="57" fill="#47d9c4" fill-opacity=".08" stroke="#47d9c4" stroke-width="2" stroke-dasharray="6 5"/>';
+    if(SIMQ) SIMQ.pack = tq;
+    mv(IN, .5, 'P', 'pack');  /* the Pack flies as one block */
     for(var gc = 0; gc < 6; gc++){ for(var gr = 0; gr < 3; gr++){ s += ship({x:tc.x+(gc-2.5)*18.5, y:tc.y+(gr-1)*22}, 188, TRIO, 'active', .8); } }
     [['P1',3],['P2',4],['P3',5],['P4',17],['P5',18],['P6',19]].forEach(function(p, i){ s += label({x:tc.x+62, y:tc.y + m.y*(-49+i*22)}, tag(p[0], p[1]), NAME.t, 20, 'start', 140); });  /* P1 on top in every corner */
     s += label({x:tc.x+62, y:tc.y+86}, t('m.pack'), NAME.t, 17, 'start', 150);  /* NE/NW under P6; SE/SW above P1, clear of R4 */
+    mv(IN, .2, 'H1', 'hunter');
     [[60,.68],[88,.8],[115,.64]].forEach(function(z){ s += ship(P(z[0],z[1]), z[0], HUNT, 'active', 1.15); });
     s += label(P(88,.97), tag('H1',1), NAME.h, 25, 'middle', 230);
+    mv(IN, .3, 'H2', 'hunter');
     [[160,.62],[188,.76],[214,.6]].forEach(function(z){ s += ship(P(z[0],z[1]), z[0], HUNT, 'active', 1.15); });
     s += label({x:40, y:214 - 18*dn}, tag('H2',2), NAME.h, 24, 'start', 175);
+    mv(IN, 0, 'CMD', 'cmd');  /* the Commander lands first and calls: one ring from the Vault */
     [[-150,.32],[150,.34],[96,.3]].forEach(function(z){ s += ship(P(z[0],z[1]), z[0], HUNT, 'active', 1.15); });
     s += label({x:270, y:256 - 19*dn}, tag('CMD',0), NAME.h, 25, 'middle', 220) + label({x:270, y:232 - 16*dn}, t('m.calls'), NAME.h, 16, 'middle', 150);
+    s += pulse(C, 38, HUNT);
+    mv(null);
     return s + credit();
   }
 
@@ -689,16 +747,28 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
     s += arrow({x:405,y:598}, {x:405,y:500}, '#ee5a69', true, 'ahr') + edge(532, 560, fill(t('m2.rival')), '#ff9aa5', 19, 'end', 170);
     s += arrow({x:322,y:322}, {x:236,y:236}, '#eef7ff', true, 'ah') + label({x:238, y:318}, t('m2.swing'), '#eef7ff', 16, 'end', 150);
     s += compass(30, mir().y < 0 ? 52 : 36);
+    var IN = {x:478, y:70};  /* Deploy: from our base, the Captain first, to B beside the rival */
+    if(SIMQ){  /* raids come at B from the rival and at A from the neighbour */
+      SIMQ.A = Mp(A); SIMQ.B = Mp(B); SIMQ.r2 = R; SIMQ.entry = Mp(IN); SIMQ.max = 10;
+      SIMQ.foes = [{from:Mp({x:405, y:628}), to:Mp(PB(84,.3)), sp:58, w:3, spread:70}, {from:Mp({x:-26, y:172}), to:Mp(PA(186,.3)), sp:58, w:2, spread:70}];
+    }
+    mv(IN, .3, 'GA', 'guard');
     [[150,.42],[195,.5],[240,.4]].forEach(function(z){ s += ship(PA(z[0],z[1]), z[0], TRIO, 'active', 1.1); });
     s += label(PA(195,.8), tag('GA',11), NAME.t, 22, 'start', 160);
+    mv(IN, .45, 'RA', 'rim');
     s += ship(PA(-48,.88), -48, RIM, 'parked', .95) + ship(PA(-32,.88), -32, RIM, 'parked', .95) + ship(PA(-40,.66), -40, RIM, 'active', 1.05);
     s += label(PA(-40,1.16), tag('RA',12), NAME.r, 22, 'start', 160);
+    mv(IN, 0, 'CAP', 'cap');
     [[70,.5],[95,.62],[120,.5]].forEach(function(z){ s += ship(PB(z[0],z[1]), z[0], HUNT, 'active', 1.15); });
     s += label(PB(95,.86), tag('CAP',10), NAME.h, 22, 'middle', 180);
+    s += pulse(B, 30, HUNT);
+    mv(IN, .15, 'GB', 'guard');
     [[170,.42],[210,.5],[250,.36]].forEach(function(z){ s += ship(PB(z[0],z[1]), z[0], TRIO, 'active', 1.1); });
     s += label(PB(210,.82), tag('GB',13), NAME.t, 22, 'end', 160);
+    mv(IN, .55, 'RB', 'rim');
     s += ship(PB(-98,.88), -98, RIM, 'parked', .95) + ship(PB(-82,.88), -82, RIM, 'parked', .95) + ship(PB(-90,.66), -90, RIM, 'active', 1.05);
     s += label(PB(-90,1.12), tag('RB',14), NAME.r, 22, 'middle', 200);
+    mv(null);
     return s + credit();
   }
 
@@ -712,12 +782,23 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
     s += arrow({x:148,y:462}, {x:40,y:572}, '#4ea6ef', true, 'ahb') + edge(14, 592, fill(t('m3.next')), '#9fd0ff', 18, 'start', 230);
     s += compass(510, 140);
     /* one or two players: the Lead on the Vault, Infiltrator 2 on the side the defenders come from, watching for them */
+    /* Deploy: both fly in from our nearest Lesser; then three rival defenders peel off from our Central toward them: the job */
+    var IN = {x:270, y:-16};
+    if(SIMQ){  /* the rival's Lesser: its garrison, defenders from their Central, their respawn */
+      SIMQ.c = Mp(C); SIMQ.R = R; SIMQ.entry = Mp(IN); SIMQ.max = 8; SIMQ.eye = Mp(P(-142,.9));
+      SIMQ.def = {from:Mp({x:4, y:28}), to:Mp(P(-140,.7)), sp:66, spread:60};
+      SIMQ.resp = {from:Mp({x:548, y:606}), to:Mp(P(45,.62)), sp:60, spread:60};
+    }
+    mv(IN, 0, 'IL', 'il');
     [[200,.24],[330,.22],[90,.24]].forEach(function(z){ s += ship(P(z[0],z[1]), z[0], HUNT, 'active', 1.15); });
     s += label({x:C.x, y:C.y-50}, tag('IL',15), NAME.h, 24, 'middle', 200);
+    mv(IN, .25, 'I2', 'i2');
     [[-160,.62],[-142,.7],[-124,.62]].forEach(function(z){ s += ship(P(z[0],z[1]), z[0], SCOUT, 'active', 1.1); });
     var eye = Mp(P(-142,.9));
     s += '<g transform="translate('+f(eye.x)+' '+f(eye.y)+')"><ellipse rx="10" ry="6" fill="none" stroke="#dcc6ff" stroke-width="2"/><circle r="2.6" fill="#dcc6ff"/></g>';
     s += label({x:58, y:310}, tag('I2',16), NAME.s, 22, 'start', 150);
+    s += pulse(P(-142,.9), 16, SCOUT);
+    mv(null);
     return s + credit();
   }
 
@@ -742,10 +823,13 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
       if(txt){ s += label({x:hx + (q[0] < 180 ? -22 : 22), y:hy + (q[1] < 180 ? 36 : -24)}, txt, j === 0 ? '#eef7ff' : '#ff9aa5', 15, q[0] < 180 ? 'start' : 'end', 190, true); }
     });
     var ox = fx(o[0]), oy = fy(o[1]), tx = fx(first[0]), ty = fy(first[1]), steps = Math.floor(Math.hypot(tx - ox, ty - oy) / 12);
-    for(var i = 2; i < steps - 3; i++){ s += '<circle cx="'+f(ox + (tx - ox)*i/steps)+'" cy="'+f(oy + (ty - oy)*i/steps)+'" r="3" fill="#4ea6ef"/>'; }
+    /* Deploy: the route runs out from our outpost dot by dot, then the Lessers we take pulse, nearest first */
+    for(var i = 2; i < steps - 3; i++){ s += '<circle class="dot" style="--d:'+f((i-2)*.09)+'s" cx="'+f(ox + (tx - ox)*i/steps)+'" cy="'+f(oy + (ty - oy)*i/steps)+'" r="3" fill="#4ea6ef"/>'; }
+    var reach = f(Math.max(0, steps - 6)*.09 + .3);
     Object.keys(FIELD).forEach(function(id){
       var p = FIELD[id], x = fx(p[0]), y = fy(p[1]), central = id[0] === 'C', r = central ? 32 : 20, mark = lit[id], faded = id === CEN[corner];
-      if(mark){ s += '<circle cx="'+f(x)+'" cy="'+f(y)+'" r="'+(r+9)+'" fill="none" stroke="#a8ead2" stroke-width="2" stroke-dasharray="6 6"/>'; }
+      if(mark){ s += '<circle cx="'+f(x)+'" cy="'+f(y)+'" r="'+(r+9)+'" fill="none" stroke="#a8ead2" stroke-width="2" stroke-dasharray="6 6"/>'
+        + '<circle class="pulse" style="--d:'+f(+reach + (mark === t('m4.nearest') ? 0 : .6))+'s;--pd:0s" cx="'+f(x)+'" cy="'+f(y)+'" r="'+(r+9)+'" fill="none" stroke="#a8ead2" stroke-width="3"/>'; }
       s += '<circle cx="'+f(x)+'" cy="'+f(y)+'" r="'+r+'" fill="'+(mark ? '#12324a' : '#232d2c')+'" stroke="'+(mark ? '#a8ead2' : faded ? '#3b5551' : '#8a9897')+'" stroke-width="'+(mark ? 3 : 2)+'"/>';
       s += '<text x="'+f(x)+'" y="'+f(y + r*.38)+'" text-anchor="middle" font-size="'+f(r*1.05)+'" font-weight="700" fill="'+(mark ? '#e2ece8' : faded ? '#5d837a' : '#9aa8a6')+'">'+ROMAN[id]+'</text>';
       if(mark || faded){
@@ -777,6 +861,351 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
     return s;
   }
 
+  /* ---------- Battle sim (owner 2026-11-19: "real and organic ... how each ship and player should be moving, attacking", and
+     a player looking at their own role sees their own fleets, not a clump). The ships move on a canvas between the map and
+     its names: they fly in from where they come from, then each job does what the plan says. Hunters pick off the weakest in
+     their own zone and gang up on the Commander's mark; the Pack moves as one blob and fires volleys; Rim fleets park their two
+     weakest just inside the edge while the strongest darts at damaged ships nearby, never past the dashed line; the Commander
+     circles the Vault and marks the weakest rival. Proximity's Guards fight inside their own Lesser and the Captain swings to
+     A when A is hit harder. Infiltration grinds the garrison down and keeps the defenders busy at the rim. Rival ships come in,
+     shoot back, take hits and break up. Follow a slot (your own, or a tapped one) and its fleets light up with trails while
+     the rest dim. Runs only while the map is on screen; reduced motion keeps the still map. */
+  var SIMQ = null, sim = null, FOCUS = '', NOFOLLOW = false;
+  function rnd(s){ var x = Math.sin(s*127.1 + 311.7)*43758.5453; return x - Math.floor(x); }
+  function dist(a, b){ return Math.hypot(a.x - b.x, a.y - b.y); }
+  function turn(a, b, k){ var d = Math.atan2(Math.sin(b - a), Math.cos(b - a)); return a + d*Math.min(1, k); }
+  function steer(e, tx, ty, max, dt, slow){
+    var dx = tx - e.x, dy = ty - e.y, d = Math.hypot(dx, dy) || .001, sp = slow && d < slow ? max*d/slow : max, k = Math.min(1, dt*3.4);
+    e.vx += (dx/d*sp - e.vx)*k; e.vy += (dy/d*sp - e.vy)*k;
+  }
+  function inCircle(p, c, r){ return Math.hypot(p.x - c.x, p.y - c.y) < r; }
+  function foeBy(S, p, maxD, pred, weakest){
+    var best = null, bs = 1e9;
+    S.foes.forEach(function(f){
+      if(f.hp <= 0 || (pred && !pred(f))) return;
+      var d = dist(p, f); if(d > maxD) return;
+      var sc = weakest ? f.hp*1000 + d : d; if(sc < bs){ bs = sc; best = f; }
+    });
+    return best;
+  }
+  function oursNear(S, p, maxD){ var best = null, bd = maxD; S.ours.forEach(function(o){ if(!o.vis) return; var d = dist(p, o); if(d < bd){ bd = d; best = o; } }); return best; }
+  function wanderAt(e, t, cx, cy, r, keep){
+    if(t >= e.wT){
+      var a = Math.random()*6.283, d = Math.sqrt(Math.random())*r, x = cx + Math.cos(a)*d, y = cy + Math.sin(a)*d;
+      if(keep){ var k = Math.hypot(x - keep.c.x, y - keep.c.y); if(k > keep.r){ x = keep.c.x + (x - keep.c.x)*keep.r/k; y = keep.c.y + (y - keep.c.y)*keep.r/k; } }
+      e.wx = x; e.wy = y; e.wT = t + 1.4 + Math.random()*1.8;
+    }
+  }
+  function shoot(S, e, f, color){
+    S.shots.push({x1:e.x, y1:e.y, x2:f.x + (Math.random() - .5)*7, y2:f.y + (Math.random() - .5)*7, t:.17, c:color});
+    f.hp -= 1; f.hit = .15;
+    if(f.hp <= 0){
+      var called = S.call === f;
+      S.fx.push({x:f.x, y:f.y, t:0, c:called ? '#f2c14e' : '#ffb3ba', big:f.kind === 'whale' || called ? 1 : 0});
+      if(called){ S.call = null; S.callGap = .4; S.downs = (S.downs || 0) + 1; }
+    }
+  }
+  /* rivals come in squads: three weak fleets, a stronger one with two weak escorts, or now and then a whale with three weak
+     escorts. Weak ones fall in a couple of hits; the whale takes many, which is why we thin its escorts first */
+  var KIND = {weak:{hp:3, sc:.85, sp:1.3}, mid:{hp:6, sc:1, sp:1.1}, whale:{hp:24, sc:1.6, sp:.8}};
+  function spawn(S, src, n, kind, lead, k0){
+    for(var i = 0; i < n; i++){
+      var K = KIND[kind || 'weak'];
+      S.foes.push({x:src.from.x + (Math.random() - .5)*34, y:src.from.y + (Math.random() - .5)*34, vx:0, vy:0, ang:Math.atan2(src.to.y - src.from.y, src.to.x - src.from.x),
+        kind:kind || 'weak', hp:K.hp, max:K.hp, sc:K.sc, cd:1.1 + Math.random()*1.2, hit:0, spd:(src.sp || 60)*K.sp*(.85 + Math.random()*.3), bx:src.to.x, by:src.to.y,
+        spread:src.spread || 90, tx:src.to.x + (Math.random() - .5)*60, ty:src.to.y + (Math.random() - .5)*60, wT:0, lead:lead || null, oa:((k0 || 0) + i)*2.1, seed:Math.random()*6.283});
+    }
+    return S.foes[S.foes.length - 1];
+  }
+  function spawnSquad(S, src){
+    var r = Math.random(), l, nw = S.foes.filter(function(f){ return f.kind === 'whale'; }).length;
+    if(r < .2 && nw < 2){ l = spawn(S, src, 1, 'whale'); spawn(S, src, 3, 'weak', l, 0); }  /* at most two whales at a time */
+    else if(r < .6){ l = spawn(S, src, 1, 'mid'); spawn(S, src, 2, 'weak', l, 1); }
+    else spawn(S, src, 3, 'weak');
+  }
+  function simMount(host){
+    var q = SIMQ, svg = host.querySelector('svg');
+    /* no 2D canvas (a phone past its canvas memory can refuse one): no sim, and armMotion draws the still map */
+    var cv = document.createElement('canvas'), ctx = cv.getContext('2d'); if(!ctx) return null;
+    cv.className = 'simcv'; cv.setAttribute('aria-hidden', 'true');
+    /* the names go on a copy of the map laid over the canvas, so moving ships never cover them */
+    var lab = svg.cloneNode(true); lab.setAttribute('class', 'simlab'); lab.setAttribute('aria-hidden', 'true'); lab.removeAttribute('role'); lab.removeAttribute('aria-label');
+    [].slice.call(lab.childNodes).forEach(function(n){ if(n.nodeName !== 'text') lab.removeChild(n); });
+    /* the originals stay hidden underneath; without their class they no longer run the label fade */
+    [].slice.call(svg.childNodes).forEach(function(n){ if(n.nodeName === 'text'){ n.style.visibility = 'hidden'; n.removeAttribute('class'); } });
+    host.appendChild(cv); host.appendChild(lab);
+    var S = {q:q, host:host, svg:svg, cv:cv, lab:lab, ctx:ctx, ours:[], foes:[], shots:[], fx:[], on:false, raf:0, last:0, t:0};
+    q.ours.forEach(function(o, i){
+      var e = {}; for(var k in o) e[k] = o[k];
+      e.i = i; e.home = {x:o.x, y:o.y}; e.ph = rnd(i + 1)*6.283; e.rate = .78 + rnd(i*2.3)*.44;
+      e.cc = q.team === 2 ? ((o.code === 'GA' || o.code === 'RA') ? q.A : q.B) : q.c;
+      e.cr = q.team === 2 ? q.r2 : q.R;
+      if(o.beh === 'rim') e.beh = o.mode === 'parked' ? 'parked' : 'rimx';
+      if(o.beh === 'pack') e.off = {x:o.x - q.pack.x, y:o.y - q.pack.y};
+      if(o.beh === 'hunter') e.zone = q.zones[o.code];
+      S.ours.push(e);
+    });
+    simSize(S);
+    return S;
+  }
+  function simSize(S){
+    /* an <svg> has no offsetLeft/offsetTop: place the layers from the boxes, inside the map's border */
+    var r = S.svg.getBoundingClientRect(), hr = S.host.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
+    var x = r.left - hr.left - S.host.clientLeft, y = r.top - hr.top - S.host.clientTop;
+    S.k = r.width / 540; S.dpr = dpr;
+    [S.cv, S.lab].forEach(function(n){ n.style.left = x + 'px'; n.style.top = y + 'px'; n.style.width = r.width + 'px'; n.style.height = r.height + 'px'; });
+    /* reallocate only on a real change: phones fire a resize each time the address bar shows or hides */
+    var w = Math.max(1, Math.round(r.width*dpr)), h = Math.max(1, Math.round(r.height*dpr));
+    if(S.cv.width !== w) S.cv.width = w;
+    if(S.cv.height !== h) S.cv.height = h;
+  }
+  function simReset(S){
+    var q = S.q;
+    S.t = 0; S.foes = []; S.shots = []; S.fx = []; S.spawnT = 1.6; S.callT = 3; S.call = null; S.callGap = 0; S.downs = 0; S.wave1 = false; S.wave = 3.6; S.eye = 0; S.gar = 100; S.garT = 0; S.garHit = 0;
+    S.pc = q.pack ? {x:q.pack.x, y:q.pack.y} : null; S.swing = false;
+    S.ours.forEach(function(e, i){
+      e.x = q.entry.x + (rnd(i*7.1) - .5)*40; e.y = q.entry.y + (rnd(i*3.7) - .5)*40; e.vx = 0; e.vy = 0; e.vis = 0;
+      e.ang = Math.atan2(e.home.y - e.y, e.home.x - e.x); e.cd = .5 + rnd(i*5.3)*1.2; e.tr = []; e.trT = 0; e.hit = 0; e.wT = 0; e.wx = e.home.x; e.wy = e.home.y;
+    });
+  }
+  function stepOurs(S, e, dt){
+    var q = S.q, t = S.t;
+    if(t < e.d){ e.vis = 0; return; }
+    e.vis = Math.min(1, (t - e.d)*2.6); e.cd -= dt; e.hit = Math.max(0, e.hit - dt);
+    var tx = e.home.x, ty = e.home.y, max = e.beh === 'parked' ? 95 : 120, slow = 45, tgt = null, rng = 0, a;
+    if(t > e.d + 1.7){
+      switch(e.beh){
+        case 'parked':
+          tx += Math.sin(t*.9 + e.ph)*1.8; ty += Math.cos(t*.7 + e.ph)*1.8; max = 30; break;
+        case 'rimx':
+          /* the Commander's mark when it comes past the rim, else a damaged ship close by; never inside the dashed line */
+          tgt = (S.call && S.call.hp > 0 && dist(S.call, e.home) < 115 && dist(S.call, e.cc) > (q.lim || 0)) ? S.call
+            : foeBy(S, e.home, 90, function(f){ var d = dist(f, e.cc); return f.hp < f.max && d < e.cr && (q.team === 2 || d > q.lim); }, true);
+          if(tgt){ a = Math.atan2(e.y - tgt.y, e.x - tgt.x); tx = tgt.x + Math.cos(a)*36; ty = tgt.y + Math.sin(a)*36; rng = 58; max = 135; slow = 20; }
+          else { wanderAt(e, t, e.home.x, e.home.y, 15); tx = e.wx; ty = e.wy; max = 40; }
+          break;
+        case 'hunter':
+          tgt = (S.call && S.call.hp > 0 && dist(S.call, e) < 230) ? S.call : (foeBy(S, e.zone, 125, function(f){ return f.kind !== 'whale'; }, true)
+            /* g1.p "Group up only on a whale": nothing weak in their zones, so the Hunters gang up on a whale whose escorts are gone */
+            || foeBy(S, q.c, q.R, function(f){ return f.kind === 'whale' && !S.foes.some(function(g){ return g.lead === f && g.hp > 0; }); }, true));
+          if(tgt){ a = Math.atan2(e.y - tgt.y, e.x - tgt.x) + Math.sin(t*1.3 + e.ph)*.7; tx = tgt.x + Math.cos(a)*46; ty = tgt.y + Math.sin(a)*46; rng = 70; max = 140; slow = 18; }
+          else { wanderAt(e, t, e.zone.x, e.zone.y, 72, {c:q.c, r:q.R*.86}); tx = e.wx; ty = e.wy; max = 55; }
+          break;
+        case 'cmd':
+          a = t*.42*(e.i % 2 ? 1 : -1) + e.ph; tx = q.c.x + Math.cos(a)*(48 + Math.sin(t*.8 + e.ph)*7); ty = q.c.y + Math.sin(a)*(48 + Math.sin(t*.8 + e.ph)*7); max = 65; slow = 18;
+          tgt = (S.call && S.call.hp > 0 && dist(S.call, e) < 110) ? S.call : foeBy(S, e, 82); rng = 100;
+          break;
+        case 'pack':
+          tx = S.pc.x + e.off.x + Math.sin(t*1.7 + e.ph)*3; ty = S.pc.y + e.off.y + Math.cos(t*1.4 + e.ph)*3; max = 100; slow = 22;
+          tgt = (S.call && S.call.hp > 0 && dist(S.call, e) < 120) ? S.call : foeBy(S, e, 88, function(f){ return f.kind !== 'whale'; }, true); rng = 115;
+          break;
+        case 'guard':
+          tgt = foeBy(S, e.cc, e.cr + 10, null, true);
+          if(tgt){ a = Math.atan2(e.y - tgt.y, e.x - tgt.x) + Math.sin(t + e.ph)*.6; tx = tgt.x + Math.cos(a)*40; ty = tgt.y + Math.sin(a)*40; rng = 62; max = 120; slow = 18;
+            var gk = Math.hypot(tx - e.cc.x, ty - e.cc.y), gr = e.cr*.9; if(gk > gr){ tx = e.cc.x + (tx - e.cc.x)*gr/gk; ty = e.cc.y + (ty - e.cc.y)*gr/gk; } }  /* t2.guard.p: "never leave the circle" */
+          else { wanderAt(e, t, e.home.x, e.home.y, 20, {c:e.cc, r:e.cr*.85}); tx = e.wx; ty = e.wy; max = 42; }
+          break;
+        case 'cap':
+          var cc = S.swing ? q.A : q.B;
+          tgt = foeBy(S, cc, q.r2 + 10, null, true);
+          if(tgt){ a = Math.atan2(e.y - tgt.y, e.x - tgt.x) + Math.sin(t + e.ph)*.6; tx = tgt.x + Math.cos(a)*40; ty = tgt.y + Math.sin(a)*40; rng = 64; max = 130; slow = 18; }
+          else if(S.swing){ wanderAt(e, t, q.A.x, q.A.y, 40); tx = e.wx; ty = e.wy; max = 120; }
+          else { wanderAt(e, t, e.home.x, e.home.y, 16); tx = e.wx; ty = e.wy; max = 110; }
+          break;
+        case 'il':
+          tgt = foeBy(S, q.c, q.R*.8, null, true);  /* the weakest defender near the Vault, not near wherever the Lead has drifted */
+          if(tgt){ a = Math.atan2(e.y - tgt.y, e.x - tgt.x) + Math.sin(t*1.1 + e.ph)*.9; tx = tgt.x + Math.cos(a)*62; ty = tgt.y + Math.sin(a)*62; rng = 82; max = 125; slow = 18; }
+          else {
+            a = t*.55 + e.ph; tx = q.c.x + Math.cos(a)*56; ty = q.c.y + Math.sin(a)*56; max = 70; slow = 18;
+            if(e.cd <= 0 && S.gar > 0 && S.garT <= 0){
+              S.shots.push({x1:e.x, y1:e.y, x2:q.c.x + (Math.random() - .5)*16, y2:q.c.y + (Math.random() - .5)*16, t:.17, c:e.color});
+              S.gar = Math.max(0, S.gar - 3.2); S.garHit = .14; e.cd = .55*e.rate;
+            }
+          }
+          break;
+        case 'i2':
+          tgt = foeBy(S, e.home, 110, null, true);  /* defenders arriving on I2's side */
+          if(tgt){ a = Math.atan2(e.y - tgt.y, e.x - tgt.x) + Math.sin(t*1.2 + e.ph)*.8; tx = tgt.x + Math.cos(a)*72; ty = tgt.y + Math.sin(a)*72; rng = 88; max = 130; slow = 18; }
+          else { wanderAt(e, t, e.home.x, e.home.y, 16); tx = e.wx; ty = e.wy; max = 40; }
+          break;
+      }
+    }
+    tx = Math.max(14, Math.min(526, tx)); ty = Math.max(14, Math.min(586, ty));  /* every fleet's goal stays on the map */
+    e.gx = tx; e.gy = ty;
+    steer(e, tx, ty, max, dt, slow);
+    var sp = Math.hypot(e.vx, e.vy); if(sp > max){ e.vx *= max/sp; e.vy *= max/sp; sp = max; }
+    e.x += e.vx*dt; e.y += e.vy*dt;
+    e.ang = turn(e.ang, sp > 14 ? Math.atan2(e.vy, e.vx) : tgt ? Math.atan2(tgt.y - e.y, tgt.x - e.x) : e.homeAng, dt*5);
+    if(tgt && rng && e.cd <= 0 && dist(e, tgt) < rng){ shoot(S, e, tgt, e.color); e.cd = (e.beh === 'pack' ? 1.6 : 1.15)*e.rate; }
+    e.trT -= dt; if(e.trT <= 0){ e.tr.push(e.x, e.y); if(e.tr.length > 30) e.tr.splice(0, 2); e.trT = .07; }
+  }
+  function stepFoe(S, f, dt){
+    var q = S.q, t = S.t, tx = f.tx, ty = f.ty, a;
+    f.hit = Math.max(0, f.hit - dt); f.cd -= dt;
+    if(f.lead && f.lead.hp > 0){ tx = f.lead.x + Math.cos(f.oa + t*.5)*30; ty = f.lead.y + Math.sin(f.oa + t*.5)*30; }  /* escorts stay on their leader */
+    else if(q.team === 3){ var o = oursNear(S, f, 420); if(o){ a = Math.atan2(f.y - o.y, f.x - o.x) + Math.sin(t + f.bx)*.5; tx = o.x + Math.cos(a)*58; ty = o.y + Math.sin(a)*58; } }
+    else if(t >= f.wT && Math.hypot(f.x - f.tx, f.y - f.ty) < 30){ f.tx = f.bx + (Math.random() - .5)*f.spread; f.ty = f.by + (Math.random() - .5)*f.spread; f.wT = t + 1.2 + Math.random()*2; }
+    steer(f, tx, ty, f.spd, dt, 30);
+    var sp = Math.hypot(f.vx, f.vy); if(sp > f.spd){ f.vx *= f.spd/sp; f.vy *= f.spd/sp; }
+    f.x += f.vx*dt; f.y += f.vy*dt; f.ang = turn(f.ang, sp > 10 ? Math.atan2(f.vy, f.vx) : f.ang, dt*4);
+    var o2 = oursNear(S, f, 86);
+    if(o2 && f.cd <= 0){ S.shots.push({x1:f.x, y1:f.y, x2:o2.x, y2:o2.y, t:.14, c:'#ff6b7a'}); o2.hit = .18; f.cd = 1.3 + Math.random()*1.3; }
+  }
+  function simStep(S, dt){
+    var q = S.q, all = S.ours.concat(S.foes);
+    S.t += dt;
+    /* the first wave hits right as we deploy: two squads at once, from two directions */
+    if(!S.wave1 && S.t > 1.2 && q.team !== 3){ S.wave1 = true; spawnSquad(S, q.foes[0]); spawnSquad(S, q.foes[1] || q.foes[0]); }
+    if(S.t > 2.4){
+      if(q.team === 3){
+        S.wave -= dt; if(S.wave <= 0){ if(S.foes.length < q.max){ spawn(S, q.def, Math.random() < .5 ? 3 : 4); if(Math.random() < .4) spawn(S, q.def, 1, 'mid'); S.eye = 1.6; } S.wave = 6 + Math.random()*3; }
+        if(Math.random() < dt*.05 && S.foes.length < q.max) spawn(S, q.resp, 1);
+      } else {
+        S.spawnT -= dt;
+        if(S.spawnT <= 0){
+          if(S.foes.length <= q.max - 3){ var tot = 0, pick = null; q.foes.forEach(function(x){ tot += x.w; }); var r = Math.random()*tot; q.foes.forEach(function(x){ if(!pick && (r -= x.w) < 0) pick = x; }); spawnSquad(S, pick || q.foes[0]); }
+          S.spawnT = 1.3 + Math.random()*1.3;
+        }
+      }
+    }
+    if(q.team === 1){
+      /* the Commander marks the weakest rival in our circle (never the whale); the mark stays until it falls, then the next */
+      S.callGap = Math.max(0, S.callGap - dt);
+      if(S.call && (S.call.hp <= 0 || !inCircle(S.call, q.c, q.R))) S.call = null;
+      if(!S.call && S.callGap <= 0) S.call = foeBy(S, q.c, q.R, function(f){ return f.kind !== 'whale'; }, true);
+      var goal = (S.call && S.call.hp > 0) ? S.call : foeBy(S, S.pc, 210, function(f){ return inCircle(f, q.c, q.R); }), gx = q.pack.x, gy = q.pack.y;
+      if(goal){ var ga = Math.atan2(S.pc.y - goal.y, S.pc.x - goal.x); gx = goal.x + Math.cos(ga)*58; gy = goal.y + Math.sin(ga)*58; }
+      var gd = Math.hypot(gx - q.c.x, gy - q.c.y); if(gd > q.R*.7){ gx = q.c.x + (gx - q.c.x)*q.R*.7/gd; gy = q.c.y + (gy - q.c.y)*q.R*.7/gd; }
+      var mx = gx - S.pc.x, my = gy - S.pc.y, md = Math.hypot(mx, my); if(md > 1){ var m = Math.min(md, 44*dt); S.pc.x += mx/md*m; S.pc.y += my/md*m; }
+    }
+    if(q.team === 2){
+      var na = S.foes.filter(function(f){ return inCircle(f, q.A, q.r2); }).length, nb = S.foes.filter(function(f){ return inCircle(f, q.B, q.r2); }).length;
+      if(na >= 2 && na > nb) S.swing = true; else if(!na) S.swing = false;
+    }
+    if(q.team === 3){
+      S.eye = Math.max(0, S.eye - dt); S.garHit = Math.max(0, S.garHit - dt);
+      if(S.gar <= 0 && S.garT <= 0){ S.garT = 2.8; S.fx.push({x:q.c.x, y:q.c.y, t:0, c:'#f2c14e', big:1}); }
+      if(S.garT > 0){ S.garT -= dt; if(S.garT <= 0) S.gar = 100; }
+    }
+    S.ours.forEach(function(e){ stepOurs(S, e, dt); });
+    S.foes.forEach(function(f){ stepFoe(S, f, dt); });
+    /* ships keep a little room from each other */
+    for(var i = 0; i < all.length; i++){ for(var j = i + 1; j < all.length; j++){
+      var a = all[i], b = all[j]; if(a.vis === 0 || b.vis === 0) continue;
+      var dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy);
+      if(d > 0 && d < 16){ var p = (16 - d)/16*40*dt; a.x -= dx/d*p; a.y -= dy/d*p; b.x += dx/d*p; b.y += dy/d*p; }
+    } }
+    S.foes = S.foes.filter(function(f){ return f.hp > 0; });
+    S.shots = S.shots.filter(function(s){ return (s.t -= dt) > 0; });
+    S.fx = S.fx.filter(function(x){ return (x.t += dt) < (x.big ? .9 : .6); });
+  }
+  function shipPath(ctx){ ctx.beginPath(); ctx.moveTo(0,-11); ctx.lineTo(9,10); ctx.lineTo(0,5); ctx.lineTo(-9,10); ctx.closePath(); }
+  /* a fleet is a small wedge of ships flying together, as in the game: a lead and two wingmen that sway a little */
+  function drawShip(ctx, x, y, ang, sc, fillC, strokeC, lw, seed, t){
+    ctx.save(); ctx.translate(x, y); ctx.rotate(ang + Math.PI/2);
+    var sw = seed == null ? 0 : Math.sin(t*3.1 + seed)*1.3, wing = [[-7, 9 + sw, .5], [7, 9 - sw, .5], [0, 0, .78]];
+    wing.forEach(function(w){
+      ctx.save(); ctx.translate(w[0], w[1]); ctx.scale(sc*w[2], sc*w[2]); shipPath(ctx);
+      if(fillC){ ctx.fillStyle = fillC; ctx.fill(); } if(strokeC){ ctx.lineWidth = lw/(w[2]*1.1); ctx.strokeStyle = strokeC; ctx.stroke(); }
+      ctx.restore();
+    });
+    ctx.restore();
+  }
+  function simDraw(S){
+    var ctx = S.ctx, k = S.k*S.dpr, q = S.q, t = S.t;
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, S.cv.width, S.cv.height); ctx.setTransform(k, 0, 0, k, 0, 0);
+    if(q.team === 3){  /* the garrison's health, ground down by the Lead */
+      ctx.lineWidth = 5; ctx.strokeStyle = 'rgba(255,255,255,.12)'; ctx.beginPath(); ctx.arc(q.c.x, q.c.y, 36, 0, 6.283); ctx.stroke();
+      ctx.strokeStyle = S.garHit > 0 ? '#ffffff' : '#ee5a69'; ctx.beginPath(); ctx.arc(q.c.x, q.c.y, 36, -Math.PI/2, -Math.PI/2 + 6.283*S.gar/100); ctx.stroke();
+      if(S.eye > 0){ var ep = 1 - S.eye/1.6; ctx.globalAlpha = S.eye/1.6; ctx.strokeStyle = '#dcc6ff'; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.arc(q.eye.x, q.eye.y, 10 + ep*34, 0, 6.283); ctx.stroke(); ctx.globalAlpha = 1; }
+    }
+    if(S.call && S.call.hp > 0){  /* the Commander's mark: a gold call line from the Commander's nearest fleet, and a crosshair */
+      var cm = null, cd = 1e9;
+      S.ours.forEach(function(e){ if(e.beh === 'cmd' && e.vis){ var d = dist(e, S.call); if(d < cd){ cd = d; cm = e; } } });
+      if(cm){ ctx.globalAlpha = .55 + Math.sin(t*8)*.2; ctx.strokeStyle = '#f2c14e'; ctx.lineWidth = 1.8; ctx.setLineDash([7, 5]); ctx.lineDashOffset = -t*30;
+        ctx.beginPath(); ctx.moveTo(cm.x, cm.y); ctx.lineTo(S.call.x, S.call.y); ctx.stroke(); ctx.lineDashOffset = 0; ctx.globalAlpha = 1; }
+      var mr = 19*(S.call.sc || 1);
+      ctx.save(); ctx.translate(S.call.x, S.call.y); ctx.rotate(t*2); ctx.strokeStyle = '#f2c14e'; ctx.lineWidth = 2.4; ctx.setLineDash([5, 5]); ctx.beginPath(); ctx.arc(0, 0, mr, 0, 6.283); ctx.stroke();
+      ctx.setLineDash([]); for(var ti = 0; ti < 4; ti++){ ctx.rotate(Math.PI/2); ctx.beginPath(); ctx.moveTo(mr + 3, 0); ctx.lineTo(mr + 10, 0); ctx.stroke(); }
+      ctx.restore();
+    }
+    ctx.setLineDash([]);
+    S.ours.forEach(function(e){
+      if(!e.vis || e.tr.length < 4) return;
+      var foc = FOCUS && e.code === FOCUS; if(FOCUS && !foc) return;
+      ctx.globalAlpha = (foc ? .6 : .16)*e.vis; ctx.strokeStyle = foc ? '#ffffff' : e.color; ctx.lineWidth = foc ? 2.2 : 1.4;
+      ctx.beginPath(); ctx.moveTo(e.tr[0], e.tr[1]); for(var i = 2; i < e.tr.length; i += 2) ctx.lineTo(e.tr[i], e.tr[i+1]); ctx.lineTo(e.x, e.y); ctx.stroke();
+    });
+    ctx.globalAlpha = 1;
+    /* move orders: a fleet heading somewhere far shows its course as a thin dashed line, as the game draws it */
+    ctx.setLineDash([3, 6]);
+    S.ours.forEach(function(e){
+      if(!e.vis || e.gx == null) return;
+      var foc = FOCUS && e.code === FOCUS, d = Math.hypot(e.gx - e.x, e.gy - e.y); if(d < 60 || (FOCUS && !foc)) return;
+      ctx.globalAlpha = Math.min(1, (d - 60)/80)*(foc ? .75 : .22)*e.vis; ctx.strokeStyle = foc ? '#9dffb4' : '#e8f4ff'; ctx.lineWidth = foc ? 1.6 : 1.1;
+      ctx.beginPath(); ctx.moveTo(e.x, e.y); ctx.lineTo(e.gx, e.gy); ctx.stroke();
+    });
+    ctx.setLineDash([]); ctx.globalAlpha = 1;
+    S.foes.forEach(function(f){
+      if(f.kind === 'whale'){ ctx.fillStyle = 'rgba(255,59,79,.16)'; ctx.beginPath(); ctx.arc(f.x, f.y, 30, 0, 6.283); ctx.fill(); }
+      drawShip(ctx, f.x, f.y, f.ang, f.sc || 1, f.hit > 0 ? '#ffffff' : f.kind === 'whale' ? '#ff3b4f' : '#ee5a69', '#2a0a10', f.kind === 'whale' ? 1.6 : 1.2, f.seed, t);
+      if(f.hp < f.max){ ctx.strokeStyle = '#ff9aa5'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(f.x, f.y, 14*(f.sc || 1), -Math.PI/2, -Math.PI/2 + 6.283*f.hp/f.max); ctx.stroke(); }
+    });
+    S.ours.slice().sort(function(a, b){ return (a.code === FOCUS) - (b.code === FOCUS); }).forEach(function(e){
+      if(!e.vis) return;
+      var foc = FOCUS && e.code === FOCUS, sc = e.sc*(foc ? 1.2 : 1);
+      ctx.globalAlpha = e.vis*(FOCUS && !foc ? .26 : 1);
+      if(foc){ ctx.strokeStyle = '#58e07a'; ctx.lineWidth = 2.4; ctx.fillStyle = 'rgba(88,224,122,.14)'; ctx.beginPath(); ctx.arc(e.x, e.y, 19, 0, 6.283); ctx.fill(); ctx.stroke(); }
+      if(e.mode === 'parked') drawShip(ctx, e.x, e.y, e.ang, sc, '#0b2f2a', e.color, 2.6, e.ph, t);
+      else drawShip(ctx, e.x, e.y, e.ang, sc, e.hit > 0 ? '#ffffff' : e.color, '#06201c', 1.2, e.ph, t);
+    });
+    ctx.globalAlpha = 1;
+    S.shots.forEach(function(s){
+      ctx.globalAlpha = Math.min(1, s.t/.12); ctx.strokeStyle = s.c; ctx.lineWidth = 2.2; ctx.beginPath(); ctx.moveTo(s.x1, s.y1); ctx.lineTo(s.x2, s.y2); ctx.stroke();
+      ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(s.x2, s.y2, 2.4, 0, 6.283); ctx.fill();
+    });
+    S.fx.forEach(function(x){
+      var dur = x.big ? .9 : .6, p = x.t/dur, R1 = x.big ? 46 : 22, i, a;
+      ctx.globalAlpha = 1 - p; ctx.strokeStyle = x.c; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(x.x, x.y, 4 + p*R1, 0, 6.283); ctx.stroke();
+      for(i = 0; i < 7; i++){ a = i*.898 + x.x; ctx.beginPath(); ctx.moveTo(x.x + Math.cos(a)*(3 + p*R1*.4), x.y + Math.sin(a)*(3 + p*R1*.4)); ctx.lineTo(x.x + Math.cos(a)*(6 + p*R1*.85), x.y + Math.sin(a)*(6 + p*R1*.85)); ctx.stroke(); }
+    });
+    ctx.globalAlpha = 1;
+  }
+  function simFrame(now){
+    var S = sim; if(!S) return;
+    if(!S.on){ S.raf = 0; return; }
+    var dt = S.last ? Math.min(.05, (now - S.last)/1000) : .016; S.last = now;
+    simStep(S, dt); simDraw(S);
+    S.raf = requestAnimationFrame(simFrame);
+  }
+  function simRun(S, on){ S.on = on; if(on && !S.raf){ S.last = 0; S.raf = requestAnimationFrame(simFrame); } }
+  /* a zero-size canvas hands its memory back at once (iOS counts it until the garbage collector runs) */
+  function simStop(){ if(sim){ sim.on = false; if(sim.raf) cancelAnimationFrame(sim.raf); sim.raf = 0; sim.cv.width = sim.cv.height = 0; sim = null; } }
+  window.addEventListener('resize', function(){ if(sim) simSize(sim); });
+  document.addEventListener('visibilitychange', function(){ if(sim) simRun(sim, !document.hidden && sim.seen); });
+  /* follow one slot: its fleets light up with trails, the others dim; tap the slot again, or Show everyone, to stop */
+  function slotTitle(code){ var r = null; for(var k in SLOTS){ SLOTS[k].forEach(function(s){ if(s[0] === code) r = t('ti.'+s[2]) + s[3]; }); } return r; }
+  function showFocus(){
+    var cap = document.getElementById('simcap'); if(!cap) return;
+    document.querySelectorAll('#team .slot[data-code]').forEach(function(el){
+      var on = el.getAttribute('data-code') === FOCUS; el.classList.toggle('focus', on); el.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    if(!FOCUS){ cap.innerHTML = '<span class="hint">'+esc(t('tp.follow'))+'</span>'; return; }
+    cap.innerHTML = '<span class="code">'+esc(FOCUS)+'</span><b>'+esc(slotTitle(FOCUS) || '')+'</b><button type="button" class="all">'+esc(t('tp.all'))+'</button>';
+    cap.querySelector('.all').addEventListener('click', function(){
+      /* "Show everyone" holds until the reader picks a slot or a name; focus goes to the slot they were following */
+      var was = document.querySelector('#team .slot[data-code="'+FOCUS+'"]');
+      FOCUS = ''; NOFOLLOW = true; showFocus();
+      if(was){ try{ was.focus({preventScroll:true}); }catch(x){ was.focus(); } }
+    });
+  }
+  function setFocus(code){
+    FOCUS = FOCUS === code ? '' : code; NOFOLLOW = !FOCUS; showFocus();
+    var m = document.querySelector('#team .map');
+    if(FOCUS && m){ try{ m.scrollIntoView({behavior:'smooth', block:'center'}); }catch(x){ m.scrollIntoView(); } }
+  }
+
   /* ---------- team panel ---------- */
   var TEAM = {
     1:{lede:'t1.lede', map:map1, fill:'fill.t1',
@@ -801,7 +1230,13 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
     hiText = ms && ms.team === team ? tag(ms.code, mi) : null;
     h += '<h2 class="gt">'+(team === 4 ? esc(t('t4.tab'))+' · '+esc(t('t4.name')) : esc(t('tp.team'))+' '+team+' · '+esc(t(NAMES['r'+team])))+'</h2><div class="rule"></div>';
     h += '<p class="lede">'+fill(t(D.lede))+'</p>';
-    h += '<div class="map"><svg viewBox="0 0 540 600" role="img" aria-label="'+(team === 4 ? 'Plan B' : 'Team '+team)+' positions">'+D.map()+'</svg></div>';
+    SIMQ = MOTION && team !== 4 ? {team:team, ours:[], np:0} : null;
+    h += '<div class="map'+(MOTION ? ' pre' : '')+'"><svg viewBox="0 0 540 600" role="img" aria-label="'+(team === 4 ? 'Plan B' : 'Team '+team)+' positions">'+D.map()+'</svg></div>';
+    if(SIMQ){
+      if(!SLOTS[team].some(function(sl){ return sl[0] === FOCUS; })) FOCUS = '';
+      if(!FOCUS && !NOFOLLOW && ms && ms.team === team) FOCUS = ms.code;  /* a player who picked their name follows their own fleets */
+    }
+    if(MOTION){ h += '<div class="mvbar">'+(SIMQ ? '<div class="simcap" id="simcap"></div>' : '')+'<button type="button" class="replay"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 8.6A5.3 5.3 0 1 1 11.6 4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M12.4 1.6v3.6H8.8" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>'+esc(t('tp.replay'))+'</button></div>'; }
     if(team !== 4){
     h += '<div class="key"><span><svg width="16" height="18" viewBox="-10 -12 20 24" aria-hidden="true"><path d="'+SHIP+'" fill="#0b2f2a" stroke="#cfe" stroke-width="2.4"/></svg>'+esc(t('key.parked'))+'</span>'
        + '<span><svg width="16" height="18" viewBox="-10 -12 20 24" aria-hidden="true"><path d="'+SHIP+'" fill="#cfe"/></svg>'+esc(t('key.fight'))+'</span>'
@@ -809,7 +1244,7 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
     h += '<h3 class="sec">'+esc(t('tp.slots'))+'</h3><div class="slots">';
     SLOTS[team].forEach(function(sl){
       var n = who(sl[1]), title = t('ti.'+sl[2]) + sl[3], mine = sl[1] === mi;
-      h += '<div class="slot'+(mine ? ' me' : '')+'" style="--c:'+COLOR[sl[0]]+'"><span class="code">'+sl[0]+'</span><div class="who">'
+      h += '<div class="slot'+(mine ? ' me' : '')+'"'+(SIMQ ? ' data-code="'+sl[0]+'" role="button" tabindex="0" aria-pressed="false"' : '')+' style="--c:'+COLOR[sl[0]]+'"><span class="code">'+sl[0]+'</span><div class="who">'
          + (roster ? (n ? '<b>'+esc(n)+(mine ? '<span class="you">'+esc(t('tp.you'))+'</span>' : '')+'</b>' : '<b class="open">'+esc(t('tp.open'))+'</b>') + '<span>'+esc(title)+'</span>' : '<b>'+esc(title)+'</b>') + '</div></div>';
     });
     h += '</div><p class="fill">'+esc(t(D.fill))+'</p>';
@@ -830,6 +1265,36 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
     });
     document.getElementById('team').innerHTML = h;
     fitSvgText();
+    armMotion();
+  }
+  /* Deploy plays when at least a third of the map is on screen: on arrival, on a new team or corner (the map is drawn again),
+     and on Replay. No IntersectionObserver or reduced motion: the still map, no button. */
+  var MOTION = !!window.IntersectionObserver && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches), mvIO = null;
+  function play(el){ el.classList.remove('go'); el.classList.add('pre'); void el.getBoundingClientRect(); el.classList.remove('pre'); el.classList.add('go'); }
+  function armMotion(){
+    if(mvIO){ mvIO.disconnect(); mvIO = null; }
+    simStop();
+    var el = document.querySelector('#team .map'); if(!el || !MOTION) return;
+    var S = SIMQ && SIMQ.ours.length && SIMQ.entry ? (sim = simMount(el)) : null, started = false;
+    if(SIMQ && SIMQ.ours.length && !S){ MOTION = false; renderTeam(); return; }  /* no canvas: the still map, as with reduced motion */
+    if(S){
+      simReset(S); simDraw(S);
+      document.querySelectorAll('#team .slot[data-code]').forEach(function(sl){
+        var go = function(){ setFocus(sl.getAttribute('data-code')); };
+        sl.addEventListener('click', go);
+        sl.addEventListener('keydown', function(ev){ if(ev.key === 'Enter' || ev.key === ' '){ ev.preventDefault(); go(); } });
+      });
+      showFocus();
+    }
+    /* starts when a third of the map is on screen; the sim then runs only while any of it is */
+    mvIO = new IntersectionObserver(function(es){
+      var en = es[es.length - 1];
+      if(!started && en.intersectionRatio >= .34){ started = true; play(el); if(S){ simReset(S); S.seen = true; } }
+      if(S && started){ S.seen = en.isIntersecting; simRun(S, en.isIntersecting && !document.hidden); }
+    }, {threshold:[0, .34]});
+    mvIO.observe(el);
+    var b = document.querySelector('#team .replay');
+    if(b) b.addEventListener('click', function(){ play(el); if(S){ simReset(S); S.seen = true; simRun(S, !document.hidden); } });
   }
   function fitSvgText(){
     document.querySelectorAll('svg text[data-max]').forEach(function(el){
@@ -963,7 +1428,7 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
   document.querySelectorAll('#teamPick button').forEach(function(b){ b.addEventListener('click', function(){ team = +b.getAttribute('data-t'); try{ var u = new URL(location.href); u.searchParams.set('t', team); history.replaceState(null, '', u); }catch(x){} render(); }); });
 
   document.getElementById('me').addEventListener('change', function(e){
-    me = e.target.value; tapped = 0;
+    me = e.target.value; tapped = 0; FOCUS = ''; NOFOLLOW = false;  /* a new name follows that player's own slot */
     try{ if(me) localStorage.setItem('sf-me', me); else localStorage.removeItem('sf-me'); }catch(x){}
     useWeek(week, false); render();
   });
