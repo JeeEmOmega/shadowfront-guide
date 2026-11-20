@@ -978,10 +978,26 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
         case 'parked':
           tx += Math.sin(t*.9 + e.ph)*1.8; ty += Math.cos(t*.7 + e.ph)*1.8; max = 30; break;
         case 'rimx':
-          /* the Commander's mark when it comes past the rim, else a damaged ship close by; never inside the dashed line */
-          tgt = (S.call && S.call.hp > 0 && dist(S.call, e.home) < 115 && dist(S.call, e.cc) > (q.lim || 0)) ? S.call
-            : foeBy(S, e.home, 90, function(f){ var d = dist(f, e.cc); return f.hp < f.max && d < e.cr && (q.team === 2 || d > q.lim); }, true);
-          if(tgt){ a = Math.atan2(e.y - tgt.y, e.x - tgt.x); tx = tgt.x + Math.cos(a)*36; ty = tgt.y + Math.sin(a)*36; rng = 58; max = 135; slow = 20; }
+          /* the Rim's striker joins the fight (owner 2026-11-20: "the rims actives (not sitting) should join in on the fighting
+             more"): the Commander's mark, else the weakest rival within reach, damaged ones first. It fires from its own band,
+             never past the dashed line or outside the circle, and slides along the band rather than cutting across it. On a
+             Lesser (team 2) it stays near its post: "don't chase" */
+          var reach = q.team === 2 ? 120 : 150;
+          tgt = (S.call && S.call.hp > 0 && dist(S.call, e.home) < reach) ? S.call
+            : foeBy(S, e.home, reach, function(f){ return dist(f, e.cc) < e.cr + 30; }, true);
+          if(tgt){
+            a = Math.atan2(e.y - tgt.y, e.x - tgt.x); tx = tgt.x + Math.cos(a)*40; ty = tgt.y + Math.sin(a)*40; rng = 70; max = 135; slow = 20;
+            var rr = Math.hypot(tx - e.cc.x, ty - e.cc.y) || 1, lo = q.team === 2 ? 0 : q.lim + 10, kr = Math.max(lo, Math.min(e.cr - 8, rr));
+            if(q.team === 2){
+              tx = e.cc.x + (tx - e.cc.x)*kr/rr; ty = e.cc.y + (ty - e.cc.y)*kr/rr;
+              var hk = Math.hypot(tx - e.home.x, ty - e.home.y); if(hk > 60){ tx = e.home.x + (tx - e.home.x)*60/hk; ty = e.home.y + (ty - e.home.y)*60/hk; }
+            } else {
+              var ag = Math.atan2(ty - e.cc.y, tx - e.cc.x), ac = Math.atan2(e.y - e.cc.y, e.x - e.cc.x), da = Math.atan2(Math.sin(ag - ac), Math.cos(ag - ac));
+              if(Math.abs(da) > .3){ ag = ac + (da > 0 ? .3 : -.3); kr = Math.max(kr, q.lim + 14); }  /* a step along the band */
+              tx = e.cc.x + Math.cos(ag)*kr; ty = e.cc.y + Math.sin(ag)*kr;
+              var hd = Math.hypot(tx - e.home.x, ty - e.home.y); if(hd > 100){ tx = e.home.x + (tx - e.home.x)*100/hd; ty = e.home.y + (ty - e.home.y)*100/hd; }  /* its own stretch of the rim */
+            }
+          }
           else { wanderAt(e, t, e.home.x, e.home.y, 15); tx = e.wx; ty = e.wy; max = 40; }
           break;
         case 'hunter':
@@ -1035,6 +1051,10 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
     steer(e, tx, ty, max, dt, slow);
     var sp = Math.hypot(e.vx, e.vy); if(sp > max){ e.vx *= max/sp; e.vy *= max/sp; sp = max; }
     e.x += e.vx*dt; e.y += e.vy*dt;
+    if(e.beh === 'rimx' && q.lim){  /* the dashed line is a wall for the Rim's strikers: they slide along it, never through */
+      var wr = Math.hypot(e.x - e.cc.x, e.y - e.cc.y) || 1, wl = q.lim + 2;
+      if(wr < wl){ var ux = (e.x - e.cc.x)/wr, uy = (e.y - e.cc.y)/wr, vn = e.vx*ux + e.vy*uy; e.x = e.cc.x + ux*wl; e.y = e.cc.y + uy*wl; if(vn < 0){ e.vx -= vn*ux; e.vy -= vn*uy; } }
+    }
     e.ang = turn(e.ang, sp > 14 ? Math.atan2(e.vy, e.vx) : tgt ? Math.atan2(tgt.y - e.y, tgt.x - e.x) : e.homeAng, dt*5);
     if(tgt && rng && e.cd <= 0 && dist(e, tgt) < rng){ shoot(S, e, tgt, e.color); e.cd = (e.beh === 'pack' ? 1.6 : 1.15)*e.rate; }
     e.trT -= dt; if(e.trT <= 0){ e.tr.push(e.x, e.y); if(e.tr.length > 30) e.tr.splice(0, 2); e.trT = .07; }
@@ -1275,7 +1295,7 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
     if(mvIO){ mvIO.disconnect(); mvIO = null; }
     simStop();
     var el = document.querySelector('#team .map'); if(!el || !MOTION) return;
-    var S = SIMQ && SIMQ.ours.length && SIMQ.entry ? (sim = simMount(el)) : null, started = false;
+    var S = SIMQ && SIMQ.ours.length && SIMQ.entry ? (sim = simMount(el)) : null, started = false, vis = false;
     if(SIMQ && SIMQ.ours.length && !S){ MOTION = false; renderTeam(); return; }  /* no canvas: the still map, as with reduced motion */
     if(S){
       simReset(S); simDraw(S);
@@ -1288,13 +1308,14 @@ try{var w=JSON.parse(sessionStorage.getItem("ox-woosh")||"null");sessionStorage.
     }
     /* starts when a third of the map is on screen; the sim then runs only while any of it is */
     mvIO = new IntersectionObserver(function(es){
-      var en = es[es.length - 1];
+      var en = es[es.length - 1]; vis = en.isIntersecting;
       if(!started && en.intersectionRatio >= .34){ started = true; play(el); if(S){ simReset(S); S.seen = true; } }
       if(S && started){ S.seen = en.isIntersecting; simRun(S, en.isIntersecting && !document.hidden); }
     }, {threshold:[0, .34]});
     mvIO.observe(el);
     var b = document.querySelector('#team .replay');
-    if(b) b.addEventListener('click', function(){ play(el); if(S){ simReset(S); S.seen = true; simRun(S, !document.hidden); } });
+    /* Replay runs the battle only while the map is on screen */
+    if(b) b.addEventListener('click', function(){ play(el); if(S){ simReset(S); S.seen = vis; simRun(S, vis && !document.hidden); } });
   }
   function fitSvgText(){
     document.querySelectorAll('svg text[data-max]').forEach(function(el){
